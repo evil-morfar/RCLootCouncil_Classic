@@ -43,20 +43,18 @@ tinsert(hooks, {
    end,
 })
 
-tinsert(hooks,
-   {
-      object = addon,
-      ref = "GetInstalledModulesFormattedData",
-      type = "raw",
-      func = function()
-         local modules = Classic.hooks[addon].GetInstalledModulesFormattedData(addon)
-         -- Insert core RCLootCouncil version
-         local coreVersion = "RCLootCouncil Core - "..Classic.RCLootCouncil.version
-         if Classic.RCLootCouncil.tVersion then
-            coreVersion = coreVersion .. "-" .. Classic.RCLootCouncil.tVersion
-         end
-         tinsert(modules, coreVersion)
-         return modules
-      end,
-   }
-)
+tinsert(hooks, {
+   object = addon,
+   ref = "GetInstalledModulesFormattedData",
+   type = "raw",
+   func = function()
+      local modules = Classic.hooks[addon].GetInstalledModulesFormattedData(addon)
+      -- Insert core RCLootCouncil version
+      local coreVersion = "RCLootCouncil Core - "..Classic.RCLootCouncil.version
+      if Classic.RCLootCouncil.tVersion then
+         coreVersion = coreVersion .. "-" .. Classic.RCLootCouncil.tVersion
+      end
+      tinsert(modules, coreVersion)
+      return modules
+   end,
+})
