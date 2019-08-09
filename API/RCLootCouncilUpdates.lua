@@ -9,6 +9,10 @@ function addon:UpdatePlayersData()
    -- Nil on purpose
 end
 
+function addon:GetLootStatusData ()
+   -- Do nothing
+end
+
 -- fullTest is used with Dungeon Journal, and thus is ignored
 function addon:Test (num, fullTest, trinketTest)
    self:Debug("Test", num, fullTest, trinketTest)

@@ -37,3 +37,5 @@ Core\Hooks.lua
 
 ## Overrides
 API\RCLootCouncilUpdates.lua
+API\VotingFrameUpdates.lua
+API\SessionFrameUpdates.lua
