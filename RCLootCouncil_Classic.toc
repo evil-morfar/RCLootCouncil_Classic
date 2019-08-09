@@ -31,7 +31,9 @@ RCLootCouncil2\Utils\autopass.lua
 RCLootCouncil2\Utils\sync.lua
 RCLootCouncil2\Utils\popups.lua
 
+## Classic Module
+Core\Module.lua
+Core\Hooks.lua
 
 ## Overrides
-Core\Version.lua
 API\RCLootCouncilUpdates.lua
