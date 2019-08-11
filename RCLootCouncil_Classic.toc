@@ -1,6 +1,6 @@
 ## Author: Potdisc
 ## Interface: 11302
-## Notes: RCLootCouncil for WoW Classic
+## Notes: RCLootCouncil for WoW Classic v0.0.1-Alpha.1
 ## Title: RCLootCouncil Classic
 ## Version: 0.0.1
 ## SavedVariables: RCLootCouncilDB, RCLootCouncilLootDB
@@ -31,7 +31,11 @@ RCLootCouncil2\Utils\autopass.lua
 RCLootCouncil2\Utils\sync.lua
 RCLootCouncil2\Utils\popups.lua
 
+## Classic Module
+Core\Module.lua
+Core\Hooks.lua
 
 ## Overrides
-Core\Version.lua
 API\RCLootCouncilUpdates.lua
+API\VotingFrameUpdates.lua
+API\SessionFrameUpdates.lua
