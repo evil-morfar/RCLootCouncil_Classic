@@ -1,0 +1,16 @@
+package-as: RCLootCouncil Classic
+
+manual-changelog:
+    filename: Changelog.md
+    markup-type: markdown
+
+ignore:
+    - RCLootCouncil2/README.md
+    - RCLootCouncil2/LICENSE.md
+    - RCLootCouncil2/__tests
+    - RCLootCouncil2/RCLootCouncil.toc
+
+enable-nolib-creation: no
+
+required-dependencies:
+    - RCLootCouncil
