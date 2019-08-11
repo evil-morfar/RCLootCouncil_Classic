@@ -1,4 +1,4 @@
-package-as: RCLootCouncil Classic
+package-as: RCLootCouncil_Classic
 
 manual-changelog:
     filename: Changelog.md
