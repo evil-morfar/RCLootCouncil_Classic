@@ -14,3 +14,8 @@ enable-nolib-creation: no
 
 required-dependencies:
     - RCLootCouncil
+
+externals:
+    RCLootCouncil:
+       url: https://github.com/evil-morfar/RCLootCouncil2.git
+       tag: latest # TODO Consider targeting specific releases.
