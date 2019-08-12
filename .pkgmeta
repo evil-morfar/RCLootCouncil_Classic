@@ -5,10 +5,10 @@ manual-changelog:
     markup-type: markdown
 
 ignore:
-    - RCLootCouncil2/README.md
-    - RCLootCouncil2/LICENSE.md
-    - RCLootCouncil2/__tests
-    - RCLootCouncil2/RCLootCouncil.toc
+    - RCLootCouncil/README.md
+    - RCLootCouncil/LICENSE.md
+    - RCLootCouncil/__tests
+    - RCLootCouncil/RCLootCouncil.toc
 
 enable-nolib-creation: no
 
