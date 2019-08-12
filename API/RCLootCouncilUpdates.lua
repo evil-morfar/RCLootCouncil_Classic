@@ -5,6 +5,7 @@ local private = {}
 ----------------------------------------------
 -- Core
 ----------------------------------------------
+addon.coreEvents["ENCOUNTER_LOOT_RECEIVED"] = nil -- Doens't exist in Classic
 function addon:UpdatePlayersData()
    -- Nil on purpose
 end
