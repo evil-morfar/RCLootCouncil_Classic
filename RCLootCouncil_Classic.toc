@@ -1,6 +1,6 @@
 ## Author: Potdisc
 ## Interface: 11302
-## Notes: RCLootCouncil for WoW Classic v0.0.1-Alpha.1
+## Notes: RCLootCouncil for WoW Classic v0.0.1-Alpha.2
 ## Title: RCLootCouncil Classic
 ## Version: 0.0.1
 ## SavedVariables: RCLootCouncilDB, RCLootCouncilLootDB
@@ -9,27 +9,30 @@
 API\Deprecations.lua
 
 ## RCLootCouncil imports:
-RCLootCouncil2\Patches\UiDropDownMenuTaintCommunities.lua
+RCLootCouncil\Patches\UiDropDownMenuTaintCommunities.lua
 
-RCLootCouncil2\embeds.xml
-RCLootCouncil2\Locale\Locales.xml
+RCLootCouncil\embeds.xml
+RCLootCouncil\Locale\Locales.xml
 
-RCLootCouncil2\core.lua
-RCLootCouncil2\ml_core.lua
+RCLootCouncil\Core\Defaults.lua
+RCLootCouncil\Core\CoreEvents.lua
 
-RCLootCouncil2\UI\UI.lua
-RCLootCouncil2\UI\Widgets\widgets.xml
+RCLootCouncil\core.lua
+RCLootCouncil\ml_core.lua
 
-RCLootCouncil2\Modules\Modules.xml
+RCLootCouncil\UI\UI.lua
+RCLootCouncil\UI\Widgets\widgets.xml
 
-RCLootCouncil2\Utils\BackwardsCompat.lua
-RCLootCouncil2\Utils\Utils.lua
-RCLootCouncil2\Utils\trinketData.lua
-RCLootCouncil2\Utils\tokenData.lua
-RCLootCouncil2\Utils\ItemStorage.lua
-RCLootCouncil2\Utils\autopass.lua
-RCLootCouncil2\Utils\sync.lua
-RCLootCouncil2\Utils\popups.lua
+RCLootCouncil\Modules\Modules.xml
+
+RCLootCouncil\Utils\BackwardsCompat.lua
+RCLootCouncil\Utils\Utils.lua
+RCLootCouncil\Utils\trinketData.lua
+RCLootCouncil\Utils\tokenData.lua
+RCLootCouncil\Utils\ItemStorage.lua
+RCLootCouncil\Utils\autopass.lua
+RCLootCouncil\Utils\sync.lua
+RCLootCouncil\Utils\popups.lua
 
 ## Classic Module
 Core\Module.lua
