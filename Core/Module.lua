@@ -4,7 +4,7 @@ local ClassicModule = addon:NewModule("RCClassic", "AceHook-3.0", "AceEvent-3.0"
 
 function ClassicModule:OnInitialize()
    self.version = GetAddOnMetadata("RCLootCouncil_Classic", "Version")
-   self.tVersion = "Alpha.2"
+   self.tVersion = "Alpha.3"
    self.debug = true
    self.nnp = false
 
