@@ -1,3 +1,5 @@
-.atom-build.yml
 notes.txt
 wip
+.release/
+.tmp/
+.env
