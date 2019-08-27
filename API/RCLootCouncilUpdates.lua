@@ -6,6 +6,20 @@ local private = {}
 -- Core
 ----------------------------------------------
 addon.coreEvents["ENCOUNTER_LOOT_RECEIVED"] = nil -- Doens't exist in Classic
+-- Defaults updates:
+-- -- Removed:
+addon.defaults.profile.ignoredItems = {} -- Remove all retail ignores
+addon.defaults.profile.printCompletedTrades = nil
+addon.defaults.profile.rejectTrade = nil
+-- -- Usage options:
+addon.defaults.profile.usage = {
+   never = false,
+   ml = false,
+   ask_ml = true,
+   state = "ask_ml"
+}
+
+
 function addon:UpdatePlayersData()
    -- Nil on purpose
 end
@@ -19,7 +33,7 @@ function addon:Test (num, fullTest, trinketTest)
    self:Debug("Test", num, fullTest, trinketTest)
    num = num or 3
    local testItems = {
-      17076,12590,14555,11684,22691,871,18719, -- Weapons
+      17076,12590,14555,11684,22691,871, -- Weapons
       12640,14551,14153,12757, -- Armor
       18821,19140,19148,1980,942,18813,13143 -- Rings
    }
