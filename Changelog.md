@@ -14,9 +14,6 @@ Auto Pass is disabled by default until resolved.
 #### Roles
 Didn't exist in Classic, thus there's no API for it. I still want to bring it back.
 
-#### Player's Gear
-Currently not implemented due to lacking spec API's.
-
 #### Proper Testing
 Haven't done any real raid/instance testing as I probably won't be leveling that much.
 
@@ -38,3 +35,6 @@ Removed everything related to personal loot.
 
 #### Azerite Armor
 No longer an option in the "More Buttons" options.
+
+#### Spec Icon
+As there's no clear definition of a spec (nor really the need to have it) the spec icon option has been removed.

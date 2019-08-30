@@ -25,8 +25,15 @@ addon.defaults.profile.autoPassBoE = false
 addon.defaults.profile.autoPass = false
 addon.defaults.profile.autoPassTrinket = false
 
+
 function addon:UpdatePlayersData()
-   -- Nil on purpose
+   self:DebugLog("UpdatePlayersData()")
+   -- GetSpecialization doesn't exist, and there's no real need for it in classic
+	--playersData.specID = GetSpecialization() and GetSpecializationInfo(GetSpecialization())
+   self.playersData.specID = 0
+	self.playersData.ilvl = private.GetAverageItemLevel()
+
+	self:UpdatePlayersGears()
 end
 
 function addon:GetLootStatusData ()
@@ -95,7 +102,7 @@ function addon:GetPlayerInfo ()
 
    -- GetAverageItemLevel() isn't implemented
    local ilvl = private.GetAverageItemLevel()
-   return self.playerName, self.playerClass, self:GetPlayerRole(), self.guildRank, enchant, lvl, ilvl, self.playersData.specID
+   return self.playerName, self.playerClass, self.Utils:GetPlayerRole(), self.guildRank, enchant, lvl, ilvl, self.playersData.specID
 end
 
 
@@ -141,6 +148,9 @@ function addon:OptionsTable ()
    -- Remove "Azerite Armor" as a category for more buttons
    options.args.mlSettings.args.buttonsTab.args.moreButtons.args.selector.values.AZERITE = nil
 
+   -- Remove "Spec Icon" as there's no clear definition of a spec REVIEW We could invent one..
+   options.args.settings.args.generalSettingsTab.args.frameOptions.args.showSpecIcon = nil
+
    return options
 end
 
@@ -152,7 +162,7 @@ function private.GetAverageItemLevel()
    local sum, count = 0, 0
    for i=_G.INVSLOT_FIRST_EQUIPPED, _G.INVSLOT_LAST_EQUIPPED do
       local iLink = _G.GetInventoryItemLink("player", i)
-      if iLink then
+      if iLink and iLink ~= "" then
          local ilvl = select(4, _G.GetItemInfo(iLink))
          sum = sum + ilvl
          count = count + 1
