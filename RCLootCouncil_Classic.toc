@@ -1,8 +1,9 @@
 ## Author: Potdisc
 ## Interface: 11302
-## Notes: RCLootCouncil for WoW Classic v0.0.1-Alpha.2
+## Notes: RCLootCouncil for WoW Classic v0.0.1-Alpha.4
 ## Title: RCLootCouncil Classic
 ## Version: 0.0.1
+## X-Curse-Project-ID: 332955
 ## SavedVariables: RCLootCouncilDB, RCLootCouncilLootDB
 ## OptionalDeps: LibStub, CallbackHandler-1.0, Ace3, lib-st, LibWindow-1.1, LibDialog-1.0
 
@@ -35,6 +36,7 @@ RCLootCouncil\Utils\sync.lua
 RCLootCouncil\Utils\popups.lua
 
 ## Classic Module
+Locale\Locales.xml
 Core\Module.lua
 Core\Hooks.lua
 

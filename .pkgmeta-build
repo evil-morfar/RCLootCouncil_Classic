@@ -1,0 +1,10 @@
+package-as: RCLootCouncil_Classic
+
+manual-changelog:
+    filename: Changelog.md
+    markup-type: markdown
+
+ignore:
+    - RCLootCouncil
+
+enable-nolib-creation: no
