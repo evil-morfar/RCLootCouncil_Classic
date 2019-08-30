@@ -3,6 +3,7 @@ local _, addon = ...
 local ClassicModule = addon:NewModule("RCClassic", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
 local LibDialog = LibStub("LibDialog-1.0")
 local L = LibStub("AceLocale-3.0"):GetLocale("RCLootCouncil")
+local LC = LibStub("AceLocale-3.0"):GetLocale("RCLootCouncil_Classic")
 local db
 
 function ClassicModule:OnInitialize()

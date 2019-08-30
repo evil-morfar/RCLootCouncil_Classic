@@ -2,6 +2,7 @@
 local _, addon = ...
 local private = {}
 local L = LibStub("AceLocale-3.0"):GetLocale("RCLootCouncil")
+local LC = LibStub("AceLocale-3.0"):GetLocale("RCLootCouncil_Classic")
 
 ----------------------------------------------
 -- Core
@@ -110,16 +111,16 @@ function addon:OptionsTable ()
    local options = old_options_func(addon)
    -- Usage options: TODO Localization
    options.args.mlSettings.args.generalTab.args.usageOptions.args.usage.values = {
-      	ml 			= L["Always use RCLootCouncil when I'm Master Looter"],
-			ask_ml		= L["Ask me every time I become Master Looter"],
+      	ml 			= LC["opt_usage_ml"],
+			ask_ml		= LC["opt_usage_ask_ml"],
 		--	leader 		= "Always use RCLootCouncil when I'm the group leader and enter a raid",
 		--	ask_leader	= "Ask me every time I'm the group leader and enter a raid",
 			never			= L["Never use RCLootCouncil"],
    }
    options.args.mlSettings.args.generalTab.args.usageOptions.args.leaderUsage = { -- Add leader options here since we can only make a single select dropdown
 		order = 3,
-		name = function() return self.db.profile.usage.ml and L["Always use when leader"] or L["Ask me when leader"] end,
-		desc = L["leaderUsage_desc"],
+		name = function() return self.db.profile.usage.ml and LC["opt_usage_leader_always"] or LC["opt_usage_leader_ask"] end,
+		desc = LC["leaderUsage_desc"],
 		type = "toggle",
 		get = function() return self.db.profile.usage.leader or self.db.profile.usage.ask_leader end,
 		set = function(_, val)
