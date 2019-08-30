@@ -8,7 +8,7 @@ local db
 
 function ClassicModule:OnInitialize()
    self.version = GetAddOnMetadata("RCLootCouncil_Classic", "Version")
-   self.tVersion = "Alpha.3"
+   self.tVersion = "Alpha.4"
    self.debug = true
    self.nnp = false
 

@@ -1,9 +1,9 @@
-# v0.0.1-Alpha.3
+# v0.0.1-Alpha.4
 
 ## Overview
 Initial barebones of the Classic port. Basic functionality such as testing, version syncing etc. is all working. Master Looting and awarding is working to some extent, although mostly untested.
 
-I'll continue to increment this alpha version as more features are getting ported before launch.
+I'll continue to increment this alpha version as more features are getting ported.
 
 ### Missing
 
