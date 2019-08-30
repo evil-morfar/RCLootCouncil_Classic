@@ -9,6 +9,7 @@ I'll continue to increment this alpha version as more features are getting porte
 
 #### Auto Pass
 Lots of API for handling this are missing in Classic, and will need some extensive work to recreate.
+Auto Pass is disabled by default until resolved.
 
 #### Roles
 Didn't exist in Classic, thus there's no API for it. I still want to bring it back.
@@ -17,7 +18,7 @@ Didn't exist in Classic, thus there's no API for it. I still want to bring it ba
 Currently not implemented due to lacking spec API's.
 
 #### Proper Testing
-While I was able to test most things during the stress test, I still need to test things out in a proper group setting.
+Haven't done any real raid/instance testing as I probably won't be leveling that much.
 
 
 ## Changes
@@ -36,4 +37,4 @@ Not used with Master Looting.
 Removed everything related to personal loot.
 
 #### Azerite Armor
-No longer an options in the "More Buttons" options.
+No longer an option in the "More Buttons" options.

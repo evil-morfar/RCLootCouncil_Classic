@@ -20,7 +20,10 @@ addon.defaults.profile.usage = {
    ask_ml = true,
    state = "ask_ml"
 }
-
+-- --TODO Autopass temporarily disabled until finished for classic
+addon.defaults.profile.autoPassBoE = false
+addon.defaults.profile.autoPass = false
+addon.defaults.profile.autoPassTrinket = false
 
 function addon:UpdatePlayersData()
    -- Nil on purpose
