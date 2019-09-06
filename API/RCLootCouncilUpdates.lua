@@ -162,7 +162,7 @@ function private.GetAverageItemLevel()
    for i=_G.INVSLOT_FIRST_EQUIPPED, _G.INVSLOT_LAST_EQUIPPED do
       local iLink = _G.GetInventoryItemLink("player", i)
       if iLink and iLink ~= "" then
-         local ilvl = select(4, _G.GetItemInfo(iLink))
+         local ilvl = select(4, _G.GetItemInfo(iLink)) or 0
          sum = sum + ilvl
          count = count + 1
       end
