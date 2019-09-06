@@ -80,21 +80,17 @@ function addon:Test (num, fullTest, trinketTest)
 	end, 5)
 end
 
+local enchanting_localized_name = nil
 function addon:GetPlayerInfo ()
    local enchant, lvl = nil, 0
-   -- TODO GetProfessions() doesn't work
-   -- local profs = {GetProfessions()}
-	-- for i = 1, 2 do
-	-- 	if profs[i] then
-	-- 		local _, _, rank, _, _, _, id = GetProfessionInfo(profs[i])
-	-- 		if id and id == 333 then -- NOTE: 333 should be enchanting, let's hope that holds...
-	-- 			self:Debug("I'm an enchanter")
-	-- 			enchant, lvl = true, rank
-	-- 			break
-	-- 		end
-	-- 	end
-	-- end
-
+   if not enchanting_localized_name then
+      enchanting_localized_name = GetSpellInfo(7411)
+   end
+   if GetSpellBookItemInfo(enchanting_localized_name) then
+      -- We know enchanting, thus are an enchanter. We don't know our lvl though.
+      enchant = true
+      lvl = "< 300"
+   end
    -- GetAverageItemLevel() isn't implemented
    local ilvl = private.GetAverageItemLevel()
    return self.playerName, self.playerClass, self.Utils:GetPlayerRole(), self.guildRank, enchant, lvl, ilvl, self.playersData.specID
