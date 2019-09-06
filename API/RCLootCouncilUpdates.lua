@@ -93,7 +93,7 @@ function addon:GetPlayerInfo ()
    end
    -- GetAverageItemLevel() isn't implemented
    local ilvl = private.GetAverageItemLevel()
-   return self.playerName, self.playerClass, self.Utils:GetPlayerRole(), self.guildRank, enchant, lvl, ilvl, self.playersData.specID
+   return self.playerName, self.playerClass, nil --[[self.Utils:GetPlayerRole()]], self.guildRank, enchant, lvl, ilvl, nil--self.playersData.specID
 end
 
 
@@ -101,7 +101,7 @@ end
 -- Utils
 ----------------------------------------------
 function addon.Utils:GetPlayerRole ()
-   return "NONE" -- FIXME Needs fixing
+   return "" -- Unused
 end
 
 ----------------------------------------------
