@@ -8,8 +8,8 @@ local db
 
 function ClassicModule:OnInitialize()
    self.version = GetAddOnMetadata("RCLootCouncil_Classic", "Version")
-   self.tVersion = "Alpha.4"
-   self.debug = true
+   self.tVersion = nil
+   self.debug = false
    self.nnp = false
 
    -- Store RCLootCouncil Variables

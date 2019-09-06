@@ -1,9 +1,8 @@
-# v0.0.1-Alpha.4
+# RCLootCouncil Classic v0.0.1
 
-## Overview
-Initial barebones of the Classic port. Basic functionality such as testing, version syncing etc. is all working. Master Looting and awarding is working to some extent, although mostly untested.
+Below follows a list of missing, changed and removed features compared to [RCLootCouncil](https://www.curseforge.com/wow/addons/rclootcouncil). I might have missed something, or maybe something doesn't work the way you'd like - in both cases, feel free to reach out either in [Curse](https://www.curseforge.com/wow/addons/rclootcouncil-classic/) or on the [RCLootCouncil Discord](https://discord.gg/WfYhCx9).
 
-I'll continue to increment this alpha version as more features are getting ported.
+This version is marked as release as the Twitch Client won't otherwise sync it, but treat it as a pre-release due to lack of proper testing.
 
 ## Missing
 
