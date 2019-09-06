@@ -5,11 +5,7 @@ Initial barebones of the Classic port. Basic functionality such as testing, vers
 
 I'll continue to increment this alpha version as more features are getting ported.
 
-### Missing
-
-#### Auto Pass
-Lots of API for handling this are missing in Classic, and will need some extensive work to recreate.
-Auto Pass is disabled by default until resolved.
+## Missing
 
 #### Proper Testing
 Haven't done any real raid/instance testing as I probably won't be leveling that much.
@@ -21,6 +17,9 @@ In the version checker ("/rc v") the version of this module will show up. The Co
 
 #### Master Loot
 The options menu have been updated with settings of old regarding Master Looting.
+
+#### Auto Pass
+Updated for Classic. For now, Hunters and Shamans doesn't autopass leather, and Warriors and Paladins doesn't autopass mail. I haven't decided if it should stay this way, so let me now what you think.
 
 
 ## Removed
