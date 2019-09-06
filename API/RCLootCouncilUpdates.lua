@@ -151,6 +151,8 @@ function addon:OptionsTable ()
    {
       [1566900000] = "Phase 1 (Classic Launch)",
    }
+   -- "_G.INSTANCE" isn't available for localization - use our own
+   options.args.settings.args.generalSettingsTab.args.lootHistoryOptions.args.deleteRaid.name = LC["Instance"]
 
    return options
 end
