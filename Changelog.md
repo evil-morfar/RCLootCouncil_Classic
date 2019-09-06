@@ -19,7 +19,10 @@ In the version checker ("/rc v") the version of this module will show up. The Co
 The options menu have been updated with settings of old regarding Master Looting.
 
 #### Auto Pass
-Updated for Classic. For now, Hunters and Shamans doesn't autopass leather, and Warriors and Paladins doesn't autopass mail. I haven't decided if it should stay this way, so let me now what you think.
+Updated for Classic. For now, Hunters and Shamans doesn't auto pass leather, and Warriors and Paladins doesn't auto pass mail. I haven't decided if it should stay this way, so let me now what you think.
+
+#### Enchanting Level
+I haven't found a good way to precisely get a candidate's Enchanting level, so for now it will be displayed as "< 300".
 
 
 ## Removed
