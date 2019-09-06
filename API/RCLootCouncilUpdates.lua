@@ -114,7 +114,7 @@ end
 local old_options_func = addon.OptionsTable
 function addon:OptionsTable ()
    local options = old_options_func(addon)
-   -- Usage options: TODO Localization
+   -- Usage options
    options.args.mlSettings.args.generalTab.args.usageOptions.args.usage.values = {
       	ml 			= LC["opt_usage_ml"],
 			ask_ml		= LC["opt_usage_ask_ml"],
@@ -145,6 +145,12 @@ function addon:OptionsTable ()
 
    -- Remove "Spec Icon" as there's no clear definition of a spec REVIEW We could invent one..
    options.args.settings.args.generalSettingsTab.args.frameOptions.args.showSpecIcon = nil
+
+   -- Update "Patch" values in delete history
+   options.args.settings.args.generalSettingsTab.args.lootHistoryOptions.args.deletePatch.values =
+   {
+      [1566900000] = "Phase 1 (Classic Launch)",
+   }
 
    return options
 end
