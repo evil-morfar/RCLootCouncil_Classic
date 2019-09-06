@@ -8,16 +8,15 @@ local db
 
 function ClassicModule:OnInitialize()
    self.version = GetAddOnMetadata("RCLootCouncil_Classic", "Version")
-   self.tVersion = "Alpha.4"
-   self.debug = true
+   self.tVersion = nil
+   self.debug = false
    self.nnp = false
 
    -- Store RCLootCouncil Variables
    self.RCLootCouncil = {}
    self.RCLootCouncil.version = addon.version
    self.RCLootCouncil.tVersion = addon.tVersion
-   addon.version =  self.version
-   addon.tVersion = self.tVersion
+   addon.tVersion = self.tVersion or addon.tVersion -- Use our test version to benefit from test code
    addon.debug = self.debug
    addon.nnp = self.nnp
 
@@ -27,11 +26,14 @@ end
 function ClassicModule:OnEnable ()
    addon:DebugLog("ClassicModule enabled", self.version, self.tVersion)
 
-   addon.db.global.Classic_oldVersion = addon.db.global.Classic_oldVersion
+   addon.db.global.Classic_oldVersion = addon.db.global.Classic_version
 	addon.db.global.Classic_version = self.version
 
    self:DoHooks()
    db = addon:Getdb()
+
+   -- Remove "role" column
+   addon:GetModule("RCVotingFrame"):RemoveColumn("role")
 
    self:RegisterEvent("LOOT_OPENED", "LootOpened")
 end

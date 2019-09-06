@@ -1,6 +1,6 @@
 ## Author: Potdisc
 ## Interface: 11302
-## Notes: RCLootCouncil for WoW Classic v0.0.1-Alpha.4
+## Notes: RCLootCouncil for WoW Classic v0.0.1
 ## Title: RCLootCouncil Classic
 ## Version: 0.0.1
 ## X-Curse-Project-ID: 332955
@@ -39,6 +39,7 @@ RCLootCouncil\Utils\popups.lua
 Locale\Locales.xml
 Core\Module.lua
 Core\Hooks.lua
+Core\Autopass.lua
 
 ## Overrides
 API\RCLootCouncilUpdates.lua

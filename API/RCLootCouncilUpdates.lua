@@ -20,11 +20,6 @@ addon.defaults.profile.usage = {
    ask_ml = true,
    state = "ask_ml"
 }
--- --TODO Autopass temporarily disabled until finished for classic
-addon.defaults.profile.autoPassBoE = false
-addon.defaults.profile.autoPass = false
-addon.defaults.profile.autoPassTrinket = false
-
 
 function addon:UpdatePlayersData()
    self:DebugLog("UpdatePlayersData()")
@@ -85,24 +80,20 @@ function addon:Test (num, fullTest, trinketTest)
 	end, 5)
 end
 
+local enchanting_localized_name = nil
 function addon:GetPlayerInfo ()
    local enchant, lvl = nil, 0
-   -- TODO GetProfessions() doesn't work
-   -- local profs = {GetProfessions()}
-	-- for i = 1, 2 do
-	-- 	if profs[i] then
-	-- 		local _, _, rank, _, _, _, id = GetProfessionInfo(profs[i])
-	-- 		if id and id == 333 then -- NOTE: 333 should be enchanting, let's hope that holds...
-	-- 			self:Debug("I'm an enchanter")
-	-- 			enchant, lvl = true, rank
-	-- 			break
-	-- 		end
-	-- 	end
-	-- end
-
+   if not enchanting_localized_name then
+      enchanting_localized_name = GetSpellInfo(7411)
+   end
+   if GetSpellBookItemInfo(enchanting_localized_name) then
+      -- We know enchanting, thus are an enchanter. We don't know our lvl though.
+      enchant = true
+      lvl = "< 300"
+   end
    -- GetAverageItemLevel() isn't implemented
    local ilvl = private.GetAverageItemLevel()
-   return self.playerName, self.playerClass, self.Utils:GetPlayerRole(), self.guildRank, enchant, lvl, ilvl, self.playersData.specID
+   return self.playerName, self.playerClass, nil --[[self.Utils:GetPlayerRole()]], self.guildRank, enchant, lvl, ilvl, nil--self.playersData.specID
 end
 
 
@@ -110,7 +101,7 @@ end
 -- Utils
 ----------------------------------------------
 function addon.Utils:GetPlayerRole ()
-   return "NONE" -- FIXME Needs fixing
+   return "" -- Unused
 end
 
 ----------------------------------------------
@@ -119,7 +110,7 @@ end
 local old_options_func = addon.OptionsTable
 function addon:OptionsTable ()
    local options = old_options_func(addon)
-   -- Usage options: TODO Localization
+   -- Usage options
    options.args.mlSettings.args.generalTab.args.usageOptions.args.usage.values = {
       	ml 			= LC["opt_usage_ml"],
 			ask_ml		= LC["opt_usage_ask_ml"],
@@ -151,6 +142,14 @@ function addon:OptionsTable ()
    -- Remove "Spec Icon" as there's no clear definition of a spec REVIEW We could invent one..
    options.args.settings.args.generalSettingsTab.args.frameOptions.args.showSpecIcon = nil
 
+   -- Update "Patch" values in delete history
+   options.args.settings.args.generalSettingsTab.args.lootHistoryOptions.args.deletePatch.values =
+   {
+      [1566900000] = "Phase 1 (Classic Launch)",
+   }
+   -- "_G.INSTANCE" isn't available for localization - use our own
+   options.args.settings.args.generalSettingsTab.args.lootHistoryOptions.args.deleteRaid.name = LC["Instance"]
+
    return options
 end
 
@@ -163,7 +162,7 @@ function private.GetAverageItemLevel()
    for i=_G.INVSLOT_FIRST_EQUIPPED, _G.INVSLOT_LAST_EQUIPPED do
       local iLink = _G.GetInventoryItemLink("player", i)
       if iLink and iLink ~= "" then
-         local ilvl = select(4, _G.GetItemInfo(iLink))
+         local ilvl = select(4, _G.GetItemInfo(iLink)) or 0
          sum = sum + ilvl
          count = count + 1
       end

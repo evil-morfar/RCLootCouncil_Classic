@@ -1,18 +1,10 @@
-# v0.0.1-Alpha.4
+# RCLootCouncil Classic v0.0.1
 
-## Overview
-Initial barebones of the Classic port. Basic functionality such as testing, version syncing etc. is all working. Master Looting and awarding is working to some extent, although mostly untested.
+Below follows a list of missing, changed and removed features compared to [RCLootCouncil](https://www.curseforge.com/wow/addons/rclootcouncil). I might have missed something, or maybe something doesn't work the way you'd like - in both cases, feel free to reach out either in [Curse](https://www.curseforge.com/wow/addons/rclootcouncil-classic/) or on the [RCLootCouncil Discord](https://discord.gg/WfYhCx9).
 
-I'll continue to increment this alpha version as more features are getting ported.
+This version is marked as release as the Twitch Client won't otherwise sync it, but treat it as a pre-release due to lack of proper testing.
 
-### Missing
-
-#### Auto Pass
-Lots of API for handling this are missing in Classic, and will need some extensive work to recreate.
-Auto Pass is disabled by default until resolved.
-
-#### Roles
-Didn't exist in Classic, thus there's no API for it. I still want to bring it back.
+## Missing
 
 #### Proper Testing
 Haven't done any real raid/instance testing as I probably won't be leveling that much.
@@ -24,6 +16,12 @@ In the version checker ("/rc v") the version of this module will show up. The Co
 
 #### Master Loot
 The options menu have been updated with settings of old regarding Master Looting.
+
+#### Auto Pass
+Updated for Classic. For now, Hunters and Shamans doesn't auto pass leather, and Warriors and Paladins doesn't auto pass mail. I haven't decided if it should stay this way, so let me now what you think.
+
+#### Enchanting Level
+I haven't found a good way to precisely get a candidate's Enchanting level, so for now it will be displayed as "< 300".
 
 
 ## Removed
@@ -38,3 +36,6 @@ No longer an option in the "More Buttons" options.
 
 #### Spec Icon
 As there's no clear definition of a spec (nor really the need to have it) the spec icon option has been removed.
+
+#### Role Column
+There's no concept of roles in Classic, and no clear cut way of determining a candidate's role based on their talents, so I decided to remove it completely.
