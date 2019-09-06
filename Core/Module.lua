@@ -33,6 +33,9 @@ function ClassicModule:OnEnable ()
    self:DoHooks()
    db = addon:Getdb()
 
+   -- Remove "role" column
+   addon:GetModule("RCVotingFrame"):RemoveColumn("role")
+
    self:RegisterEvent("LOOT_OPENED", "LootOpened")
 end
 
