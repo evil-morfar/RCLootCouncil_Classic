@@ -1,5 +1,9 @@
 # v0.0.2
 
+## Added
+#### Version Display
+The options menu now includes the version of this addon as well as the core RCLootCouncil version.
+
 ## Bugfixes
 * *A candidate's main hand weapon is no longer shown in the voting frame when rolling for ranged weapons (#1).*
 

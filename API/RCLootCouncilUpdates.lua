@@ -1,6 +1,7 @@
 --- Fixed for retail RCLootCouncil function that doesn't function properly in Classic
 local _, addon = ...
 local private = {}
+local RCClassic = addon:GetModule("RCClassic")
 local L = LibStub("AceLocale-3.0"):GetLocale("RCLootCouncil")
 local LC = LibStub("AceLocale-3.0"):GetLocale("RCLootCouncil_Classic")
 
@@ -115,6 +116,24 @@ end
 local old_options_func = addon.OptionsTable
 function addon:OptionsTable ()
    local options = old_options_func(addon)
+   -- Inject RCClassic version in the description
+   options.args.settings.args.version.name = function ()
+      local desc = "Classic: "
+      -- Classic version
+      if RCClassic.tVersion then
+         desc = desc .. "|cFF87CEFAv"..RCClassic.version.."|r-"..RCClassic.tVersion
+      else
+         desc = desc .. "|cFF87CEFAv"..RCClassic.version.."|r"
+      end
+      -- Core version
+      desc = desc .. " - Core: "
+      if RCClassic.RCLootCouncil.tVersion then
+         desc = desc .. "|cFF87CEFAv"..addon.version.."|r-"..RCClassic.RCLootCouncil.tVersion
+      else
+         desc = desc .. "|cFF87CEFAv"..addon.version.."|r"
+      end
+      return desc
+   end
    -- Usage options
    options.args.mlSettings.args.generalTab.args.usageOptions.args.usage.values = {
       	ml 			= LC["opt_usage_ml"],
