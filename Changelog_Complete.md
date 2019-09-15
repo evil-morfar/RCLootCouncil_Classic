@@ -1,3 +1,10 @@
+# v0.0.2
+
+## Bugfixes
+* *A candidate's main hand weapon is no longer shown in the voting frame when rolling for ranged weapons (#1).*
+
+
+
 # RCLootCouncil Classic v0.0.1
 
 Below follows a list of missing, changed and removed features compared to [RCLootCouncil](https://www.curseforge.com/wow/addons/rclootcouncil). I might have missed something, or maybe something doesn't work the way you'd like - in both cases, feel free to reach out either in [Curse](https://www.curseforge.com/wow/addons/rclootcouncil-classic/) or on the [RCLootCouncil Discord](https://discord.gg/WfYhCx9).
