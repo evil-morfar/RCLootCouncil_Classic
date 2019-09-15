@@ -21,6 +21,11 @@ addon.defaults.profile.usage = {
    state = "ask_ml"
 }
 
+-- Some Main Hand weapons are "Ranged" in Classic
+addon.INVTYPE_Slots.INVTYPE_RANGED = "RangedSlot"
+addon.INVTYPE_Slots.INVTYPE_RANGEDRIGHT = "RangedSlot"
+addon.INVTYPE_Slots.INVTYPE_THROWN = "RangedSlot"
+
 function addon:UpdatePlayersData()
    self:DebugLog("UpdatePlayersData()")
    -- GetSpecialization doesn't exist, and there's no real need for it in classic
