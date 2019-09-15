@@ -14,35 +14,35 @@ This also allows for future updates of RCLootCouncil to be easily implemented, a
 ### Changes
 The following features are changed from the retail version of RCLootCouncil:
 
-##### Versioning
+* **Versioning**  
 In the version checker ("/rc v") the version of this module will show up. The Core RCLootCouncil version is shown when mousing over a player.
 
-#### Master Loot
+* **Master Loot**  
 The options menu have been updated with settings of old regarding Master Looting.
 
-#### Auto Pass
+* **Auto Pass**  
 Updated for Classic. For now, Hunters and Shamans doesn't auto pass leather, and Warriors and Paladins doesn't auto pass mail. I haven't decided if it should stay this way, so let me now what you think.
 
-#### Enchanting Level
+* **Enchanting Level**  
 I haven't found a good way to precisely get a candidate's Enchanting level, so for now it will be displayed as "< 300".
 
 
 ### Removed
 The following features are completely removed:
 
-#### Loot Status
+* **Loot Status**  
 Not used with Master Looting.
 
-#### Personal Loot
+* **Personal Loot**  
 Removed everything related to personal loot.
 
-#### Azerite Armor
+* **Azerite Armor**  
 No longer an option in the "More Buttons" options.
 
-#### Spec Icon
+* **Spec Icon**  
 As there's no clear definition of a spec (nor really the need to have it) the spec icon option has been removed.
 
-#### Role Column
+* **Role Column**  
 There's no concept of roles in Classic, and no clear cut way of determining a candidate's role based on their talents, so I decided to remove it completely.
 
 
@@ -52,13 +52,13 @@ RCLootCouncil Classic is developed using the [Git Flow](https://nvie.com/posts/a
 
 ## Developers
 For those interested, RCLootCouncil Classic contains several development scripts located in the *.scripts* folder. Most of these relies on a **.env** file being present in the root folder, which can contain the following fields:
-###### WOW_LOCATION="wow_path"
+* **WOW_LOCATION="wow_path"**  
 WoW install location - used in the *deploy* script to copy the development files into the WoW AddOns folder.
 
-###### CF_API_KEY="key"
+* **CF_API_KEY="key"**  
 CurseForge API key. Used by the *release* script to upload new files. You probably don't need this.
 
-###### GITHUB_OAUTH="key"
+* **GITHUB_OAUTH="key"**  
 GitHub OAUTH key. Used by the *release* script to manage GitHub releases. You probably don't need this.
 
 ### Build process
