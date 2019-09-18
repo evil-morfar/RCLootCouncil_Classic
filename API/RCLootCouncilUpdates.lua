@@ -115,6 +115,13 @@ function addon.Utils:GetPlayerRole ()
    return "" -- Unused
 end
 
+-- Free some memory by removing unneeded data
+_G.RCTokenTable = {}
+_G.RCTokenIlvl = {}
+_G.RCTokenClasses = {}
+_G.RCTrinketCategories = {}
+_G.RCTrinketSpecs = {}
+
 ----------------------------------------------
 -- Options Menu
 ----------------------------------------------
