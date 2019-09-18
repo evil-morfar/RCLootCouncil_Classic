@@ -1,3 +1,7 @@
+## Bugfixes
+* *Auto pass no longer breaks the addon for druids.*
+
+
 # v0.0.2
 
 ## Added
