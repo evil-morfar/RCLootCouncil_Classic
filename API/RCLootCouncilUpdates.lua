@@ -191,5 +191,5 @@ function private.GetAverageItemLevel()
          count = count + 1
       end
    end
-   return sum / count
+   return addon.round(sum / count, 2)
 end
