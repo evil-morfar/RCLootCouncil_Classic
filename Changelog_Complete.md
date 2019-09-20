@@ -1,3 +1,12 @@
+# v0.0.3
+## Changes
+#### Auto pass
+Warriors and Paladins no longer auto pass on leather items.
+
+## Bugfixes
+* *Auto pass no longer breaks the addon for druids.*
+
+
 # v0.0.2
 
 ## Added
