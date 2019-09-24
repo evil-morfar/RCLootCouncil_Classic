@@ -1,3 +1,8 @@
+# v0.1.1
+## Bugfixes
+* *Reworked the entire whisper system to be functional again.*
+
+
 # v0.1.0
 ## Updated RCLootCouncil to v2.14.0
 
