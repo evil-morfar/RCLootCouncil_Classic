@@ -45,6 +45,7 @@ function ClassicModule:OnEnable ()
    -- END_TEMP
 
    self:RegisterEvent("LOOT_OPENED", "LootOpened")
+   self:RegisterEvent("LOOT_CLOSED", "LootClosed")
 end
 
 function ClassicModule:LootOpened (...)
@@ -85,6 +86,11 @@ function ClassicModule:LootOpened (...)
    if addon.isMasterLooter then
 		self:OnLootOpen()
 	end
+end
+
+function ClassicModule:LootClosed ()
+	addon:DebugLog("LootClosed")
+   addon.lootOpen = false
 end
 
 ----------------------------------------------
