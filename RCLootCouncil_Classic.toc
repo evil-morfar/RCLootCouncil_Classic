@@ -28,8 +28,8 @@ RCLootCouncil\Modules\Modules.xml
 
 RCLootCouncil\Utils\BackwardsCompat.lua
 RCLootCouncil\Utils\Utils.lua
-## RCLootCouncil\Utils\trinketData.lua
-## RCLootCouncil\Utils\tokenData.lua
+RCLootCouncil\Utils\trinketData.lua
+RCLootCouncil\Utils\tokenData.lua
 RCLootCouncil\Utils\ItemStorage.lua
 RCLootCouncil\Utils\autopass.lua
 RCLootCouncil\Utils\sync.lua

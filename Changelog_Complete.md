@@ -1,3 +1,13 @@
+## Changes
+#### Tier Tokens / Set Pieces
+Reenabled auto pass, item type and item level for all tier token pieces and set pieces.
+
+#### Trinkets
+Reenabled auto passing and item type of trinkets. Note the trinket auto passing is based on Blizzard's class list from the retail dungeon journal.
+You can always disable trinket auto passing in the options menu.
+
+
+
 # v0.2.0
 ## Changes
 #### Auto Pass
