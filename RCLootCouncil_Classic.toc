@@ -44,5 +44,6 @@ Core\Autopass.lua
 
 ## Overrides
 API\RCLootCouncilUpdates.lua
+API\OptionsUpdates.lua
 API\VotingFrameUpdates.lua
 API\SessionFrameUpdates.lua
