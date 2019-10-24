@@ -51,9 +51,6 @@ function addon:OptionsTable ()
    options.args.mlSettings.args.generalTab.args.lootingOptions.args.printCompletedTrades = nil
    options.args.mlSettings.args.generalTab.args.lootingOptions.args.rejectTrade = nil
 
-   -- Remove "Azerite Armor" as a category for more buttons
-   options.args.mlSettings.args.buttonsTab.args.moreButtons.args.selector.values.AZERITE = nil
-
    -- Remove "Spec Icon" as there's no clear definition of a spec REVIEW We could invent one..
    options.args.settings.args.generalSettingsTab.args.frameOptions.args.showSpecIcon = nil
 
