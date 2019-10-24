@@ -13,7 +13,6 @@ addon.coreEvents["LOOT_CLOSED"] = nil -- We have our own
 -- Defaults updates:
 -- -- Auto pass disabled:
 addon.defaults.profile.autoPassBoE = false
-addon.defaults.profile.autoPassTrinket = false
 -- -- Removed:
 addon.defaults.profile.ignoredItems = {} -- Remove all retail ignores
 addon.defaults.profile.printCompletedTrades = nil
