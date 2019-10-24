@@ -15,6 +15,7 @@ RCLootCouncil\Patches\UiDropDownMenuTaintCommunities.lua
 RCLootCouncil\embeds.xml
 RCLootCouncil\Locale\Locales.xml
 
+RCLootCouncil\Core\Constants.lua
 RCLootCouncil\Core\Defaults.lua
 RCLootCouncil\Core\CoreEvents.lua
 
