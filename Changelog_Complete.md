@@ -12,6 +12,8 @@ You can always disable trinket auto passing in the options menu.
 #### History Deletion
 Added Diremaul release to patch mass delete.
 
+## Bugfixes
+* *The version frame incorrectly showed the core RCLootCouncil version in the list.*
 
 
 # v0.2.0

@@ -16,6 +16,7 @@ function ClassicModule:OnInitialize()
    self.RCLootCouncil = {}
    self.RCLootCouncil.version = addon.version
    self.RCLootCouncil.tVersion = addon.tVersion
+   addon.version = self.version
    addon.tVersion = self.tVersion or addon.tVersion -- Use our test version to benefit from test code
    addon.debug = self.debug
    addon.nnp = self.nnp
