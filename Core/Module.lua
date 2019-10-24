@@ -16,6 +16,7 @@ function ClassicModule:OnInitialize()
    self.RCLootCouncil = {}
    self.RCLootCouncil.version = addon.version
    self.RCLootCouncil.tVersion = addon.tVersion
+   addon.version = self.version
    addon.tVersion = self.tVersion or addon.tVersion -- Use our test version to benefit from test code
    addon.debug = self.debug
    addon.nnp = self.nnp
@@ -35,14 +36,6 @@ function ClassicModule:OnEnable ()
    -- Remove "role" column
    local vf = addon:GetModule("RCVotingFrame")
    vf:RemoveColumn("role")
-   -- TEMP Fix here until we have a proper RCLootCouncil fix
-   -- "Role" is index 4
-   for i = 3, #vf.scrollCols do
-      if vf.scrollCols[i].sortnext and vf.scrollCols[i].sortnext > 4 then
-         vf.scrollCols[i].sortnext = vf.scrollCols[i].sortnext - 1
-      end
-   end
-   -- END_TEMP
 
    self:RegisterEvent("LOOT_OPENED", "LootOpened")
    self:RegisterEvent("LOOT_CLOSED", "LootClosed")

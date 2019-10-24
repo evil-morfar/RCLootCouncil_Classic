@@ -5,7 +5,7 @@
 local L = LibStub("AceLocale-3.0"):NewLocale("RCLootCouncil_Classic", "enUS", true)
 if not L then return end
 
-
+L["Set Pieces"] = true
 L["opt_usage_ask_ml"] = "Ask me every time I become Master Looter"
 L["opt_usage_leader_always"] = "Always use when leader"
 L["opt_usage_leader_ask"] = "Ask me when leader"

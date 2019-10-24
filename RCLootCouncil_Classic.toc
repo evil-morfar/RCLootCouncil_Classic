@@ -1,8 +1,8 @@
 ## Author: Potdisc
 ## Interface: 11302
-## Notes: RCLootCouncil for WoW Classic v0.2.0
+## Notes: RCLootCouncil for WoW Classic v0.3.0
 ## Title: RCLootCouncil Classic
-## Version: 0.2.0
+## Version: 0.3.0
 ## X-Curse-Project-ID: 332955
 ## SavedVariables: RCLootCouncilDB, RCLootCouncilLootDB
 ## OptionalDeps: LibStub, CallbackHandler-1.0, Ace3, lib-st, LibWindow-1.1, LibDialog-1.0
@@ -15,6 +15,7 @@ RCLootCouncil\Patches\UiDropDownMenuTaintCommunities.lua
 RCLootCouncil\embeds.xml
 RCLootCouncil\Locale\Locales.xml
 
+RCLootCouncil\Core\Constants.lua
 RCLootCouncil\Core\Defaults.lua
 RCLootCouncil\Core\CoreEvents.lua
 
@@ -28,8 +29,8 @@ RCLootCouncil\Modules\Modules.xml
 
 RCLootCouncil\Utils\BackwardsCompat.lua
 RCLootCouncil\Utils\Utils.lua
-## RCLootCouncil\Utils\trinketData.lua
-## RCLootCouncil\Utils\tokenData.lua
+RCLootCouncil\Utils\trinketData.lua
+RCLootCouncil\Utils\tokenData.lua
 RCLootCouncil\Utils\ItemStorage.lua
 RCLootCouncil\Utils\autopass.lua
 RCLootCouncil\Utils\sync.lua
@@ -43,5 +44,7 @@ Core\Autopass.lua
 
 ## Overrides
 API\RCLootCouncilUpdates.lua
+API\ButtonGroupUpdates.lua
+API\OptionsUpdates.lua
 API\VotingFrameUpdates.lua
 API\SessionFrameUpdates.lua

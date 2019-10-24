@@ -1,3 +1,32 @@
+# v0.3.0
+## Updated RCLootCouncil to v2.15.0.
+Most of these changes are background stuff, and/or not related to classic, and thus redacted from here.
+
+* **Auto Award**  
+Auto Awards can now only happen on equip able items.
+
+
+## Changes
+#### Tier Tokens / Set Pieces
+Reenabled auto pass, item type and item level for all tier token pieces and set pieces.
+
+Added separate button categories for both tier tokens and set pieces.  
+In this context, tier tokens are the actual armor tokens usable by specific classes.  
+Set Pieces are any wearable items that are part of a set, i.e. "Tier 0, 0.5, 1, 2" and other sets.
+
+#### Trinkets
+Reenabled auto passing and item type of trinkets.
+
+Note the trinket auto passing is based on Blizzard's class list from the retail dungeon journal.
+You can always disable trinket auto passing in the options menu.
+
+#### History Deletion
+Added Diremaul release to patch mass delete.
+
+## Bugfixes
+* *The version frame incorrectly showed the core RCLootCouncil version in the list.*
+
+
 # v0.2.0
 ## Changes
 #### Auto Pass
@@ -6,7 +35,7 @@ All auto pass rules have been laxed to only include items you can't wear.
 Furthermore BoE and trinket (has no effect) have been disabled by default.
 
 ## Bugfixes
-* *Fixed issues with sorting on the voting frame. (#1, Git#3)*
+* *Fixed issues with sorting on the voting frame. (#3, Curse#3)*
 
 
 # v0.1.1
