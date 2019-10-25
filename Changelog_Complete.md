@@ -1,3 +1,9 @@
+# v0.3.1
+## Bugfixes
+* *RCLootCouncil core version was bugged in the options menu.*
+* *Fixed issue from 0.3.0 in voting frame causing client crash.*
+
+
 # v0.3.0
 ## Updated RCLootCouncil to v2.15.0.
 Most of these changes are background stuff, and/or not related to classic, and thus redacted from here.
