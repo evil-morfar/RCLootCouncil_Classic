@@ -19,9 +19,9 @@ function addon:OptionsTable ()
       -- Core version
       desc = desc .. " - Core: "
       if RCClassic.RCLootCouncil.tVersion then
-         desc = desc .. "|cFF87CEFAv"..addon.version.."|r-"..RCClassic.RCLootCouncil.tVersion
+         desc = desc .. "|cFF87CEFAv"..RCClassic.RCLootCouncil.version.."|r-"..RCClassic.RCLootCouncil.tVersion
       else
-         desc = desc .. "|cFF87CEFAv"..addon.version.."|r"
+         desc = desc .. "|cFF87CEFAv"..RCClassic.RCLootCouncil.version.."|r"
       end
       return desc
    end
