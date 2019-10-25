@@ -24,3 +24,5 @@ Added Diremaul release to patch mass delete.
 
 ## Bugfixes
 * *The version frame incorrectly showed the core RCLootCouncil version in the list.*
+* *v0.3.1: Fixed issue from 0.3.0 in voting frame causing client crash.*
+* *v0.3.1: RCLootCouncil core version was bugged in the options menu.*

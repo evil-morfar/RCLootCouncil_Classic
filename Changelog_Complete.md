@@ -1,5 +1,7 @@
+# v0.3.1
 ## Bugfixes
 * *RCLootCouncil core version was bugged in the options menu.*
+* *Fixed issue from 0.3.0 in voting frame causing client crash.*
 
 
 # v0.3.0
