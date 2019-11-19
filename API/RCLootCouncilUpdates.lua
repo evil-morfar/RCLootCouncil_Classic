@@ -115,7 +115,7 @@ end
 -- Utils
 ----------------------------------------------
 function addon.Utils:GetPlayerRole ()
-   return "" -- Unused
+   return "NONE" -- GetRaidRosterInfo returns "NONE"
 end
 
 ----------------------------------------------

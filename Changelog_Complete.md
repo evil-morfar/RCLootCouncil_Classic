@@ -1,3 +1,6 @@
+## Bugfixes
+* *Added potential fix to issues with guild ranks not showing up. Note: Not backwards compatible, and will only be fixed for those that has updated. (Curse#11)*
+
 # v0.3.1
 ## Bugfixes
 * *RCLootCouncil core version was bugged in the options menu.*
