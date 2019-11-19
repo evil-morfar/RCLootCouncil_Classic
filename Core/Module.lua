@@ -37,6 +37,9 @@ function ClassicModule:OnEnable ()
    local vf = addon:GetModule("RCVotingFrame")
    vf:RemoveColumn("role")
 
+   -- Quest items can be looted in Classic
+   addon.blacklistedItemClasses[12] = nil
+
    self:RegisterEvent("LOOT_OPENED", "LootOpened")
    self:RegisterEvent("LOOT_CLOSED", "LootClosed")
 end
