@@ -111,6 +111,10 @@ do
    addon.classDisplayNameToID[info.className] = 11
    addon.classTagNameToID[info.classFile] = 11
 end
+
+function addon:UpdateAndSendRecentTradableItem()
+   -- Intentionally left empty
+end
 ----------------------------------------------
 -- Utils
 ----------------------------------------------
