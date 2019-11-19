@@ -111,11 +111,15 @@ do
    addon.classDisplayNameToID[info.className] = 11
    addon.classTagNameToID[info.classFile] = 11
 end
+
+function addon:UpdateAndSendRecentTradableItem()
+   -- Intentionally left empty
+end
 ----------------------------------------------
 -- Utils
 ----------------------------------------------
 function addon.Utils:GetPlayerRole ()
-   return "" -- Unused
+   return "NONE" -- GetRaidRosterInfo returns "NONE"
 end
 
 ----------------------------------------------

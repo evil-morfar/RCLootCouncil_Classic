@@ -12,6 +12,15 @@ function ClassicModule:OnInitialize()
    self.debug = false
    self.nnp = false
 
+   self:DoHooks()
+   db = addon:Getdb()
+
+   self:ScheduleTimer("Enable", 0) -- Enable just after RCLootCouncil has had the chance to be enabled
+end
+
+function ClassicModule:OnEnable ()
+   addon:DebugLog("ClassicModule enabled", self.version, self.tVersion)
+
    -- Store RCLootCouncil Variables
    self.RCLootCouncil = {}
    self.RCLootCouncil.version = addon.version
@@ -21,21 +30,15 @@ function ClassicModule:OnInitialize()
    addon.debug = self.debug
    addon.nnp = self.nnp
 
-   self:Enable()
-end
-
-function ClassicModule:OnEnable ()
-   addon:DebugLog("ClassicModule enabled", self.version, self.tVersion)
-
    addon.db.global.Classic_oldVersion = addon.db.global.Classic_version
 	addon.db.global.Classic_version = self.version
-
-   self:DoHooks()
-   db = addon:Getdb()
 
    -- Remove "role" column
    local vf = addon:GetModule("RCVotingFrame")
    vf:RemoveColumn("role")
+
+   -- Quest items can be looted in Classic
+   addon.blacklistedItemClasses[12] = nil
 
    self:RegisterEvent("LOOT_OPENED", "LootOpened")
    self:RegisterEvent("LOOT_CLOSED", "LootClosed")
@@ -46,7 +49,8 @@ function ClassicModule:LootOpened (...)
    addon.lootOpen = true
    -- Rebuild the items that wasn't registered in "LOOT_READY"
    for i = 1,  GetNumLootItems() do
-		if not addon.lootSlotInfo[i] and LootSlotHasItem(i) then
+		if (not addon.lootSlotInfo[i] and LootSlotHasItem(i))
+      or (addon.lootSlotInfo[i] and not addon:ItemIsItem(addon.lootSlotInfo[i].link, GetLootSlotLink(i))) then
          addon:DebugLog("Rebuilding lootSlot", i, "in ClassicModule:LoopOpened")
 			local texture, name, quantity, currencyID, quality, _, isQuestItem = GetLootSlotInfo(i)
 			local guid = addon.Utils:ExtractCreatureID((GetLootSourceInfo(i)))
