@@ -58,3 +58,16 @@ tinsert(hooks, {
       return modules
    end,
 })
+
+tinsert(hooks, {
+   object = addon,
+   ref = "PrintOutdatedVersionWarning",
+   type = "raw",
+   func = function(self, newVersion, ourVersion)
+      -- Fix issue with pre 0.3.0 that reported it's RCLootCouncil version.
+      if newVersion and newVersion ~= "2.14.0" then
+         -- Call original
+         Classic.hooks[addon].PrintOutdatedVersionWarning(addon, newVersion, ourVersion)
+      end
+   end,
+})

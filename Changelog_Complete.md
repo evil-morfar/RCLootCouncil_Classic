@@ -1,6 +1,7 @@
 ## Bugfixes
 * *Added potential fix to issues with guild ranks not showing up. Note: Not backwards compatible, and will only be fixed for those that has updated. (Curse#11)*
 * *Fixed issues with some items refusing to be awarded (Curse#9).*
+* *Warnings about v2.14.0 being the most recent version are now supressed.*
 
 
 # v0.3.1
