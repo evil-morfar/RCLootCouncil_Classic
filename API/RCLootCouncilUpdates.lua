@@ -30,6 +30,9 @@ addon.INVTYPE_Slots.INVTYPE_RANGED = "RangedSlot"
 addon.INVTYPE_Slots.INVTYPE_RANGEDRIGHT = "RangedSlot"
 addon.INVTYPE_Slots.INVTYPE_THROWN = "RangedSlot"
 
+-- Quest items can be looted in Classic
+addon.blacklistedItemClasses[12] = nil
+
 function addon:UpdatePlayersData()
    self:DebugLog("UpdatePlayersData()")
    -- GetSpecialization doesn't exist, and there's no real need for it in classic

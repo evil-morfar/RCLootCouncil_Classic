@@ -1,3 +1,7 @@
+## Changes
+#### Quest Items
+Removed quest items from the blacklist, allowing them to automatically being added to a session as long as "Loot Everything" is enabled.
+
 ## Bugfixes
 * *Added potential fix to issues with guild ranks not showing up. Note: Not backwards compatible, and will only be fixed for those that has updated. (Curse#11)*
 * *Fixed issues with some items refusing to be awarded (Curse#9).*
