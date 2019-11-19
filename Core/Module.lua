@@ -46,7 +46,8 @@ function ClassicModule:LootOpened (...)
    addon.lootOpen = true
    -- Rebuild the items that wasn't registered in "LOOT_READY"
    for i = 1,  GetNumLootItems() do
-		if not addon.lootSlotInfo[i] and LootSlotHasItem(i) then
+		if (not addon.lootSlotInfo[i] and LootSlotHasItem(i))
+      or (addon.lootSlotInfo[i] and not addon:ItemIsItem(addon.lootSlotInfo[i].link, GetLootSlotLink(i))) then
          addon:DebugLog("Rebuilding lootSlot", i, "in ClassicModule:LoopOpened")
 			local texture, name, quantity, currencyID, quality, _, isQuestItem = GetLootSlotInfo(i)
 			local guid = addon.Utils:ExtractCreatureID((GetLootSourceInfo(i)))
