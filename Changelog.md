@@ -1,28 +1,19 @@
-## Updated RCLootCouncil to v2.15.0.
-Most of these changes are background stuff, and/or not related to classic, and thus redacted from here.
+## Updated RCLootCouncil to v2.15.1.
 
-* **Auto Award**  
-Auto Awards can now only happen on equip able items.
+##### Bugfixes
+* *Fixed error when council members reconnect during session (Curse#398).*
+* *Fixed error with 'whisper guide' being too long to send in some locales (#177).*
+* *The 'Keep Loot' popup is now only used in raids to avoid it unintentionally popping up in dungeons. This is a temporary fix, as a proper fix needs way more work (Curse#396).*
+* *Adding items to a session will no longer reset rolls on existing items when "Add Rolls" is enabled.*
+* *Adding more than one item to a session could sometimes mess up and make a session switch button disappear.*
+* *Items awarded with "Award Reasons" would retain their original response when filtering the Loot History (CurseClassic#9).*
 
 
 ## Changes
-#### Tier Tokens / Set Pieces
-Reenabled auto pass, item type and item level for all tier token pieces and set pieces.
-
-Added separate button categories for both tier tokens and set pieces.  
-In this context, tier tokens are the actual armor tokens usable by specific classes.  
-Set Pieces are any wearable items that are part of a set, i.e. "Tier 0, 0.5, 1, 2" and other sets.
-
-#### Trinkets
-Reenabled auto passing and item type of trinkets.
-
-Note the trinket auto passing is based on Blizzard's class list from the retail dungeon journal.
-You can always disable trinket auto passing in the options menu.
-
-#### History Deletion
-Added Diremaul release to patch mass delete.
+#### Quest Items
+Removed quest items from the blacklist, allowing them to automatically being added to a session as long as "Loot Everything" is enabled.
 
 ## Bugfixes
-* *The version frame incorrectly showed the core RCLootCouncil version in the list.*
-* *v0.3.1: Fixed issue from 0.3.0 in voting frame causing client crash.*
-* *v0.3.1: RCLootCouncil core version was bugged in the options menu.*
+* *Added potential fix to issues with guild ranks not showing up. Note: Not backwards compatible, and will only be fixed for those that has updated. (Curse#11)*
+* *Fixed issues with some items refusing to be awarded (Curse#9).*
+* *Warnings about v2.14.0 being the most recent version are now supressed.*
