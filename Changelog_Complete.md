@@ -1,3 +1,6 @@
+## Bugfixes
+* *Guild ranks not showing up should be fixed for good. Only works for those that have updated. (Curse#11,13).*
+
 # v0.4.0
 
 ## Updated RCLootCouncil to v2.15.1.
