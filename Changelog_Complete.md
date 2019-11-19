@@ -1,3 +1,4 @@
+# v0.4.0
 ## Changes
 #### Quest Items
 Removed quest items from the blacklist, allowing them to automatically being added to a session as long as "Loot Everything" is enabled.
