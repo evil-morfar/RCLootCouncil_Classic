@@ -59,13 +59,20 @@ tinsert(hooks, {
    end,
 })
 
+local rclootcoucnilCoreVersionsToIgnore = {
+   ["2.14.0"] = true,
+   ["2.15.0"] = true,
+   ["2.15.1"] = true
+}
+
 tinsert(hooks, {
    object = addon,
    ref = "PrintOutdatedVersionWarning",
    type = "raw",
    func = function(self, newVersion, ourVersion)
       -- Fix issue with pre 0.3.0 that reported it's RCLootCouncil version.
-      if newVersion and newVersion ~= "2.14.0" then
+      -- v0.4.1: Core version was also sent from RCLootCouncil:OnEnable to guild members.
+      if newVersion and not rclootcoucnilCoreVersionsToIgnore[newVersion] then
          -- Call original
          Classic.hooks[addon].PrintOutdatedVersionWarning(addon, newVersion, ourVersion)
       end

@@ -102,7 +102,7 @@ function addon:GetPlayerInfo ()
    end
    -- GetAverageItemLevel() isn't implemented
    local ilvl = private.GetAverageItemLevel()
-   return self.playerName, self.playerClass, nil --[[self.Utils:GetPlayerRole()]], self.guildRank, enchant, lvl, ilvl, nil--self.playersData.specID
+   return self.playerName, self.playerClass, self.Utils:GetPlayerRole(), self.guildRank, enchant, lvl, ilvl, nil--self.playersData.specID
 end
 
 -- Class tags needs updated as druids are number 11 and we have 8 classes
