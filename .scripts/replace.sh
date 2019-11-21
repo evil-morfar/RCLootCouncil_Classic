@@ -1,10 +1,9 @@
-!#/bin/sh
+#!/bin/sh
 echo "Executing $0"
 
 replace_version(){
    # Get RCLootCouncil version
-   fullversion=$( git -C ./RCLootCouncil describe --tags --always --abbrev=0 )
-   version="${fullversion/-*/""}"
+   version=$( awk '/## Version/ {print $NF; exit}' ./RCLootCouncil/RCLootCouncil.toc )
    sed -i "s/GetAddOnMetadata(\"RCLootCouncil\", \"Version\")/\"$version\"/" .tmp/RCLootCouncil_Classic/RCLootCouncil/core.lua
 }
 
