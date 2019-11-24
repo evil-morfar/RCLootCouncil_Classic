@@ -1,3 +1,10 @@
+# v0.4.2
+
+## Bugfixes
+* *Fixed error when looting certain types of items (Curse#15).*
+* *RCLootCouncil Core reported wrong version in last update (#8).*
+
+
 # v0.4.1
 
 ## Bugfixes
