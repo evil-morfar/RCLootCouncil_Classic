@@ -98,17 +98,18 @@ function addon:NewMLCheck()
 	self.isMasterLooter, self.masterLooter = self:GetML()
 	if self.masterLooter and self.masterLooter ~= "" and strfind(self.masterLooter, "Unknown") then
 		-- ML might be unknown for some reason
-		self:Debug("Unknown ML")
+		self:Debug("NewMLCheck","Unknown ML")
 		return self:ScheduleTimer("NewMLCheck", 2)
 	end
 	if self:UnitIsUnit(old_ml, "player") and not self.isMasterLooter then
 		-- We were ML, but no longer, so disable masterlooter module
 		self:GetActiveModule("masterlooter"):Disable()
 	end
-	if self:UnitIsUnit(old_ml, self.masterLooter) or db.usage.never then return end -- no change
+	if self:UnitIsUnit(old_ml, self.masterLooter) then return self:DebugLog("NewMLCheck", "No ML Change") end -- no change
+   if db.usage.never then return self:DebugLog("NewMLCheck","db.usage.never") end
 	if self.masterLooter == nil then return end -- We're not using ML
 	-- At this point we know the ML has changed, so we can wipe the council
-	self:Debug("Resetting council as we have a new ML!")
+	self:Debug("NewMLCheck","Resetting council as we have a new ML!")
 	self.council = {}
 	if not self.isMasterLooter and self.masterLooter then return end -- Someone else has become ML
 
