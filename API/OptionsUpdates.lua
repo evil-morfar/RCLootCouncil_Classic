@@ -59,6 +59,7 @@ function addon:OptionsTable ()
    {
       [1566900000] = "Phase 1 (Classic Launch)",
       [1571097600] = "Diremaul Release",
+      [1576029600] = "Patch 1.13.3"
    }
    -- "_G.INSTANCE" isn't available for localization - use our own
    options.args.settings.args.generalSettingsTab.args.lootHistoryOptions.args.deleteRaid.name = LC["Instance"]
