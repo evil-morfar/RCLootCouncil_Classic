@@ -47,40 +47,41 @@ end
 function ClassicModule:LootOpened (...)
    addon:DebugLog("LootOpened")
    addon.lootOpen = true
-   -- Rebuild the items that wasn't registered in "LOOT_READY"
-   for i = 1,  GetNumLootItems() do
-		if (not addon.lootSlotInfo[i] and LootSlotHasItem(i))
-      or (addon.lootSlotInfo[i] and not addon:ItemIsItem(addon.lootSlotInfo[i].link, GetLootSlotLink(i))) then
-         addon:DebugLog("Rebuilding lootSlot", i, "in ClassicModule:LoopOpened")
-			local texture, name, quantity, currencyID, quality, _, isQuestItem = GetLootSlotInfo(i)
-			local guid = addon.Utils:ExtractCreatureID((GetLootSourceInfo(i)))
-			if guid and addon.lootGUIDToIgnore[guid] then return addon:Debug("Ignoring loot from ignored source", guid) end
-			if texture then
-				local link = GetLootSlotLink(i)
-				if currencyID then
-					addon:DebugLog("Ignoring", link, "as it's a currency")
-				elseif not addon.Utils:IsItemBlacklisted(link) then
-					addon:Debug("Adding to self.lootSlotInfo",i,link, quality,quantity, GetLootSourceInfo(i))
-					addon.lootSlotInfo[i] = {
-						name = name,
-						link = link, -- This could be nil, if the item is money.
-						quantity = quantity,
-						quality = quality,
-						guid = guid, -- Boss GUID
-						boss = (GetUnitName("target")),
-						autoloot = select(1,...),
-					}
-				end
-			else -- It's possible that item in the loot window is uncached. Retry in the next frame.
-				addon:Debug("Loot uncached when the loot window is opened. Retry in the next frame.", name)
-				-- Must offer special argument as 2nd argument to indicate this is run from scheduler.
-				-- REVIEW: 20/12-18: This actually hasn't been used for a long while - removing "scheduled" arg
-				return self:ScheduleTimer("LootOpened", 0)
-			end
-		end
-	end
 
    if addon.isMasterLooter then
+      -- Rebuild the items that wasn't registered in "LOOT_READY"
+      for i = 1,  GetNumLootItems() do
+   		if (not addon.lootSlotInfo[i] and LootSlotHasItem(i))
+         or (addon.lootSlotInfo[i] and not addon:ItemIsItem(addon.lootSlotInfo[i].link, GetLootSlotLink(i))) then
+            addon:DebugLog("Rebuilding lootSlot", i, "in ClassicModule:LoopOpened")
+   			local texture, name, quantity, currencyID, quality, _, isQuestItem = GetLootSlotInfo(i)
+   			local guid = addon.Utils:ExtractCreatureID((GetLootSourceInfo(i)))
+   			if guid and addon.lootGUIDToIgnore[guid] then return addon:Debug("Ignoring loot from ignored source", guid) end
+   			if texture then
+   				local link = GetLootSlotLink(i)
+   				if currencyID then
+   					addon:DebugLog("Ignoring", link, "as it's a currency")
+   				elseif not addon.Utils:IsItemBlacklisted(link) then
+   					addon:Debug("Adding to self.lootSlotInfo",i,link, quality,quantity, GetLootSourceInfo(i))
+   					addon.lootSlotInfo[i] = {
+   						name = name,
+   						link = link, -- This could be nil, if the item is money.
+   						quantity = quantity,
+   						quality = quality,
+   						guid = guid, -- Boss GUID
+   						boss = (GetUnitName("target")),
+   						autoloot = select(1,...),
+   					}
+   				end
+   			else -- It's possible that item in the loot window is uncached. Retry in the next frame.
+   				addon:Debug("Loot uncached when the loot window is opened. Retry in the next frame.", name)
+   				-- Must offer special argument as 2nd argument to indicate this is run from scheduler.
+   				-- REVIEW: 20/12-18: This actually hasn't been used for a long while - removing "scheduled" arg
+   				return self:ScheduleTimer("LootOpened", 0)
+   			end
+   		end
+   	end
+      
 		self:OnLootOpen()
 	end
 end
