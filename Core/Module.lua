@@ -8,7 +8,7 @@ local db
 
 function ClassicModule:OnInitialize()
    self.version = GetAddOnMetadata("RCLootCouncil_Classic", "Version")
-   self.tVersion = nil
+   self.tVersion = "Beta.1"
    self.debug = false
    self.nnp = false
 
@@ -81,7 +81,7 @@ function ClassicModule:LootOpened (...)
    			end
    		end
    	end
-      
+
 		self:OnLootOpen()
 	end
 end
