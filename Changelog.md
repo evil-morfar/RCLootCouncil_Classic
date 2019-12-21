@@ -1,4 +1,4 @@
-## Updated RCLootCouncil to v2.16.0-Beta.1
+## Updated RCLootCouncil to v2.16.0
 ### Additions
 
 #### Alt-click Awarding
@@ -50,4 +50,5 @@ The names now respects the "Append realm name" option.
 * *Added a history patch for broken "Award Reasons".*
 
 ## Changes
+Updated TOC to patch 1.13.3.  
 Added patch 1.13.3 to history delete options.
