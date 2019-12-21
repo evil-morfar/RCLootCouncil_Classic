@@ -1,6 +1,6 @@
 # v0.5.0
 
-## Updated RCLootCouncil to v2.16.0-Beta.1
+## Updated RCLootCouncil to v2.16.0
 ### Additions
 
 #### Alt-click Awarding
