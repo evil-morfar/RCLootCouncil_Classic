@@ -33,9 +33,10 @@ function ClassicModule:OnEnable ()
    addon.db.global.Classic_oldVersion = addon.db.global.Classic_version
 	addon.db.global.Classic_version = self.version
 
-   -- Remove "role" column
+   -- Remove "role" and corruption column
    local vf = addon:GetModule("RCVotingFrame")
    vf:RemoveColumn("role")
+   vf:RemoveColumn("corruption")
 
    -- Quest items can be looted in Classic
    addon.blacklistedItemClasses[12] = nil
