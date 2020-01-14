@@ -11,6 +11,5 @@ warningMatch:
 
 targets:
    Release:
-      cmd: ".scripts/build.sh"
+      cmd: "sh .scripts/build.sh"
       name: "RCLC_Classic:Release"
-      sh: false
