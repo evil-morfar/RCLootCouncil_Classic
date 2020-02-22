@@ -46,11 +46,21 @@ if [ -z "$WOW_LOCATION" ]; then
    echo "Exiting..."
    exit;
 fi
-
+TEMP_DEST=".tmp/$ADDON"
 DEST="$WOW_LOCATION$WOWEDITION/Interface/AddOns/$ADDON"
 
+# Copy to temp folder:
+# cp "$ADDON_LOC" "$TEMP_DEST" -ruv
+robocopy "$ADDON_LOC" "$TEMP_DEST" //s //purge //xo //XD .* __*  .tmp //XF ?.* __*
+
+# Do file replacements
+. "./.scripts/replace.sh"
+
 # Deploy:
-# cp "$ADDON_LOC" "$DEST" -ruv
-robocopy "$ADDON_LOC" "$DEST" //s //purge //xo //XD .* __*  //XF ?.* __*
+# cp "$TEMP_DEST" "$DEST" -ruv
+robocopy "$TEMP_DEST" "$DEST" //s //purge //xo //XD .* __*  //XF ?.* __*
+
+# Delete .tmp folder
+rm -r ".tmp/"
 
 echo "Finished deploying $ADDON"
