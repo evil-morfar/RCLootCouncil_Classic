@@ -5,6 +5,7 @@ replace_version(){
    # Get RCLootCouncil version
    version=$( awk '/## Version/ {print $NF; exit}' ./RCLootCouncil/RCLootCouncil.toc )
    sed -i "s/GetAddOnMetadata(\"RCLootCouncil\", \"Version\")/\"$version\"/" .tmp/RCLootCouncil_Classic/RCLootCouncil/core.lua
+   echo "Version replacement done - added $version"
 }
 
 if [[ -d "./.tmp" ]]; then

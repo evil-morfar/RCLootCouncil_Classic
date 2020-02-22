@@ -11,8 +11,6 @@ function ClassicModule:OnInitialize()
    self.tVersion = nil
    self.debug = false
    self.nnp = false
-
-   self:DoHooks()
    db = addon:Getdb()
 
    self:ScheduleTimer("Enable", 0) -- Enable just after RCLootCouncil has had the chance to be enabled
@@ -32,6 +30,8 @@ function ClassicModule:OnEnable ()
 
    addon.db.global.Classic_oldVersion = addon.db.global.Classic_version
 	addon.db.global.Classic_version = self.version
+
+   self:DoHooks()
 
    -- Remove "role" and corruption column
    local vf = addon:GetModule("RCVotingFrame")
