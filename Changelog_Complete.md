@@ -1,3 +1,9 @@
+# v0.6.2
+## Updated RCLootCouncil to v2.17.2
+
+## Bugfixes
+* *Fixed occasional error on login/reload (CurseClassic#29).*
+
 # v0.6.1
 ## Updated RCLootCouncil to v2.17.1
 *Only Classic relevant changes are included here*
