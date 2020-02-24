@@ -1,3 +1,6 @@
+## Bugfixes
+* *Fixed lua error when declining usage (Classic#10).*
+
 # v0.6.2
 ## Updated RCLootCouncil to v2.17.2
 ### Bugfixes
