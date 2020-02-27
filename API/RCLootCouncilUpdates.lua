@@ -113,6 +113,8 @@ do
    local info = C_CreatureInfo.GetClassInfo(11)
    addon.classDisplayNameToID[info.className] = 11
    addon.classTagNameToID[info.classFile] = 11
+   addon.classIDToDisplayName = tInvert(addon.classDisplayNameToID)
+   addon.classIDToFileName = tInvert(addon.classTagNameToID)
 end
 
 function addon:UpdateAndSendRecentTradableItem()
