@@ -11,6 +11,7 @@ function ClassicModule:OnInitialize()
    self.tVersion = nil
    self.debug = false
    self.nnp = false
+   addon.isClassic = true
    db = addon:Getdb()
 
    self:ScheduleTimer("Enable", 0) -- Enable just after RCLootCouncil has had the chance to be enabled
