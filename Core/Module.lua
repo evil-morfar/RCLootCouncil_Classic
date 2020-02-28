@@ -11,6 +11,7 @@ function ClassicModule:OnInitialize()
    self.tVersion = nil
    self.debug = false
    self.nnp = false
+   addon.isClassic = true
    db = addon:Getdb()
 
    self:ScheduleTimer("Enable", 0) -- Enable just after RCLootCouncil has had the chance to be enabled
@@ -196,8 +197,8 @@ end
 -- Retail has a check for 'lootMethod' which isn't feasible.
 -- Most of those functions might get removed in retail anyway, so just reimplement it.
 function ClassicModule:OnLootOpen()
-	wipe(addon.modules.RCLootCouncilML.lootQueue)
 	if addon.handleLoot then
+      wipe(addon.modules.RCLootCouncilML.lootQueue)
 		if not InCombatLockdown() then
 			addon.modules.RCLootCouncilML:LootOpened() -- REVIEW Consider porting this function.
 		else

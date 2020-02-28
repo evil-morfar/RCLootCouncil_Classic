@@ -30,6 +30,9 @@ addon.INVTYPE_Slots.INVTYPE_RANGED = "RangedSlot"
 addon.INVTYPE_Slots.INVTYPE_RANGEDRIGHT = "RangedSlot"
 addon.INVTYPE_Slots.INVTYPE_THROWN = "RangedSlot"
 
+-- Update logo location
+addon.LOGO_LOCATION = "Interface\\AddOns\\RCLootCouncil_Classic\\RCLootCouncil\\Media\\rc_logo"
+
 function addon:UpdatePlayersData()
    self:DebugLog("UpdatePlayersData()")
    -- GetSpecialization doesn't exist, and there's no real need for it in classic
@@ -110,6 +113,8 @@ do
    local info = C_CreatureInfo.GetClassInfo(11)
    addon.classDisplayNameToID[info.className] = 11
    addon.classTagNameToID[info.classFile] = 11
+   addon.classIDToDisplayName = tInvert(addon.classDisplayNameToID)
+   addon.classIDToFileName = tInvert(addon.classTagNameToID)
 end
 
 function addon:UpdateAndSendRecentTradableItem()

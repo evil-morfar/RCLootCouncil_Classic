@@ -12,12 +12,12 @@ function addon:OptionsTable ()
       local desc = "Classic: "
       -- Classic version
       if RCClassic.tVersion then
-         desc = desc .. "|cFF87CEFAv"..RCClassic.version.."|r-"..RCClassic.tVersion
+         desc = desc .. "|cFFff9100v"..RCClassic.version.."|r-"..RCClassic.tVersion
       else
-         desc = desc .. "|cFF87CEFAv"..RCClassic.version.."|r"
+         desc = desc .. "|cFFff9100v"..RCClassic.version.."|r"
       end
       -- Core version
-      desc = desc .. " - Core: "
+      desc = desc .. "\nCore: "
       if RCClassic.RCLootCouncil.tVersion then
          desc = desc .. "|cFF87CEFAv"..RCClassic.RCLootCouncil.version.."|r-"..RCClassic.RCLootCouncil.tVersion
       else
