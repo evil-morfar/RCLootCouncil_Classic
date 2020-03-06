@@ -9,6 +9,9 @@ The pop-up for keeping items now shows "Keep"/"Trade" instead of yes/no. (Git#18
 * *Fixes issue with receiving votes outside an instance (Curse#413).*
 * *Fixed issues with TSV Export hyperlinks.*
 
+## Changes
+### Wowhead Links
+All exports with WowHead links now points to the Classic version of the site (#12).
 
 
 # v0.7.0
