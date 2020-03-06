@@ -1,3 +1,15 @@
+# v0.7.2
+## Update RCLootCouncil to v2.18.2
+### Changes
+#### Allow Keeping
+The pop-up for keeping items now shows "Keep"/"Trade" instead of yes/no. (Git#183).
+
+### Bugfixes
+* *Passes no longer require a note with 'Require Notes' enabled. (Git#184)*
+* *Fixes issue with receiving votes outside an instance (Curse#413).*
+
+
+
 # v0.7.0
 ## Updated RCLootCouncil to v2.18.0
 *Only Classic relevant changes are included here.*
