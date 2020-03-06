@@ -3,6 +3,7 @@ local _, addon = ...
 local Classic = addon:GetModule("RCClassic")
 local VotingFrame = addon:GetModule("RCVotingFrame")
 local SessionFrame = addon:GetModule("RCSessionFrame")
+local HistoryFrame = addon:GetModule("RCLootHistory")
 local hooks = {}
 
 function Classic:DoHooks ()
@@ -16,6 +17,15 @@ function Classic:DoHooks ()
       end
    end
 end
+
+tinsert(hooks, {
+   object = HistoryFrame,
+   ref = "OnEnable",
+   type = "post",
+   func = function()
+      HistoryFrame.wowheadBaseUrl = "https://www.classic.wowhead.com/item="
+   end
+})
 
 tinsert(hooks, {
    object = SessionFrame,
