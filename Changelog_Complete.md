@@ -1,3 +1,5 @@
+Updated TOC to 1.13.4
+
 ### Bugfixes
 * *Added extra delay when receiving uncached loot on `LOOT_READY`.*
 

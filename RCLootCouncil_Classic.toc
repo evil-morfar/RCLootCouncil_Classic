@@ -1,5 +1,5 @@
 ## Author: Potdisc
-## Interface: 11303
+## Interface: 11304
 ## Notes: RCLootCouncil for WoW Classic v0.7.2
 ## Title: RCLootCouncil Classic
 ## Version: 0.7.2
