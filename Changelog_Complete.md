@@ -1,3 +1,6 @@
+### Bugfixes
+* *Added extra delay when receiving uncached loot on `LOOT_READY`.*
+
 # v0.7.2
 ## Update RCLootCouncil to v2.18.2
 ### Changes
