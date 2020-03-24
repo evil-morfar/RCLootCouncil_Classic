@@ -1,9 +1,13 @@
-## Update RCLootCouncil to v2.18.2
-### Changes
-#### Allow Keeping
-The pop-up for keeping items now shows "Keep"/"Trade" instead of yes/no. (Git#183).
-
+## Updated RCLootCouncil to v2.18.3
 ### Bugfixes
-* *Passes no longer require a note with 'Require Notes' enabled. (Git#184)*
-* *Fixes issue with receiving votes outside an instance (Curse#413).*
-* *Fixed issues with TSV Export hyperlinks.*
+* *Fixed rare error when award later items have no trade time remaining. (CurseClassic#37)*
+* *Fixed issues with EQdkp Plus XML export (CurseClassic#35).*
+* *Fixed issue with Award Later when items aren't available in the ML's bags when expected.*
+
+## Changes
+Updated TOC to 1.13.4
+
+## Bugfixes
+* *Added extra delay when receiving uncached loot on `LOOT_READY`.*
+* *Fixed issue with wowhead links (#14).*
+* *Fixed issues with Auto Awards (Curse#38).*
