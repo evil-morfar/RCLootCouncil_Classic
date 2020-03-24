@@ -3,6 +3,7 @@ Updated TOC to 1.13.4
 ### Bugfixes
 * *Added extra delay when receiving uncached loot on `LOOT_READY`.*
 * *Fixed issue with wowhead links (#14).*
+* *Fixed issues with Auto Awards (Curse#38).*
 
 # v0.7.2
 ## Update RCLootCouncil to v2.18.2
