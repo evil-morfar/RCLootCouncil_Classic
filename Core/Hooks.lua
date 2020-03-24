@@ -72,7 +72,9 @@ tinsert(hooks, {
 local rclootcoucnilCoreVersionsToIgnore = {
    ["2.14.0"] = true,
    ["2.15.0"] = true,
-   ["2.15.1"] = true
+   ["2.15.1"] = true,
+   ["2.18.1"] = true,
+   ["2.18.2"] = true,
 }
 
 tinsert(hooks, {
