@@ -23,7 +23,7 @@ tinsert(hooks, {
    ref = "OnEnable",
    type = "post",
    func = function()
-      HistoryFrame.wowheadBaseUrl = "https://www.classic.wowhead.com/item="
+      HistoryFrame.wowheadBaseUrl = "https://classic.wowhead.com/item="
    end
 })
 
