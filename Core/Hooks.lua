@@ -23,7 +23,7 @@ tinsert(hooks, {
    ref = "OnEnable",
    type = "post",
    func = function()
-      HistoryFrame.wowheadBaseUrl = "https://www.classic.wowhead.com/item="
+      HistoryFrame.wowheadBaseUrl = "https://classic.wowhead.com/item="
    end
 })
 
@@ -72,7 +72,9 @@ tinsert(hooks, {
 local rclootcoucnilCoreVersionsToIgnore = {
    ["2.14.0"] = true,
    ["2.15.0"] = true,
-   ["2.15.1"] = true
+   ["2.15.1"] = true,
+   ["2.18.1"] = true,
+   ["2.18.2"] = true,
 }
 
 tinsert(hooks, {

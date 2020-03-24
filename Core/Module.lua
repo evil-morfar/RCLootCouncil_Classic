@@ -14,6 +14,7 @@ function ClassicModule:OnInitialize()
    addon.isClassic = true
    db = addon:Getdb()
 
+
    self:ScheduleTimer("Enable", 0) -- Enable just after RCLootCouncil has had the chance to be enabled
 end
 
@@ -31,6 +32,8 @@ function ClassicModule:OnEnable ()
 
    addon.db.global.Classic_oldVersion = addon.db.global.Classic_version
 	addon.db.global.Classic_version = self.version
+   -- Bump logMaxEntries
+   addon.db.global.logMaxEntries = 4000
 
    self:DoHooks()
 
@@ -76,10 +79,16 @@ function ClassicModule:LootOpened (...)
    					}
    				end
    			else -- It's possible that item in the loot window is uncached. Retry in the next frame.
-   				addon:Debug("Loot uncached when the loot window is opened. Retry in the next frame.", name)
-   				-- Must offer special argument as 2nd argument to indicate this is run from scheduler.
-   				-- REVIEW: 20/12-18: This actually hasn't been used for a long while - removing "scheduled" arg
-   				return self:ScheduleTimer("LootOpened", 0)
+   				addon:Debug("Loot uncached when the loot window is opened. Retry in the next frame.", name, count or 0)
+               local autoloot, count = ...
+               if not count then
+                  count = 1
+               else
+                  count = count + 1
+               end
+               -- NOTE: 21/3-20 Add some diminishing returns on this, as we apparently can't rely on it being ready in the next frame
+               -- according to recent issues
+   				return self:ScheduleTimer("LootOpened", count / 10, autoloot, count)
    			end
    		end
    	end
