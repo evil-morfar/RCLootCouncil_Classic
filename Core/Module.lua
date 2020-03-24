@@ -14,6 +14,7 @@ function ClassicModule:OnInitialize()
    addon.isClassic = true
    db = addon:Getdb()
 
+
    self:ScheduleTimer("Enable", 0) -- Enable just after RCLootCouncil has had the chance to be enabled
 end
 
@@ -31,6 +32,8 @@ function ClassicModule:OnEnable ()
 
    addon.db.global.Classic_oldVersion = addon.db.global.Classic_version
 	addon.db.global.Classic_version = self.version
+   -- Bump logMaxEntries
+   addon.db.global.logMaxEntries = 4000
 
    self:DoHooks()
 
@@ -80,7 +83,7 @@ function ClassicModule:LootOpened (...)
                local autoloot, count = ...
                if not count then
                   count = 1
-               else 
+               else
                   count = count + 1
                end
                -- NOTE: 21/3-20 Add some diminishing returns on this, as we apparently can't rely on it being ready in the next frame
