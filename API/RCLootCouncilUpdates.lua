@@ -33,6 +33,10 @@ addon.INVTYPE_Slots.INVTYPE_THROWN = "RangedSlot"
 -- Update logo location
 addon.LOGO_LOCATION = "Interface\\AddOns\\RCLootCouncil_Classic\\RCLootCouncil\\Media\\rc_logo"
 
+function addon:IsCorrectVersion ()
+   return WOW_PROJECT_CLASSIC == WOW_PROJECT_ID
+end
+
 function addon:UpdatePlayersData()
    self:DebugLog("UpdatePlayersData()")
    -- GetSpecialization doesn't exist, and there's no real need for it in classic
