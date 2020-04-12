@@ -1,3 +1,7 @@
+## Bugfixes
+* *The Classic Module is no longer listed as outdated with other modules.*
+
+
 # v0.8.0
 ## Updated RCLootCouncil to v2.18.3
 ### Bugfixes
