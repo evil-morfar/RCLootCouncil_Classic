@@ -123,6 +123,8 @@ function addon:NewMLCheck()
 	-- At this point we know the ML has changed, so we can wipe the council
 	self:Debug("NewMLCheck","Resetting council as we have a new ML!")
 	self.council = {}
+   -- Check to see if we have recieved mldb within 15 secs, otherwise request it
+   self:ScheduleTimer("Timer", 15, "MLdb_check")
 	if not self.isMasterLooter and self.masterLooter then return end -- Someone else has become ML
 
 	-- Check if we can use in party
@@ -148,7 +150,6 @@ function addon:OnRaidEnter()
 		if db.usage.leader then
 			self.isMasterLooter, self.masterLooter = true, self.playerName
 			self:StartHandleLoot()
-
 		-- We must ask the player for usage
 		elseif db.usage.ask_leader then
 			return LibDialog:Spawn("RCLOOTCOUNCIL_CONFIRM_USAGE")
@@ -174,8 +175,6 @@ function addon:GetML()
 			name = self:UnitName("party"..mlPartyID)
 		end
 		self:Debug("MasterLooter = ", name)
-		-- Check to see if we have recieved mldb within 15 secs, otherwise request it
-		self:ScheduleTimer("Timer", 15, "MLdb_check")
 		return IsMasterLooter(), name
 	end
 	return false, nil;
