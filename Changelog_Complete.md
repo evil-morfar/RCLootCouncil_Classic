@@ -1,5 +1,6 @@
 ## Bugfixes
 * *The Classic Module is no longer listed as outdated with other modules.*
+* *Fixed issue with detecting the Master Looter after doing a /reload in raid (Curse#36).*
 
 
 # v0.8.0
