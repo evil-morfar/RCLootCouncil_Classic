@@ -35,6 +35,7 @@ function ClassicModule:OnEnable ()
    -- Bump logMaxEntries
    addon.db.global.logMaxEntries = 4000
 
+   self:RegisterAddonComms()
    self:DoHooks()
 
    -- Remove "role" and corruption column
@@ -47,6 +48,11 @@ function ClassicModule:OnEnable ()
 
    self:RegisterEvent("LOOT_OPENED", "LootOpened")
    self:RegisterEvent("LOOT_CLOSED", "LootClosed")
+end
+
+function ClassicModule:RegisterAddonComms ()
+   addon:RegisterComm("RCLootCouncil")
+	addon:RegisterComm("RCLCv")
 end
 
 function ClassicModule:LootOpened (...)

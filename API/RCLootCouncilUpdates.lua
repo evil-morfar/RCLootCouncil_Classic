@@ -51,6 +51,10 @@ function addon:GetLootStatusData ()
    -- Do nothing
 end
 
+function addon:RegisterComms ()
+   -- Handled in Core/Module.lua
+end
+
 -- fullTest is used with Dungeon Journal, and thus is ignored
 function addon:Test (num, fullTest, trinketTest)
    self:Debug("Test", num, fullTest, trinketTest)
