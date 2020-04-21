@@ -1,5 +1,6 @@
 # v0.
 ## Updated RCLootCouncil to v2.19.0
+*Only Classic relevant changes listed here-*
 ### Changes
 
 #### Award Later
@@ -16,6 +17,10 @@ This would not be the case earlier if another boss was pulled before awarding re
 #### Classic
 The retail version will now show a chat message if installed in the Classic client and vice versa, before disabling itself.
 
+#### Error Handler
+RCLootCouncil will now log any lua errors caused by it.
+This will help in debugging errors as users are no longer required to turn on scriptErrors to register them.
+
 #### Voting Frame
 When `Hide Votes` is enabled, the Voting Frame will no longer sort the list when receiving votes from other councilmembers.
 Once the player has voted, the list is sorted as normal.
@@ -25,6 +30,8 @@ Once the player has voted, the list is sorted as normal.
 * *Loot should no longer linger in the Session Frame after leaving the instance (CurseClassic#41).*
 * *Multiple items can be automatically added to a pending trade at once.*
 * *Moving responses up/down in the options menu now properly updates their sorting position (Classic#18).*
+* *Fixed issues with TradeUI and multiple copies of the same item.*
+* *Deleting history older than a specified number of days now works correctly.*
 
 ## Additions
 * Added patch 1.13.4 to history delete options.
