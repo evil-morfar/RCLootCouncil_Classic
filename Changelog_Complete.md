@@ -1,5 +1,5 @@
-# v0.
-## Updated RCLootCouncil to v2.19.0
+# v0.9.0-Beta.1
+## Updated RCLootCouncil to v2.19.0-Beta.1
 *Only Classic relevant changes listed here-*
 ### Changes
 
