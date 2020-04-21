@@ -26,6 +26,9 @@ Once the player has voted, the list is sorted as normal.
 * *Multiple items can be automatically added to a pending trade at once.*
 * *Moving responses up/down in the options menu now properly updates their sorting position (Classic#18).*
 
+## Additions
+* Added patch 1.13.4 to history delete options.
+
 
 ## Bugfixes
 * *The Classic Module is no longer listed as outdated with other modules.*
