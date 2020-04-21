@@ -9,6 +9,7 @@ local LC = LibStub("AceLocale-3.0"):GetLocale("RCLootCouncil_Classic")
 -- Core
 ----------------------------------------------
 addon.coreEvents["ENCOUNTER_LOOT_RECEIVED"] = nil -- Doens't exist in Classic
+addon.coreEvents["BONUS_ROLL_RESULT"] = nil -- Doens't exist in Classic
 addon.coreEvents["LOOT_CLOSED"] = nil -- We have our own
 -- Defaults updates:
 -- -- Auto pass disabled:
@@ -33,6 +34,10 @@ addon.INVTYPE_Slots.INVTYPE_THROWN = "RangedSlot"
 -- Update logo location
 addon.LOGO_LOCATION = "Interface\\AddOns\\RCLootCouncil_Classic\\RCLootCouncil\\Media\\rc_logo"
 
+function addon:IsCorrectVersion ()
+   return WOW_PROJECT_CLASSIC == WOW_PROJECT_ID
+end
+
 function addon:UpdatePlayersData()
    self:DebugLog("UpdatePlayersData()")
    -- GetSpecialization doesn't exist, and there's no real need for it in classic
@@ -45,6 +50,10 @@ end
 
 function addon:GetLootStatusData ()
    -- Do nothing
+end
+
+function addon:RegisterComms ()
+   -- Handled in Core/Module.lua
 end
 
 -- fullTest is used with Dungeon Journal, and thus is ignored

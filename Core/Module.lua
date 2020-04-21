@@ -8,7 +8,7 @@ local db
 
 function ClassicModule:OnInitialize()
    self.version = GetAddOnMetadata("RCLootCouncil_Classic", "Version")
-   self.tVersion = nil
+   self.tVersion = "Beta.1"
    self.debug = false
    self.nnp = false
    addon.isClassic = true
@@ -35,6 +35,7 @@ function ClassicModule:OnEnable ()
    -- Bump logMaxEntries
    addon.db.global.logMaxEntries = 4000
 
+   self:RegisterAddonComms()
    self:DoHooks()
 
    -- Remove "role" and corruption column
@@ -47,6 +48,11 @@ function ClassicModule:OnEnable ()
 
    self:RegisterEvent("LOOT_OPENED", "LootOpened")
    self:RegisterEvent("LOOT_CLOSED", "LootClosed")
+end
+
+function ClassicModule:RegisterAddonComms ()
+   addon:RegisterComm("RCLootCouncil")
+	addon:RegisterComm("RCLCv")
 end
 
 function ClassicModule:LootOpened (...)
@@ -108,10 +114,10 @@ end
 function addon:NewMLCheck()
 	local old_ml = self.masterLooter
 	self.isMasterLooter, self.masterLooter = self:GetML()
-	if self.masterLooter and self.masterLooter ~= "" and strfind(self.masterLooter, "Unknown") then
+	if self.masterLooter and self.masterLooter ~= "" and (self.masterLooter == "Unknown" or self.masterLooter:lower() == _G.UNKNOWNOBJECT:lower()) then
 		-- ML might be unknown for some reason
 		self:Debug("NewMLCheck","Unknown ML")
-		return self:ScheduleTimer("NewMLCheck", 2)
+		return self:ScheduleTimer("NewMLCheck", 1)
 	end
 	if self:UnitIsUnit(old_ml, "player") and not self.isMasterLooter then
 		-- We were ML, but no longer, so disable masterlooter module
@@ -123,6 +129,8 @@ function addon:NewMLCheck()
 	-- At this point we know the ML has changed, so we can wipe the council
 	self:Debug("NewMLCheck","Resetting council as we have a new ML!")
 	self.council = {}
+   -- Check to see if we have recieved mldb within 15 secs, otherwise request it
+   self:ScheduleTimer("Timer", 15, "MLdb_check")
 	if not self.isMasterLooter and self.masterLooter then return end -- Someone else has become ML
 
 	-- Check if we can use in party
@@ -148,7 +156,6 @@ function addon:OnRaidEnter()
 		if db.usage.leader then
 			self.isMasterLooter, self.masterLooter = true, self.playerName
 			self:StartHandleLoot()
-
 		-- We must ask the player for usage
 		elseif db.usage.ask_leader then
 			return LibDialog:Spawn("RCLOOTCOUNCIL_CONFIRM_USAGE")
@@ -174,8 +181,6 @@ function addon:GetML()
 			name = self:UnitName("party"..mlPartyID)
 		end
 		self:Debug("MasterLooter = ", name)
-		-- Check to see if we have recieved mldb within 15 secs, otherwise request it
-		self:ScheduleTimer("Timer", 15, "MLdb_check")
 		return IsMasterLooter(), name
 	end
 	return false, nil;

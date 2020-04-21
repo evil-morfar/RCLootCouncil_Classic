@@ -69,6 +69,17 @@ tinsert(hooks, {
    end,
 })
 
+tinsert(hooks, {
+   object = addon,
+   ref = "OnInitialize",
+   type = "post",
+   func = function ()
+      -- Version checker should handle Classic Module, as it's lifted to be the main version.
+      -- Not doing this would result in both `RCLootCouncil` and `module RCLootCouncil_Classic` is outdated prints.
+      addon.moduleVerCheckDisplayed[RCClassic.baseName] = true
+   end
+})
+
 local rclootcoucnilCoreVersionsToIgnore = {
    ["2.14.0"] = true,
    ["2.15.0"] = true,
