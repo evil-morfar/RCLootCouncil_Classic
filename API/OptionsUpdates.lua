@@ -51,7 +51,7 @@ function addon:OptionsTable ()
    options.args.mlSettings.args.generalTab.args.lootingOptions.args.printCompletedTrades = nil
    options.args.mlSettings.args.generalTab.args.lootingOptions.args.rejectTrade = nil
 
-   -- Remove "Spec Icon" as there's no clear definition of a spec REVIEW We could invent one..
+   -- Remove "Spec Icon" as there's no clear definition of a spec
    options.args.settings.args.generalSettingsTab.args.frameOptions.args.showSpecIcon = nil
 
    -- Update "Patch" values in delete history
@@ -63,6 +63,9 @@ function addon:OptionsTable ()
    }
    -- "_G.INSTANCE" isn't available for localization - use our own
    options.args.settings.args.generalSettingsTab.args.lootHistoryOptions.args.deleteRaid.name = LC["Instance"]
+
+   -- Remove "Bonus Rolls" option
+   options.args.mlSettings.args.generalTab.args.lootingOptions.args.saveBonusRolls = nil
 
    return options
 end
