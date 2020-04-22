@@ -27,25 +27,25 @@ function addon:OptionsTable ()
    end
    -- Usage options
    options.args.mlSettings.args.generalTab.args.usageOptions.args.usage.values = {
-      	ml 			= LC["opt_usage_ml"],
-			ask_ml		= LC["opt_usage_ask_ml"],
-		--	leader 		= "Always use RCLootCouncil when I'm the group leader and enter a raid",
-		--	ask_leader	= "Ask me every time I'm the group leader and enter a raid",
-			never			= L["Never use RCLootCouncil"],
+      ml = LC["opt_usage_ml"],
+      ask_ml = LC["opt_usage_ask_ml"],
+      --	leader 		= "Always use RCLootCouncil when I'm the group leader and enter a raid",
+      --	ask_leader	= "Ask me every time I'm the group leader and enter a raid",
+      never = L["Never use RCLootCouncil"],
    }
    options.args.mlSettings.args.generalTab.args.usageOptions.args.leaderUsage = { -- Add leader options here since we can only make a single select dropdown
-		order = 3,
-		name = function() return self.db.profile.usage.ml and LC["opt_usage_leader_always"] or LC["opt_usage_leader_ask"] end,
-		desc = LC["leaderUsage_desc"],
-		type = "toggle",
-		get = function() return self.db.profile.usage.leader or self.db.profile.usage.ask_leader end,
-		set = function(_, val)
-			self.db.profile.usage.leader, self.db.profile.usage.ask_leader = false, false -- Reset for zzzzz
-			if self.db.profile.usage.ml then self.db.profile.usage.leader = val end
-			if self.db.profile.usage.ask_ml then self.db.profile.usage.ask_leader = val end
-		end,
-		disabled = function() return self.db.profile.usage.never end,
-	}
+      order = 3,
+      name = function() return self.db.profile.usage.ml and LC["opt_usage_leader_always"] or LC["opt_usage_leader_ask"] end,
+      desc = LC["leaderUsage_desc"],
+      type = "toggle",
+      get = function() return self.db.profile.usage.leader or self.db.profile.usage.ask_leader end,
+      set = function(_, val)
+         self.db.profile.usage.leader, self.db.profile.usage.ask_leader = false, false -- Reset for zzzzz
+         if self.db.profile.usage.ml then self.db.profile.usage.leader = val end
+         if self.db.profile.usage.ask_ml then self.db.profile.usage.ask_leader = val end
+      end,
+      disabled = function() return self.db.profile.usage.never end,
+   }
 
    -- Disable "Allow Keeping" and "Trade Messages" options
    options.args.mlSettings.args.generalTab.args.lootingOptions.args.printCompletedTrades = nil

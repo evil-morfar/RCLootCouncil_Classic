@@ -1,9 +1,7 @@
 --- Fixed for retail RCLootCouncil function that doesn't function properly in Classic
 local _, addon = ...
 local private = {}
-local RCClassic = addon:GetModule("RCClassic")
 local L = LibStub("AceLocale-3.0"):GetLocale("RCLootCouncil")
-local LC = LibStub("AceLocale-3.0"):GetLocale("RCLootCouncil_Classic")
 
 ----------------------------------------------
 -- Core
@@ -76,7 +74,7 @@ function addon:Test (num, fullTest, trinketTest)
 	end
 
    local items = {}
-   for i = 1, num do
+   for i = 1, num do --luacheck: ignore
 		local j = math.random(1, #testItems)
 		tinsert(items, testItems[j])
 	end

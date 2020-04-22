@@ -7,10 +7,10 @@ local HistoryFrame = addon:GetModule("RCLootHistory")
 local hooks = {}
 
 function Classic:DoHooks ()
-   for num, data in pairs(hooks) do
+   for _, data in pairs(hooks) do
       if data.type == "raw" then
          Classic:RawHook(data.object, data.ref, data.func)
-      elseif data.type == "script" then
+      --elseif data.type == "script" then
 
       else
          Classic:Hook(data.object, data.ref, data.func)
