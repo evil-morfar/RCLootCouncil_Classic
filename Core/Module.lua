@@ -181,16 +181,31 @@ function addon:GetML()
       end
       self:Debug("MasterLooter = ", name)
       return IsMasterLooter(), name
+   elseif lootMethod == "group" then
+      -- Set the Group leader as the ML
+	     local name
+      for i=1, GetNumGroupMembers() or 0 do
+	      local name2, rank = GetRaidRosterInfo(i)
+         if not name2 then -- Group info is not completely ready
+            return false, "Unknown"
+         end
+         if rank == 2 then -- Group leader. Btw, name2 can be nil when rank is 2.
+            name = self:UnitName(name2)
+         end
+      end
+      if name then
+         return UnitIsGroupLeader("player"), name
+      end
    end
    return false, nil;
 end
 
 function addon:StartHandleLoot()
-   local lootMethod = GetLootMethod()
-   if lootMethod ~= "master" and GetNumGroupMembers() > 0 then
-      self:Print(L["Changing LootMethod to Master Looting"])
-      SetLootMethod("master", self.Ambiguate(self.playerName)) -- activate ML
-   end
+   -- local lootMethod = GetLootMethod()
+   -- if lootMethod ~= "master" and GetNumGroupMembers() > 0 then
+   --    self:Print(L["Changing LootMethod to Master Looting"])
+   --    SetLootMethod("master", self.Ambiguate(self.playerName)) -- activate ML
+   -- end
    if db.autoAward and GetLootThreshold() ~= 2 and GetLootThreshold() > db.autoAwardLowerThreshold then
       self:Print(L["Changing loot threshold to enable Auto Awarding"])
       SetLootThreshold(db.autoAwardLowerThreshold >= 2 and db.autoAwardLowerThreshold or 2)
