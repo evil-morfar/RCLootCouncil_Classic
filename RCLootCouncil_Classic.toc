@@ -1,6 +1,6 @@
 ## Author: Potdisc
 ## Interface: 11304
-## Notes: RCLootCouncil for WoW Classic v0.9.0-Beta.1
+## Notes: RCLootCouncil for WoW Classic v0.9.0
 ## Title: RCLootCouncil Classic
 ## Version: 0.9.0
 ## X-Curse-Project-ID: 332955

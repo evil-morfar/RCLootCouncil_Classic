@@ -1,9 +1,7 @@
 --- Fixed for retail RCLootCouncil function that doesn't function properly in Classic
 local _, addon = ...
 local private = {}
-local RCClassic = addon:GetModule("RCClassic")
 local L = LibStub("AceLocale-3.0"):GetLocale("RCLootCouncil")
-local LC = LibStub("AceLocale-3.0"):GetLocale("RCLootCouncil_Classic")
 
 ----------------------------------------------
 -- Core
@@ -76,7 +74,7 @@ function addon:Test (num, fullTest, trinketTest)
 	end
 
    local items = {}
-   for i = 1, num do
+   for i = 1, num do --luacheck: ignore
 		local j = math.random(1, #testItems)
 		tinsert(items, testItems[j])
 	end
@@ -104,13 +102,17 @@ end
 local enchanting_localized_name = nil
 function addon:GetPlayerInfo ()
    local enchant, lvl = nil, 0
-   if not enchanting_localized_name then
+   if not enchanting_localized_name then	   
       enchanting_localized_name = GetSpellInfo(7411)
    end
-   if GetSpellBookItemInfo(enchanting_localized_name) then
-      -- We know enchanting, thus are an enchanter. We don't know our lvl though.
-      enchant = true
-      lvl = "< 300"
+   for i = 1, GetNumSkillLines() do
+      -- Cycle through all lines under "Skill" tab on char
+      local skillName, _, _, skillRank, _, _, _, _, _, _, _, _, _ = GetSkillLineInfo(i)
+      if skillName == enchanting_localized_name then
+         -- We know enchanting, thus are an enchanter. And will return your lvl.
+         enchant = true
+         lvl = skillRank
+      end
    end
    -- GetAverageItemLevel() isn't implemented
    local ilvl = private.GetAverageItemLevel()

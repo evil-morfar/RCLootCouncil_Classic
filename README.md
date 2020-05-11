@@ -1,3 +1,7 @@
+[![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/evil-morfar/RCLootCouncil_Classic?include_prereleases)](https://www.curseforge.com/wow/addons/rclootcouncil-classic)
+[![Discord](https://img.shields.io/discord/427445230870986752?color=%237289DA&label=Discord)](http://discord.rclootcouncil.com)
+[![Patreon](https://img.shields.io/badge/patreon-donate-orange.svg)](https://patreon.com/rclootcouncil)
+
 # RCLootCouncil Classic
 World of Warcraft Classic port of [RCLootCouncil](https://www.curseforge.com/wow/addons/rclootcouncil).
 

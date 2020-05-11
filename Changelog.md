@@ -1,5 +1,4 @@
-# v0.9.0-Beta.1
-## Updated RCLootCouncil to v2.19.0-Beta.1
+## Updated RCLootCouncil to v2.19.0
 *Only Classic relevant changes listed here-*
 ### Changes
 
@@ -30,11 +29,13 @@ Once the player has voted, the list is sorted as normal.
 * *Loot should no longer linger in the Session Frame after leaving the instance (CurseClassic#41).*
 * *Multiple items can be automatically added to a pending trade at once.*
 * *Moving responses up/down in the options menu now properly updates their sorting position (Classic#18).*
-* *Fixed issues with TradeUI and multiple copies of the same item.*
 * *Deleting history older than a specified number of days now works correctly.*
 
 ## Additions
 * Added patch 1.13.4 to history delete options.
+
+### Enchant Level
+The disenchant menu now includes the exact level of the (dis)enchanter. Thanks to Keionu for the addition (#20).
 
 
 ## Bugfixes
