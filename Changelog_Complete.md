@@ -35,6 +35,9 @@ Once the player has voted, the list is sorted as normal.
 ## Additions
 * Added patch 1.13.4 to history delete options.
 
+### Enchant Level
+The disenchant menu now includes the exact level of the (dis)enchanter. Thanks to Keionu for the addition (#20).
+
 
 ## Bugfixes
 * *The Classic Module is no longer listed as outdated with other modules.*
