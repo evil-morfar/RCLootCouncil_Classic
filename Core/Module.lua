@@ -7,7 +7,7 @@ local db
 
 function ClassicModule:OnInitialize()
    self.version = GetAddOnMetadata("RCLootCouncil_Classic", "Version")
-   self.tVersion = "Beta.1"
+   self.tVersion = nil
    self.debug = false
    self.nnp = false
    addon.isClassic = true
@@ -84,8 +84,8 @@ function ClassicModule:LootOpened (...)
                   }
                end
             else -- It's possible that item in the loot window is uncached. Retry in the next frame.
-               addon:Debug("Loot uncached when the loot window is opened. Retry in the next frame.", name, count or 0)
                local autoloot, count = ...
+               addon:Debug("Loot uncached when the loot window is opened. Retry in the next frame.", name, count or 0)
                if not count then
                   count = 1
                else
