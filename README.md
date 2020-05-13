@@ -27,9 +27,6 @@ The options menu have been updated with settings of old regarding Master Looting
 * **Auto Pass**  
 Updated for Classic. Auto passes are only performed on items the player can't equip, as feedback has convinced me that armor type based auto passing doesn't fit Classic.
 
-* **Enchanting Level**  
-I haven't found a good way to precisely get a candidate's Enchanting level, so for now it will be displayed as "< 300".
-
 
 ### Removed
 The following features are completely removed:
