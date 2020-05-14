@@ -1,3 +1,6 @@
+## Bugfixes
+*Fixed issue with occasional uncached loot.*
+
 # v0.9.0
 ## Updated RCLootCouncil to v2.19.0
 *Only Classic relevant changes listed here-*
