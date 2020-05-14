@@ -6,10 +6,9 @@ local Classic = addon:GetModule("RCClassic")
 local List = {}
 Classic.Lists = List
 
----------------------------------------------------
--- Zul'Gurub
----------------------------------------------------
-List.ZG_Coins = {
+List.RepItems = {
+   -- Zul'Gurub
+   -- Coins
    [19698] = "Zulian Coin",
    [19699] = "Razzashi Coin",
    [19700] = "Hakkari Coin",
@@ -19,9 +18,7 @@ List.ZG_Coins = {
    [19704] = "Sandfury Coin",
    [19705] = "Skullsplitter Coin",
    [19706] = "Bloodscalp Coin",
-}
-
-List.ZG_Bijous = {
+   -- Bijous
    [19707] = "Red Hakkari Bijou",
    [19708] = "Blue Hakkari Bijou",
    [19709] = "Yellow Hakkari Bijou",
@@ -31,4 +28,6 @@ List.ZG_Bijous = {
    [19713] = "Bronze Hakkari Bijou",
    [19714] = "Silver Hakkari Bijou",
    [19715] = "Gold Hakkari Bijou",
+   [7074] = "Cipped",
+   [4865] = "Pelt"
 }
