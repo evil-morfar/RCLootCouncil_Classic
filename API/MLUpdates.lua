@@ -81,7 +81,6 @@ function MLModule:AutoAward (lootIndex, item, quality, name, mode, boss, owner)
       or mode == "rep_item" and db.autoAwardRepItemsReason
       or db.autoAwardReason
       addon:Print(format(L["Auto awarded 'item'"], item))
-		addon:SendCommand("group", "do_trade", owner, item, name)
 		self:AnnounceAward(name, item, db.awardReasons[reason].text, nil, nil, nil, owner)
 		self:TrackAndLogLoot(name, item, reason, boss, db.awardReasons[reason],nil,nil, owner)
 		return true
