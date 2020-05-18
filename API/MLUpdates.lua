@@ -73,11 +73,24 @@ function MLModule:ShouldAutoAward (item, quality)
 end
 
 function MLModule:AutoAward (lootIndex, item, quality, name, mode, boss, owner)
+   addon:DebugLog("ML_Classic:AutoAward", lootIndex, item, quality, name, mode, boss, owner)
+   local db = addon:Getdb()
+   -- Special case for group loot:
+   if addon.lootMethod == "group" then
+      local reason = mode == "boe" and db.autoAwardBoEReason
+      or mode == "rep_item" and db.autoAwardRepItemsReason
+      or db.autoAwardReason
+      addon:Print(format(L["Auto awarded 'item'"], item))
+		addon:SendCommand("group", "do_trade", owner, item, name)
+		self:AnnounceAward(name, item, db.awardReasons[reason].text, nil, nil, nil, owner)
+		self:TrackAndLogLoot(name, item, reason, boss, db.awardReasons[reason],nil,nil, owner)
+		return true
+   end
+
    if mode ~= "rep_item" then
       return orig_AutoAward(MLModule, lootIndex, item, quality, name, mode, boss, owner)
    elseif mode == "rep_item" then
       name = addon:UnitName(name)
-      addon:DebugLog("ML_Classic:AutoAward", lootIndex, item, quality, name, mode, boss, owner)
       local canGiveLoot, cause = self:CanGiveLoot(lootIndex, item, name)
 
       if not canGiveLoot then
@@ -87,7 +100,6 @@ function MLModule:AutoAward (lootIndex, item, quality, name, mode, boss, owner)
       else
          MLModule:GiveLoot(lootIndex, name, function(awarded, cause)
             if awarded then
-               local db = addon:Getdb()
                local reason = db.autoAwardRepItemsReason
                addon:Print(format(L["Auto awarded 'item'"], item))
                MLModule:AnnounceAward(name, item, db.awardReasons[reason].text)
@@ -121,11 +133,7 @@ function MLModule:LootOpened()
 					local autoAward, mode, winner = self:ShouldAutoAward(item, quality)
 
 					if autoAward and quantity > 0 then
-                  if addon.lootMethod == "master" then
-                     self:AutoAward(i, item, quality, winner, mode, addon.bossName)
-                  else
-                     -- TODO Make auto awards work with GL
-                  end
+                  self:AutoAward(i, item, quality, winner, mode, addon.bossName)
 
 					elseif item and self:CanWeLootItem(item, quality) and quantity > 0 then -- check if our options allows us to loot it
                   if addon.lootMethod == "master" then
