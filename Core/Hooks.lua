@@ -76,7 +76,7 @@ tinsert(hooks, {
    func = function ()
       -- Version checker should handle Classic Module, as it's lifted to be the main version.
       -- Not doing this would result in both `RCLootCouncil` and `module RCLootCouncil_Classic` is outdated prints.
-      addon.moduleVerCheckDisplayed[RCClassic.baseName] = true
+      addon.moduleVerCheckDisplayed[Classic.baseName] = true
    end
 })
 

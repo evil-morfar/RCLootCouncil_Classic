@@ -42,6 +42,7 @@ Locale\Locales.xml
 Core\Module.lua
 Core\Hooks.lua
 Core\Autopass.lua
+Core\Lists.lua
 
 ## Overrides
 API\RCLootCouncilUpdates.lua
