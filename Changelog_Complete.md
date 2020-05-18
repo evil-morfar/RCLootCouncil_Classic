@@ -1,3 +1,11 @@
+## Additions
+### Group Loot
+Added support for usage with group loot.
+The group leader must enable this in the `Usage Options`.
+When enabled, the group leader is treated as the Master Looter for all intents and purposes.
+The group leader will still need to loot all mobs to have items added to a session, but doesn't need to keep the loot list open to award items.
+**Note:** This addition only facilitates the use of RCLootCouncil with group loot, but does nothing to circumvent the limitations of said loot method.
+
 # v0.9.0-Beta.1
 ## Updated RCLootCouncil to v2.19.0-Beta.1
 *Only Classic relevant changes listed here-*

@@ -68,5 +68,13 @@ function addon:OptionsTable ()
    -- Remove "Bonus Rolls" option
    options.args.mlSettings.args.generalTab.args.lootingOptions.args.saveBonusRolls = nil
 
+   -- Group Loot
+   options.args.mlSettings.args.generalTab.args.usageOptions.args.useWithGroupLoot = {
+      order = 3,
+      name = "Use with Group Loot",
+      desc = "Enable this to have RCLootCouncil work with group loot when you're the group leader.",
+      type = "toggle"
+   }
+
    return options
 end

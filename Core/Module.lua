@@ -9,7 +9,7 @@ function ClassicModule:OnInitialize()
    self.version = GetAddOnMetadata("RCLootCouncil_Classic", "Version")
    self.tVersion = "Beta.1"
    self.debug = false
-   self.nnp = false
+   self.nnp = true
    addon.isClassic = true
    db = addon:Getdb()
 
@@ -135,6 +135,16 @@ function addon:NewMLCheck()
    -- Check if we can use in party
    if not IsInRaid() and db.onlyUseInRaids then return end
 
+   -- Don't do popups if we're already handling loot
+	if self.handleLoot then return end
+
+	-- Don't do pop-ups in pvp
+	local _, type = IsInInstance()
+	if type == "arena" or type == "pvp" then return end
+
+   -- Check for group loot
+   if addon.lootMethod == "group" and not db.useWithGroupLoot then return end
+
    -- We are ML and shouldn't ask the player for usage
    if self.isMasterLooter and db.usage.ml then -- addon should auto start
       self:StartHandleLoot()
@@ -164,12 +174,13 @@ end
 
 function addon:GetML()
    self:DebugLog("GetML()")
+   local lootMethod, mlPartyID, mlRaidID = GetLootMethod()
+   addon.lootMethod = lootMethod
+   self:Debug("LootMethod = ", lootMethod)
    if GetNumGroupMembers() == 0 and (self.testMode or self.nnp) then -- always the player when testing alone
       self:ScheduleTimer("Timer", 5, "MLdb_check")
       return true, self.playerName
    end
-   local lootMethod, mlPartyID, mlRaidID = GetLootMethod()
-   self:Debug("LootMethod = ", lootMethod)
    if lootMethod == "master" then
       local name;
       if mlRaidID then -- Someone in raid
@@ -183,7 +194,7 @@ function addon:GetML()
       return IsMasterLooter(), name
    elseif lootMethod == "group" then
       -- Set the Group leader as the ML
-	     local name
+	   local name
       for i=1, GetNumGroupMembers() or 0 do
 	      local name2, rank = GetRaidRosterInfo(i)
          if not name2 then -- Group info is not completely ready
@@ -201,11 +212,13 @@ function addon:GetML()
 end
 
 function addon:StartHandleLoot()
-   -- local lootMethod = GetLootMethod()
-   -- if lootMethod ~= "master" and GetNumGroupMembers() > 0 then
-   --    self:Print(L["Changing LootMethod to Master Looting"])
-   --    SetLootMethod("master", self.Ambiguate(self.playerName)) -- activate ML
-   -- end
+   local lootMethod = GetLootMethod()
+   if lootMethod == "group" and db.useWithGroupLoot then -- luacheck: ignore
+      -- Do nothing.
+   elseif lootMethod ~= "master" and GetNumGroupMembers() > 0 then
+      self:Print(L["Changing LootMethod to Master Looting"])
+      SetLootMethod("master", self.Ambiguate(self.playerName)) -- activate ML
+   end
    if db.autoAward and GetLootThreshold() ~= 2 and GetLootThreshold() > db.autoAwardLowerThreshold then
       self:Print(L["Changing loot threshold to enable Auto Awarding"])
       SetLootThreshold(db.autoAwardLowerThreshold >= 2 and db.autoAwardLowerThreshold or 2)
@@ -228,7 +241,7 @@ function ClassicModule:OnLootOpen()
    if addon.handleLoot then
       wipe(addon.modules.RCLootCouncilML.lootQueue)
       if not InCombatLockdown() then
-         addon.modules.RCLootCouncilML:LootOpened() -- REVIEW Consider porting this function.
+         addon.modules.RCLootCouncilML:LootOpened()
       else
          addon:Print(L["You can't start a loot session while in combat."])
       end

@@ -24,6 +24,8 @@ addon.defaults.profile.usage = {
    state = "ask_ml"
 }
 
+addon.defaults.profile.useWithGroupLoot = false
+
 -- Some Main Hand weapons are "Ranged" in Classic
 addon.INVTYPE_Slots.INVTYPE_RANGED = "RangedSlot"
 addon.INVTYPE_Slots.INVTYPE_RANGEDRIGHT = "RangedSlot"
