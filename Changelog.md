@@ -1,44 +1,15 @@
-## Updated RCLootCouncil to v2.19.0
-*Only Classic relevant changes listed here-*
-### Changes
-
-#### Award Later
-When `Award Later` and `Auto Start` both are enabled, all items are automatically awarded to the Master Looter/Group Leader for award later.
-
-I generally don't recommend enabling `Auto Start` as you will have no control over what happens before setting the addon free to do its thing.
-This is especially dangerous with `Award Later`, as ALL eligible items will be awarded automatically.  
-**You have been warned.**
-
-#### Boss Name in History
-The boss name is now directly attached to items, meaning no matter when you award items the boss name should be correct in the Loot History.
-This would not be the case earlier if another boss was pulled before awarding registered items.
-
-#### Classic
-The retail version will now show a chat message if installed in the Classic client and vice versa, before disabling itself.
-
-#### Error Handler
-RCLootCouncil will now log any lua errors caused by it.
-This will help in debugging errors as users are no longer required to turn on scriptErrors to register them.
-
-#### Voting Frame
-When `Hide Votes` is enabled, the Voting Frame will no longer sort the list when receiving votes from other councilmembers.
-Once the player has voted, the list is sorted as normal.
-
-### Bugfixes
-* *Fixed another issue with EQdkp Plus XML export introduced with v2.18.3.*
-* *Loot should no longer linger in the Session Frame after leaving the instance (CurseClassic#41).*
-* *Multiple items can be automatically added to a pending trade at once.*
-* *Moving responses up/down in the options menu now properly updates their sorting position (Classic#18).*
-* *Deleting history older than a specified number of days now works correctly.*
-
 ## Additions
-* Added patch 1.13.4 to history delete options.
+### Auto Award Reputation Items
+Added a new auto award section for reputation items. These currently includes Coins and Bijous from Zul'Gurub.
+They can be auto awarded two ways:
+1. To a specfied player, just as the other auto awards.
+2. In a round robin fashion, in which all players will get one before anyone getting a second.
 
-### Enchant Level
-The disenchant menu now includes the exact level of the (dis)enchanter. Thanks to Keionu for the addition (#20).
+Note that the Master Looter will still have to loot the mobs in either case.
 
-
-## Bugfixes
-* *The Classic Module is no longer listed as outdated with other modules.*
-* *Added another fix for the occasional report of the classic module being out of date (Curse#43).*
-* *Fixed issue with detecting the Master Looter after doing a /reload in raid (Curse#36).*
+### Group Loot
+Added support for usage with group loot.
+The group leader must enable this in the `Usage Options`.
+When enabled, the group leader is treated as the Master Looter for all intents and purposes.
+The group leader will still need to loot all mobs to have items added to a session, but doesn't need to keep the loot list open to award items.
+**Note:** This addition only facilitates the use of RCLootCouncil with group loot, but does nothing to circumvent the limitations of said loot method.
