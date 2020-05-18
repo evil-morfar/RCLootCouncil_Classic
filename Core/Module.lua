@@ -84,7 +84,7 @@ function ClassicModule:LootOpened (...)
                   }
                end
             else -- It's possible that item in the loot window is uncached. Retry in the next frame.
-               local autoloot, count = ...
+               local _, autoloot, count = ...
                addon:Debug("Loot uncached when the loot window is opened. Retry in the next frame.", name, count or 0)
                if not count then
                   count = 1
@@ -93,7 +93,7 @@ function ClassicModule:LootOpened (...)
                end
                -- NOTE: 21/3-20 Add some diminishing returns on this, as we apparently can't rely on it being ready in the next frame
                -- according to recent issues
-               return self:ScheduleTimer("LootOpened", count / 10, autoloot, count)
+               return self:ScheduleTimer("LootOpened", count / 10, "LOOT_OPENED", autoloot, count)
             end
          end
       end
