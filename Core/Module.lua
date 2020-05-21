@@ -7,7 +7,7 @@ local db
 
 function ClassicModule:OnInitialize()
    self.version = GetAddOnMetadata("RCLootCouncil_Classic", "Version")
-   self.tVersion = "Beta.1"
+   self.tVersion = "Beta.2"
    self.debug = false
    self.nnp = false
    addon.isClassic = true
