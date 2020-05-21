@@ -47,11 +47,25 @@ function ClassicModule:OnEnable ()
 
    self:RegisterEvent("LOOT_OPENED", "LootOpened")
    self:RegisterEvent("LOOT_CLOSED", "LootClosed")
+   self:CandidateCheck()
 end
 
 function ClassicModule:RegisterAddonComms ()
    addon:RegisterComm("RCLootCouncil")
    addon:RegisterComm("RCLCv")
+end
+
+-- v0.9.x: Due to the change in registering comms, a /reload can cause
+-- candidates to be sent, but not received locally as comms are not yet
+-- registered, which MLModule relies on.
+-- This function is run after comms initialization and simply resends
+-- candidates if needed.
+function ClassicModule:CandidateCheck ()
+   local ML = addon:GetActiveModule("masterlooter")
+   if ML.timers and ML.timers.candidates_cooldown then
+      ML.timers.candidates_cooldown = nil
+      ML:SendCandidates()
+   end
 end
 
 function ClassicModule:LootOpened (...)

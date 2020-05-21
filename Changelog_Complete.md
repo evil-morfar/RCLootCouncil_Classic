@@ -1,3 +1,6 @@
+## Bugfixes
+*Fixed desync issue when ML reloaded in groups (#21, Curse#61, Curse#62).*
+
 # v0.9.1
 ## Updated RCLootCouncil to v2.19.1
 ### Changes
