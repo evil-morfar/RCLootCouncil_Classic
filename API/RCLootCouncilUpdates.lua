@@ -102,7 +102,7 @@ end
 local enchanting_localized_name = nil
 function addon:GetPlayerInfo ()
    local enchant, lvl = nil, 0
-   if not enchanting_localized_name then	   
+   if not enchanting_localized_name then
       enchanting_localized_name = GetSpellInfo(7411)
    end
    for i = 1, GetNumSkillLines() do
