@@ -127,7 +127,7 @@ end
 function addon:NewMLCheck()
    local old_ml = self.masterLooter
    self.isMasterLooter, self.masterLooter = self:GetML()
-   if self.masterLooter and self.masterLooter ~= "" and (self.masterLooter == "Unknown" or self.masterLooter:lower() == _G.UNKNOWNOBJECT:lower()) then
+   if self.masterLooter and self.masterLooter ~= "" and (self.masterLooter == "Unknown" or Ambiguate(self.masterLooter, "short"):lower() == _G.UNKNOWNOBJECT:lower()) then
       -- ML might be unknown for some reason
       self:Debug("NewMLCheck", "Unknown ML")
       return self:ScheduleTimer("NewMLCheck", 1)
