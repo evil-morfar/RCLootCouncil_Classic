@@ -16,6 +16,10 @@ The group leader will still need to loot all mobs to have items added to a sessi
 **Note:** This addition only facilitates the use of RCLootCouncil with group loot, but does nothing to circumvent the limitations of said loot method.
 
 
+# v0.9.3
+## Bugfixes
+*Fixed issues on 'LootOpened' introduced in the last version (Curse#64,Curse#65,Curse#66).*
+
 # v0.9.2
 ## Bugfixes
 *Fixed desync issue when ML reloaded in groups (#21, Curse#61, Curse#62).*
