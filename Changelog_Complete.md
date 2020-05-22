@@ -1,3 +1,7 @@
+# v0.9.3
+## Bugfixes
+*Fixed issues on 'LootOpened' introduced in the last version (Curse#64,Curse#65,Curse#66).*
+
 # v0.9.2
 ## Bugfixes
 *Fixed desync issue when ML reloaded in groups (#21, Curse#61, Curse#62).*
