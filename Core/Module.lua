@@ -126,7 +126,9 @@ end
 ----------------------------------------------
 function addon:NewMLCheck()
    local old_ml = self.masterLooter
+   local old_lm = self.lootMethod
    self.isMasterLooter, self.masterLooter = self:GetML()
+   self.lootMethod = GetLootMethod()
    if self.masterLooter and self.masterLooter ~= "" and (self.masterLooter == "Unknown" or Ambiguate(self.masterLooter, "short"):lower() == _G.UNKNOWNOBJECT:lower()) then
       -- ML might be unknown for some reason
       self:Debug("NewMLCheck", "Unknown ML")
@@ -136,7 +138,9 @@ function addon:NewMLCheck()
       -- We were ML, but no longer, so disable masterlooter module
       self:GetActiveModule("masterlooter"):Disable()
    end
-   if self:UnitIsUnit(old_ml, self.masterLooter) then return self:DebugLog("NewMLCheck", "No ML Change") end -- no change
+   if self:UnitIsUnit(old_ml, self.masterLooter) and old_lm == self.lootMethod then
+      return self:DebugLog("NewMLCheck", "No ML Change") -- no change
+   end
    if db.usage.never then return self:DebugLog("NewMLCheck", "db.usage.never") end
    if self.masterLooter == nil then return end -- We're not using ML
    -- At this point we know the ML has changed, so we can wipe the council
