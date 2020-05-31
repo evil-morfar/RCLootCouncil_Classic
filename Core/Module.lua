@@ -51,6 +51,7 @@ function ClassicModule:OnEnable ()
 end
 
 function ClassicModule:RegisterAddonComms ()
+   self:DoCommsCompressFix()
    addon:RegisterComm("RCLootCouncil")
    addon:RegisterComm("RCLCv")
 end

@@ -44,6 +44,7 @@ Core\Module.lua
 Core\Hooks.lua
 Core\Autopass.lua
 Core\Lists.lua
+Core\Comms.lua
 
 ## Overrides
 API\RCLootCouncilUpdates.lua
