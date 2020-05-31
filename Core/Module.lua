@@ -51,6 +51,7 @@ function ClassicModule:OnEnable ()
 end
 
 function ClassicModule:RegisterAddonComms ()
+   self:DoCommsCompressFix()
    addon:RegisterComm("RCLootCouncil")
    addon:RegisterComm("RCLCv")
 end
@@ -126,7 +127,9 @@ end
 ----------------------------------------------
 function addon:NewMLCheck()
    local old_ml = self.masterLooter
+   local old_lm = self.lootMethod
    self.isMasterLooter, self.masterLooter = self:GetML()
+   self.lootMethod = GetLootMethod()
    if self.masterLooter and self.masterLooter ~= "" and (self.masterLooter == "Unknown" or Ambiguate(self.masterLooter, "short"):lower() == _G.UNKNOWNOBJECT:lower()) then
       -- ML might be unknown for some reason
       self:Debug("NewMLCheck", "Unknown ML")
@@ -136,7 +139,9 @@ function addon:NewMLCheck()
       -- We were ML, but no longer, so disable masterlooter module
       self:GetActiveModule("masterlooter"):Disable()
    end
-   if self:UnitIsUnit(old_ml, self.masterLooter) then return self:DebugLog("NewMLCheck", "No ML Change") end -- no change
+   if self:UnitIsUnit(old_ml, self.masterLooter) and old_lm == self.lootMethod then
+      return self:DebugLog("NewMLCheck", "No ML Change") -- no change
+   end
    if db.usage.never then return self:DebugLog("NewMLCheck", "db.usage.never") end
    if self.masterLooter == nil then return end -- We're not using ML
    -- At this point we know the ML has changed, so we can wipe the council
@@ -148,6 +153,16 @@ function addon:NewMLCheck()
 
    -- Check if we can use in party
    if not IsInRaid() and db.onlyUseInRaids then return end
+
+   -- Don't do popups if we're already handling loot
+	if self.handleLoot then return end
+
+	-- Don't do pop-ups in pvp
+	local _, type = IsInInstance()
+	if type == "arena" or type == "pvp" then return end
+
+   -- Check for group loot
+   if addon.lootMethod == "group" and not db.useWithGroupLoot then return end
 
    -- We are ML and shouldn't ask the player for usage
    if self.isMasterLooter and db.usage.ml then -- addon should auto start
@@ -178,12 +193,13 @@ end
 
 function addon:GetML()
    self:DebugLog("GetML()")
+   local lootMethod, mlPartyID, mlRaidID = GetLootMethod()
+   addon.lootMethod = lootMethod
+   self:Debug("LootMethod = ", lootMethod)
    if GetNumGroupMembers() == 0 and (self.testMode or self.nnp) then -- always the player when testing alone
       self:ScheduleTimer("Timer", 5, "MLdb_check")
       return true, self.playerName
    end
-   local lootMethod, mlPartyID, mlRaidID = GetLootMethod()
-   self:Debug("LootMethod = ", lootMethod)
    if lootMethod == "master" then
       local name;
       if mlRaidID then -- Someone in raid
@@ -195,13 +211,30 @@ function addon:GetML()
       end
       self:Debug("MasterLooter = ", name)
       return IsMasterLooter(), name
+   elseif lootMethod == "group" then
+      -- Set the Group leader as the ML
+	   local name
+      for i=1, GetNumGroupMembers() or 0 do
+	      local name2, rank = GetRaidRosterInfo(i)
+         if not name2 then -- Group info is not completely ready
+            return false, "Unknown"
+         end
+         if rank == 2 then -- Group leader. Btw, name2 can be nil when rank is 2.
+            name = self:UnitName(name2)
+         end
+      end
+      if name then
+         return UnitIsGroupLeader("player"), name
+      end
    end
    return false, nil;
 end
 
 function addon:StartHandleLoot()
    local lootMethod = GetLootMethod()
-   if lootMethod ~= "master" and GetNumGroupMembers() > 0 then
+   if lootMethod == "group" and db.useWithGroupLoot then -- luacheck: ignore
+      -- Do nothing.
+   elseif lootMethod ~= "master" and GetNumGroupMembers() > 0 then
       self:Print(L["Changing LootMethod to Master Looting"])
       SetLootMethod("master", self.Ambiguate(self.playerName)) -- activate ML
    end
@@ -227,7 +260,7 @@ function ClassicModule:OnLootOpen()
    if addon.handleLoot then
       wipe(addon.modules.RCLootCouncilML.lootQueue)
       if not InCombatLockdown() then
-         addon.modules.RCLootCouncilML:LootOpened() -- REVIEW Consider porting this function.
+         addon.modules.RCLootCouncilML:LootOpened()
       else
          addon:Print(L["You can't start a loot session while in combat."])
       end

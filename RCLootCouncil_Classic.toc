@@ -1,8 +1,8 @@
 ## Author: Potdisc
 ## Interface: 11304
-## Notes: RCLootCouncil for WoW Classic v0.9.3
+## Notes: RCLootCouncil for WoW Classic v0.10.0
 ## Title: RCLootCouncil Classic
-## Version: 0.9.3
+## Version: 0.10.0
 ## X-Curse-Project-ID: 332955
 ## SavedVariables: RCLootCouncilDB, RCLootCouncilLootDB
 ## OptionalDeps: LibStub, CallbackHandler-1.0, Ace3, lib-st, LibWindow-1.1, LibDialog-1.0
@@ -13,6 +13,7 @@ API\Deprecations.lua
 RCLootCouncil\Patches\UiDropDownMenuTaintCommunities.lua
 
 RCLootCouncil\embeds.xml
+Libs\LibDeflate\LibDeflate.lua
 RCLootCouncil\Locale\Locales.xml
 
 RCLootCouncil\Core\Constants.lua
@@ -42,6 +43,8 @@ Locale\Locales.xml
 Core\Module.lua
 Core\Hooks.lua
 Core\Autopass.lua
+Core\Lists.lua
+Core\Comms.lua
 
 ## Overrides
 API\RCLootCouncilUpdates.lua
