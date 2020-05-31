@@ -1,3 +1,12 @@
+## Changes
+### Comms
+Due to recent changes from Blizzard side, all comms in WoW are now much more restricted. I've had an update for this in mind for a long time, but they decided to just do an undocumented edit, which limits my options.
+
+This update should be compatible with the new limits, but at the cost of backwards compatibility - i.e. any pre v0.10 version of the addon no longer works with v0.10 and up.
+
+### Sync
+Syncing history will most likely not be working due to the changes stated above, unless your history is very small. For various reasons I won't do a fix for that anytime soon, but remember you can always do `Player Export` and import that in the history, which does the same as the sync does.
+
 ## Additions
 ### Auto Award Reputation Items
 Added a new auto award section for reputation items. These currently includes Coins and Bijous from Zul'Gurub.
