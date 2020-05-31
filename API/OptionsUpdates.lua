@@ -68,5 +68,90 @@ function addon:OptionsTable ()
    -- Remove "Bonus Rolls" option
    options.args.mlSettings.args.generalTab.args.lootingOptions.args.saveBonusRolls = nil
 
+   -- Add Rep Items options
+   options.args.mlSettings.args.awardsTab.args.repItems = {
+      order = 1.5,
+      name = LC["Auto Award Reputation Items"],
+      type = "group",
+      inline = true,
+      disabled = function () return not self.db.profile.autoAwardRepItems  end,
+      args = {
+         autoAwardRepItems = {
+            order = 1,
+            name = LC["Auto Award Reputation Items"],
+            desc = LC["opt_autoAwardRepItems_desc"],
+            type = "toggle",
+            width = "double",
+            disabled = false
+         },
+         autoAwardRepItemsMode = {
+            order = 2,
+            name = _G.MODE,
+            desc = LC["opt_autoAwardRepItemsMode_desc"],
+            type = "select",
+            style = "dropdown",
+            values = self.defaults.profile.autoAwardRepItemsModeOptions,
+            set = function(_,k)
+               self.db.profile.autoAwardRepItemsMode = k
+            end
+         },
+         autoAwardRepItemsTo2 = {
+            order = 3,
+            name = L["Auto Award to"],
+				desc = L["auto_award_to_desc"],
+            width = "double",
+            type = "input",
+            hidden = function()
+               return GetNumGroupMembers() > 0
+               or self.db.profile.autoAwardRepItemsMode == "RR"
+             end,
+            get = function() return self.db.profile.autoAwardRepItemsTo end,
+            set = function(_,v) self.db.profile.autoAwardRepItemsTo = v end
+         },
+         autoAwardRepItemsTo = {
+            order = 3,
+				name = L["Auto Award to"],
+				desc = L["auto_award_to_desc"],
+            width = "double",
+				type = "select",
+				style = "dropdown",
+				values = function()
+					local t = {}
+					for i = 1, GetNumGroupMembers() do
+						local name = GetRaidRosterInfo(i)
+						t[name] = name
+					end
+					return t;
+				end,
+				hidden = function()
+               return GetNumGroupMembers() == 0
+               or self.db.profile.autoAwardRepItemsMode == "RR"
+            end,
+         },
+         autoAwardRepItemsReason = {
+            order = 4,
+				name = L["Reason"],
+				desc = L["reason_desc"],
+				type = "select",
+				style = "dropdown",
+				values = function()
+					local t = {}
+					for i = 1, self.db.profile.numAwardReasons do
+						t[i] = self.db.profile.awardReasons[i].text
+					end
+					return t
+				end,
+			},
+      }
+   }
+
+   -- Group Loot
+   options.args.mlSettings.args.generalTab.args.usageOptions.args.useWithGroupLoot = {
+      order = 3,
+      name = LC["opt_groupLoot_name"],
+      desc = LC["opt_groupLoot_desc"],
+      type = "toggle"
+   }
+
    return options
 end
