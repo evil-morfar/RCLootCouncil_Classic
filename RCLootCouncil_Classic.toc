@@ -13,6 +13,7 @@ API\Deprecations.lua
 RCLootCouncil\Patches\UiDropDownMenuTaintCommunities.lua
 
 RCLootCouncil\embeds.xml
+Libs\LibDeflate\LibDeflate.lua
 RCLootCouncil\Locale\Locales.xml
 
 RCLootCouncil\Core\Constants.lua
