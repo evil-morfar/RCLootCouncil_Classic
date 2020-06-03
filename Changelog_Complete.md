@@ -1,3 +1,8 @@
+# v0.10.1
+
+## Bugfixes
+*Syncing (/rc sync) is now also compressed.*
+
 # v0.10.0
 ## Changes
 ### Comms

@@ -49,6 +49,13 @@ function addon:SendCommand (target, command, ...)
 	end
 end
 
+-- Takes `serializedMsg`, so just compress and encode it.
+function addon:SendCommandModified (prefix, serializedMsg, channel, target, prio, ...)
+	local compressed = LD:CompressDeflate(serializedMsg)
+   local toSend = LD:EncodeForWoWAddonChannel(compressed)
+	self:SendCommMessage(prefix, toSend, channel, target, prio, ...)
+end
+
 local function decompressor (data)
    local decoded = LD:DecodeForWoWAddonChannel(data)
    if not decoded then error("Error decoding: " .. tostring(data)) end
