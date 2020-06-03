@@ -35,7 +35,7 @@ Syncing history will most likely not be working due to the changes stated above,
 ### Auto Award Reputation Items
 Added a new auto award section for reputation items. These currently includes Coins and Bijous from Zul'Gurub.
 They can be auto awarded two ways:
-1. To a specfied player, just as the other auto awards.
+1. To a specified player, just as the other auto awards.
 2. In a round robin fashion, in which all players will get one before anyone getting a second.
 
 Note that the Master Looter will still have to loot the mobs in either case.
