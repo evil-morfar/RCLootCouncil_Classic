@@ -58,10 +58,9 @@ end
 
 local function decompressor (data)
    local decoded = LD:DecodeForWoWAddonChannel(data)
-   if not decoded then error("Error decoding: " .. tostring(data)) end
+   if not decoded then return data end -- Assume it's a pre 0.10 message.
    local serializedMsg = LD:DecompressDeflate(decoded)
-   if not serializedMsg then error("Error decompressing: " .. decoded) end
-   return serializedMsg
+   return serializedMsg or ""
 end
 
 local function OnCommReceived (self, origHandler, prefix, compressedMessage, distri, sender)
