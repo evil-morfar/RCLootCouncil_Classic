@@ -1,3 +1,26 @@
+# v0.10.1
+*Note: Just a reminder that this is not compatible with pre v0.10 versions.*
+
+## Upgraded to RCLootCouncil v2.19.2
+### Changes
+#### Council comms
+Council comms is now throttled to avoid sending unnecessary comms.
+
+### Bugfixes
+*Bumped threshold for detecting ML awards for instability in Classic.*
+*Increased stability of ML/GL detection.*
+*Suppressed and logged occasional `lootQueue` error for future inspection.*
+
+## Changes
+### Comms
+Removed errors when receiving messages from pre v0.10 versions.
+Pre v0.10 version will again show up in the Version Checker instead of `Not Installed`.
+
+## Bugfixes
+*Syncing (/rc sync) is now also compressed.*
+*Sessions will no longer error out if candidates hadn't cached the items.*
+
+
 # v0.10.0
 ## Changes
 ### Comms
@@ -12,7 +35,7 @@ Syncing history will most likely not be working due to the changes stated above,
 ### Auto Award Reputation Items
 Added a new auto award section for reputation items. These currently includes Coins and Bijous from Zul'Gurub.
 They can be auto awarded two ways:
-1. To a specfied player, just as the other auto awards.
+1. To a specified player, just as the other auto awards.
 2. In a round robin fashion, in which all players will get one before anyone getting a second.
 
 Note that the Master Looter will still have to loot the mobs in either case.
