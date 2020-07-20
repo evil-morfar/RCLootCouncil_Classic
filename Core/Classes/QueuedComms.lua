@@ -51,17 +51,13 @@ function Object:TimerPulse ()
    current_cps = math.max(addon.round(current_cps - MAX_CPS * TIMER_DELAY, 1), 0)
    local size = Queue:Size()
    if size == 0 and current_cps <= 0.1 then
-      if debug then
-         self:Print("Queue and CPS is 0")
-      end
+      self:Log("Queue and CPS is 0")
       -- Cancel the timer
       self:CancelTimer(CommsTimer)
       CommsTimer = nil
       return
    end
-   if debug then
-      self:Print("New CPS:", current_cps)
-   end
+   self:Log("New CPS:", current_cps)
    while Queue:Size() > 0 do
       local Comm = Queue:Pop()
       -- Can we fit this comm within the current cps?
@@ -73,9 +69,7 @@ function Object:TimerPulse ()
          break
       end
    end
-   if debug then
-      self:Print(format("Sent %d messages - new CPS is %d - Queue:Size(): %d", size - Queue:Size(), current_cps, Queue:Size()))
-   end
+   self:Log(format("Sent %d messages - new CPS is %d - Queue:Size(): %d", size - Queue:Size(), current_cps, Queue:Size()))
 end
 
 -- `self` will point to `addon`
@@ -94,7 +88,7 @@ function Object:SendCommand (target, command, ...)
    if messages + current_cps > MAX_CPS then
       -- Queue
       Queue:Push({messages,target, command, {...}})
-      Object:Print(format("Throttled %s! Current CPS: %d, delayed: %d messages.", command,current_cps, messages))
+      Object:Log(format("Throttled %s! Current CPS: %d, delayed: %d messages.", command,current_cps, messages))
       -- Check timer
       if not CommsTimer then
          Object:InitTimer()
@@ -110,4 +104,10 @@ addon.SendCommand = Object.SendCommand
 
 function Object:InitTimer()
    CommsTimer = self:ScheduleRepeatingTimer("TimerPulse", TIMER_DELAY)
+end
+
+function Object:Log (...)
+   if debug then
+      self:Print(...)
+   end
 end
