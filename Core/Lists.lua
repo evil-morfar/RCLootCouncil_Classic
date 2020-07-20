@@ -29,5 +29,9 @@ List.RepItems = {
    [19714] = "Silver Hakkari Bijou",
    [19715] = "Gold Hakkari Bijou",
    [7074] = "Cipped",
-   [4865] = "Pelt"
+   [4865] = "Pelt",
+
+   -- Ahn'Qiraj
+   [21232] = "Imperial Qiraji Armaments",
+   [21237] = "Imperial Qiraji Regalia",
 }
