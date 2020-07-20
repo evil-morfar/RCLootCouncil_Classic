@@ -7,7 +7,7 @@ local CommsTimer = nil
 local MAX_CPS = 10 -- "Comms per second"
 local TIMER_DELAY = 1
 local current_cps = 0
-local debug = true
+local debug = false
 local Queue
 
 
