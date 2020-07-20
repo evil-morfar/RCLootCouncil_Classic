@@ -80,9 +80,7 @@ function Object:SendCommand (target, command, ...)
       -- A single message exceeds our max CPS.
       -- Will happen in retail, but shouldn't happend in classic with normal comms.
       -- It needs to get sent, so just lower it's size
-      if debug then
-         Object:Print(format("|cffff0000<WARNING>|r Message size %d being sent.", messages))
-      end
+      Object:Log(format("|cffff0000<WARNING>|r Message size %d being sent.", messages))
       messages = MAX_CPS
    end
    if messages + current_cps > MAX_CPS then
@@ -110,4 +108,5 @@ function Object:Log (...)
    if debug then
       self:Print(...)
    end
+   addon:DebugLog(...)
 end
