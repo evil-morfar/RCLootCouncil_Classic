@@ -1,7 +1,15 @@
 # v0.11.0
+## Changes
+### Comms
+Comms are now limited to a max of 10 per second in an attempt to fix the remaining comms issues. This change is fully backwards compatible.
+
+### Ahn'Qiraj
+Added Imperial Qiraji items to the round robin list.
 
 ## Bugfixes
 *Druids will now autopass polearms.*
+*Fixed 'lootQueue nil' errors. (CurseClassic #105, #106)*
+
 
 # v0.10.1
 *Note: Just a reminder that this is not compatible with pre v0.10 versions.*
