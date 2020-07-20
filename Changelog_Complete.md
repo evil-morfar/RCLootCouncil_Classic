@@ -1,3 +1,8 @@
+# v0.11.0
+
+## Bugfixes
+*Druids will now autopass polearms.*
+
 # v0.10.1
 *Note: Just a reminder that this is not compatible with pre v0.10 versions.*
 
