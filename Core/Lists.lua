@@ -29,5 +29,18 @@ List.RepItems = {
    [19714] = "Silver Hakkari Bijou",
    [19715] = "Gold Hakkari Bijou",
    [7074] = "Cipped",
-   [4865] = "Pelt"
+   [4865] = "Pelt",
+
+   -- Ahn'Qiraj
+   [21232] = "Imperial Qiraji Armaments",
+   [21237] = "Imperial Qiraji Regalia",
+   -- Scarabs
+   [20858] = "Stone Scarab",
+   [20859] = "Gold Scarab",
+   [20860] = "Silver Scarab",
+   [20861] = "Bronze Scarab",
+   [20862] = "Crystal Scarab",
+   [20863] = "Clay Scarab",
+   [20864] = "Bone Scarab",
+   [20865] = "Ivory Scarab",
 }
