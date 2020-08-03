@@ -7,7 +7,6 @@
 ## SavedVariables: RCLootCouncilDB, RCLootCouncilLootDB
 ## OptionalDeps: LibStub, CallbackHandler-1.0, Ace3, lib-st, LibWindow-1.1, LibDialog-1.0
 
-API\Deprecations.lua
 
 ## RCLootCouncil imports:
 RCLootCouncil\Patches\UiDropDownMenuTaintCommunities.lua
@@ -39,6 +38,7 @@ RCLootCouncil\Utils\sync.lua
 RCLootCouncil\Utils\popups.lua
 
 ## Classic Module
+API\Deprecations.lua
 Locale\Locales.xml
 Core\Module.lua
 Core\Hooks.lua
