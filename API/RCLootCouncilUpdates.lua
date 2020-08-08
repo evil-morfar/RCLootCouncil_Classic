@@ -132,15 +132,6 @@ function addon:GetPlayerInfo ()
    return self.playerName, self.playerClass, self.Utils:GetPlayerRole(), self.guildRank, enchant, lvl, ilvl, nil--self.playersData.specID
 end
 
--- Class tags needs updated as druids are number 11 and we have 8 classes
-do
-   local info = C_CreatureInfo.GetClassInfo(11)
-   addon.classDisplayNameToID[info.className] = 11
-   addon.classTagNameToID[info.classFile] = 11
-   addon.classIDToDisplayName = tInvert(addon.classDisplayNameToID)
-   addon.classIDToFileName = tInvert(addon.classTagNameToID)
-end
-
 function addon:UpdateAndSendRecentTradableItem()
    -- Intentionally left empty
 end

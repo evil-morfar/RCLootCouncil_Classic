@@ -38,7 +38,6 @@ RCLootCouncil\Utils\sync.lua
 RCLootCouncil\Utils\popups.lua
 
 ## Classic Module
-API\Deprecations.lua
 Locale\Locales.xml
 Core\Module.lua
 Core\Hooks.lua
