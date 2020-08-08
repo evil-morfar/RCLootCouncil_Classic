@@ -1,3 +1,10 @@
+# v0.11.1
+## Updated RCLootCouncil to v2.19.3
+### Bugfixes
+* *`/rc v 1` correctly prints a numbered list again.*
+* *History entries containing quotes are now properly escaped for JSON export.*
+
+
 # v0.11.0
 ## Changes
 ### Comms
