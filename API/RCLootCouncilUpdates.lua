@@ -1,5 +1,6 @@
 --- Fixed for retail RCLootCouncil function that doesn't function properly in Classic
 local _, addon = ...
+local Classic = addon:GetModule("RCClassic")
 local private = {}
 local L = LibStub("AceLocale-3.0"):GetLocale("RCLootCouncil")
 local LC = LibStub("AceLocale-3.0"):GetLocale("RCLootCouncil_Classic")
@@ -132,17 +133,37 @@ function addon:GetPlayerInfo ()
    return self.playerName, self.playerClass, self.Utils:GetPlayerRole(), self.guildRank, enchant, lvl, ilvl, nil--self.playersData.specID
 end
 
--- Class tags needs updated as druids are number 11 and we have 8 classes
-do
-   local info = C_CreatureInfo.GetClassInfo(11)
-   addon.classDisplayNameToID[info.className] = 11
-   addon.classTagNameToID[info.classFile] = 11
-   addon.classIDToDisplayName = tInvert(addon.classDisplayNameToID)
-   addon.classIDToFileName = tInvert(addon.classTagNameToID)
-end
-
 function addon:UpdateAndSendRecentTradableItem()
    -- Intentionally left empty
+end
+
+local function getGearForAQTokens (itemID)
+   local entry = Classic.Lists.Specials[itemID]
+   if #entry > 1 then
+      local items = {true, true}
+      for i = 1, 2 do
+         items[i] = GetInventoryItemLink("player", GetInventorySlotInfo(entry[i]))
+      end
+      if not items[1] then return items[2] end
+      return unpack(items)
+   elseif entry[1] == "Weapon" then
+      return GetInventoryItemLink("player", GetInventorySlotInfo("MainHandSlot")), GetInventoryItemLink("player", GetInventorySlotInfo("SecondaryHandSlot"))
+   else
+      return GetInventoryItemLink("player", GetInventorySlotInfo(entry[1]))
+   end
+end
+
+
+-- AQ Tokens handling
+-- AQ Tokens are quest items that fits multiple slots.
+-- We need to do a bit of a hack to handle these.
+function addon:GetGear(link, equipLoc)
+   local itemID = self.Utils:GetItemIDFromLink(link)
+   if Classic.Lists.Specials[itemID] then
+      return getGearForAQTokens(itemID)
+   else
+	   return self:GetPlayersGear(link, equipLoc, addon.playersData.gears) -- Use gear info we stored before
+   end
 end
 ----------------------------------------------
 -- Utils
