@@ -32,8 +32,6 @@ List.RepItems = {
    [4865] = "Pelt",
 
    -- Ahn'Qiraj
-   [21232] = "Imperial Qiraji Armaments",
-   [21237] = "Imperial Qiraji Regalia",
    -- Scarabs
    [20858] = "Stone Scarab",
    [20859] = "Gold Scarab",
