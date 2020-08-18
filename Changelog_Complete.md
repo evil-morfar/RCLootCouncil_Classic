@@ -4,6 +4,10 @@
 * *`/rc v 1` correctly prints a numbered list again.*
 * *History entries containing quotes are now properly escaped for JSON export.*
 
+## Changes
+### AQ Tokens
+RCLootCouncil now displays a candidates currently equipped items for AQ Tier 2.5 tokens - including those that can be awarded for multiple slots.
+
 
 # v0.11.0
 ## Changes

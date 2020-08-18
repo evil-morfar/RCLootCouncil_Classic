@@ -42,3 +42,24 @@ List.RepItems = {
    [20864] = "Bone Scarab",
    [20865] = "Ivory Scarab",
 }
+
+List.Specials = {
+   -- AQ Tier 2.5 tokens
+   -- AQ20
+   [20884] = {"Finger0Slot", "Finger1Slot"}, -- Magisterial Ring
+   [20885] = {"BackSlot"}, -- Martial Drape
+   [20886] = {"Weapon"}, -- Spiked Hilt
+   [20888] = {"Finger0Slot", "Finger1Slot"}, -- Ceremonial Ring
+   [20889] = {"BackSlot"}, -- Regal Drape
+   [20890] = {"Weapon"}, -- Ornate Hilt
+   -- AQ40
+   [20926] = {"HeadSlot"}, -- Vek'nilash's Circlet
+   [20927] = {"LegsSlot"}, -- Ouro's Intact Hide
+   [20928] = {"ShoulderSlot", "FeetSlot"}, -- Bindings of Command
+   [20929] = {"HeadSlot"}, -- Veklors Diadem
+   [20930] = {"ChestSlot"}, -- Carapace of the Old God
+   [20931] = {"LegsSlot"}, -- Skin of the Great Sandworm
+   [20932] = {"ShoulderSlot", "FeetSlot"}, -- Bindings of Dominance
+   [20933] = {"ChestSlot"}, -- Husk of the Old God
+
+}
