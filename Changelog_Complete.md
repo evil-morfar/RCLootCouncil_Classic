@@ -1,3 +1,9 @@
+# v0.11.2
+
+## Bugfixes
+* *Fixed Druid related issues causing all kinds of trouble in the latest version (CurseClassic#112,#113,#114).*
+
+
 # v0.11.1
 ## Updated RCLootCouncil to v2.19.3
 ### Bugfixes

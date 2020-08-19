@@ -36,6 +36,7 @@ function ClassicModule:OnEnable ()
 
    self:RegisterAddonComms()
    self:DoHooks()
+   addon:InitClassIDs()
 
    -- Remove "role" and corruption column
    local vf = addon:GetModule("RCVotingFrame")
