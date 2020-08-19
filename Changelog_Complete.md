@@ -1,5 +1,4 @@
 # v0.11.2
-
 ## Bugfixes
 * *Fixed Druid related issues causing all kinds of trouble in the latest version (CurseClassic#112,#113,#114).*
 * *Fixed error on Guild Council Members options page.*
