@@ -71,20 +71,15 @@ tinsert(hooks, {
 
 tinsert(hooks, {
    object = addon,
-   ref = "OnInitialize",
-   type = "post",
+   ref = "InitClassIDs",
+   type = "raw",
    func = function ()
-      -- Version checker should handle Classic Module, as it's lifted to be the main version.
-      -- Not doing this would result in both `RCLootCouncil` and `module RCLootCouncil_Classic` is outdated prints.
-      addon.moduleVerCheckDisplayed[Classic.baseName] = true
-      -- Class tags needs updated as druids are number 11 and we have 8 classes
-      do
-         local info = C_CreatureInfo.GetClassInfo(11)
-         addon.classDisplayNameToID[info.className] = 11
-         addon.classTagNameToID[info.classFile] = 11
-         addon.classIDToDisplayName = tInvert(addon.classDisplayNameToID)
-         addon.classIDToFileName = tInvert(addon.classTagNameToID)
-      end
+      -- Class tags needs updated as druids are number 11 and we have 9 classes
+      local info = C_CreatureInfo.GetClassInfo(11)
+      addon.classDisplayNameToID[info.className] = 11
+      addon.classTagNameToID[info.classFile] = 11
+      addon.classIDToDisplayName = tInvert(addon.classDisplayNameToID)
+      addon.classIDToFileName = tInvert(addon.classTagNameToID)
    end
 })
 
