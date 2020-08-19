@@ -49,6 +49,10 @@ function ClassicModule:OnEnable ()
    self:RegisterEvent("LOOT_OPENED", "LootOpened")
    self:RegisterEvent("LOOT_CLOSED", "LootClosed")
    self:CandidateCheck()
+
+   -- Version checker should handle Classic Module, as it's lifted to be the main version.
+   -- Not doing this would result in both `RCLootCouncil` and `module RCLootCouncil_Classic` is outdated prints.
+   addon.moduleVerCheckDisplayed[self.baseName] = true
 end
 
 function ClassicModule:RegisterAddonComms ()
