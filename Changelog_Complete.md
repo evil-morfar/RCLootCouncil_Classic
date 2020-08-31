@@ -1,3 +1,7 @@
+# v0.11.3
+## Bugfixes
+* *Fixed issue with `Award Later` when running with `Auto Start` (CurseClassic#116).*
+
 # v0.11.2
 ## Bugfixes
 * *Fixed Druid related issues causing all kinds of trouble in the latest version (CurseClassic#112,#113,#114).*

@@ -150,7 +150,7 @@ function MLModule:LootOpened()
 		if #self.lootTable > 0 and not self.running then
 			if db.autoStart and addon.candidates[addon.playerName] and #addon.council > 0 then -- Auto start only if data is ready
 				if db.awardLater then
-					self:DoAwardLater()
+					self:DoAwardLater(self.lootTable)
 				else
 					self:StartSession()
 				end
