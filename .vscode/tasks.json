@@ -7,7 +7,14 @@
             "label": "Deploy-Local",
             "type": "shell",
             "command": "sh .scripts/deploy.sh",
-            "args": ["-c"]
+            "args": [
+                "-c"
+            ],
+        },
+        {
+            "label": "Build and Release",
+            "type": "shell",
+            "command": "sh .scripts/build.sh",
         },
         {
             "label": "Busted All",
