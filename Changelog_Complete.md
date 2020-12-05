@@ -1,5 +1,8 @@
 # v0.12.0
 
+Updated .toc for patch 1.13.6.  
+Added patch 1.13.6 to history mass deletion.
+
 ## Bugfixes
 
 * *Fixed issue with `Award Later` when running with `Auto Start` (CurseClassic#116).*
