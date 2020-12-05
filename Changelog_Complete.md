@@ -1,3 +1,13 @@
+# v0.12.0
+
+Updated .toc for patch 1.13.6.  
+Added patch 1.13.6 to history mass deletion.
+
+## Bugfixes
+
+* *Fixed issue with `Award Later` when running with `Auto Start` (CurseClassic#116).*
+* *Clicking cancel on the Session Frame while a session was running could break the addon (CurseClassic#123).*
+
 # v0.11.2
 ## Bugfixes
 * *Fixed Druid related issues causing all kinds of trouble in the latest version (CurseClassic#112,#113,#114).*

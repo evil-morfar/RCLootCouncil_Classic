@@ -154,20 +154,20 @@ function addon:NewMLCheck()
    self.council = {}
    -- Check to see if we have recieved mldb within 15 secs, otherwise request it
    self:ScheduleTimer("Timer", 15, "MLdb_check")
-   if not self.isMasterLooter and self.masterLooter then return end -- Someone else has become ML
+   if not self.isMasterLooter and self.masterLooter then return self:Debug("Some else is ML") end -- Someone else has become ML
 
    -- Check if we can use in party
-   if not IsInRaid() and db.onlyUseInRaids then return end
+   if not IsInRaid() and db.onlyUseInRaids then return self:Debug("Not in raid group") end
 
    -- Don't do popups if we're already handling loot
-	if self.handleLoot then return end
+	if self.handleLoot then return self:Debug("Already handling loot") end
 
 	-- Don't do pop-ups in pvp
 	local _, type = IsInInstance()
-	if type == "arena" or type == "pvp" then return end
+	if type == "arena" or type == "pvp" then return self:Debug("PVP isntance") end
 
    -- Check for group loot
-   if addon.lootMethod == "group" and not db.useWithGroupLoot then return end
+   if addon.lootMethod == "group" and not db.useWithGroupLoot then return self:Debug("lootMethod == group and useWithGroupLoot == false") end
 
    -- We are ML and shouldn't ask the player for usage
    if self.isMasterLooter and db.usage.ml then -- addon should auto start
