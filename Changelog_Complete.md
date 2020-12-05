@@ -1,6 +1,9 @@
-# v0.11.3
+# v0.12.0
+
 ## Bugfixes
+
 * *Fixed issue with `Award Later` when running with `Auto Start` (CurseClassic#116).*
+* *Clicking cancel on the Session Frame while a session was running could break the addon (CurseClassic#123).*
 
 # v0.11.2
 ## Bugfixes
