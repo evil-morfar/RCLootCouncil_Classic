@@ -41,6 +41,13 @@ List.RepItems = {
    [20863] = "Clay Scarab",
    [20864] = "Bone Scarab",
    [20865] = "Ivory Scarab",
+   
+   -- Naxx
+   [22376] = "Wartorn Cloth Scrap",
+   [22373] = "Wartorn Leather Scrap",
+   [22375] = "Wartorn Plate Scrap",
+   [22374] = "Wartorn Chain Scrap",
+   [23055] = "Word of Thawing",   
 }
 
 List.Specials = {
