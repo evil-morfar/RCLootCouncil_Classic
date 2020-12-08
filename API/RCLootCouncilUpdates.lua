@@ -15,7 +15,6 @@ addon.coreEvents["LOOT_CLOSED"] = nil -- We have our own
 -- -- Auto pass disabled:
 addon.defaults.profile.autoPassBoE = false
 -- -- Removed:
-addon.defaults.profile.ignoredItems = {} -- Remove all retail ignores
 addon.defaults.profile.printCompletedTrades = nil
 addon.defaults.profile.rejectTrade = nil
 -- -- Usage options:
@@ -45,6 +44,10 @@ addon.INVTYPE_Slots.INVTYPE_THROWN = "RangedSlot"
 
 -- Update logo location
 addon.LOGO_LOCATION = "Interface\\AddOns\\RCLootCouncil_Classic\\RCLootCouncil\\Media\\rc_logo"
+
+-- Ignored Items
+addon.defaults.profile.ignoredItems = {} -- Remove the retail ones
+addon.defaults.profile.ignoredItems[22726] = true -- Splinter of Atiesh
 
 function addon:IsCorrectVersion ()
    return WOW_PROJECT_CLASSIC == WOW_PROJECT_ID

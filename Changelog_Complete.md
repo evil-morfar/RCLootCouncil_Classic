@@ -1,3 +1,12 @@
+# v0.12.1
+
+## Changes 
+
+### Naxxramas 
+
+Added Wartorn Scraps and Word of Thawing to the round robin distributon list (#34).  
+Splinter of Atiesh is now ignored by default as it's not tradeable.
+
 # v0.12.0
 
 Updated .toc for patch 1.13.6.  
