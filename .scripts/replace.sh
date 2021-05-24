@@ -1,5 +1,5 @@
 #!/bin/sh
-echo "Executing $0"
+echo "Executing replace.sh"
 
 replace_version(){
    # Get RCLootCouncil version

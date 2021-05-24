@@ -4,7 +4,7 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Deploy-Local",
+            "label": "Deploy Classic",
             "type": "shell",
             "command": "sh .scripts/deploy.sh",
             "args": [
@@ -12,9 +12,17 @@
             ],
         },
         {
+            "label": "Deploy TBC",
+            "type": "shell",
+            "command": "sh .scripts/deploy.sh",
+            "args": [
+                "-b"
+            ],
+        },
+        {
             "label": "Build and Release",
             "type": "shell",
-            "command": "sh .scripts/build.sh",
+            "command": ".scripts\\build.sh",
         },
         {
             "label": "Busted All",

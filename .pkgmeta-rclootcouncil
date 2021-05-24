@@ -9,6 +9,8 @@ ignore:
     - LICENSE.md
     - changelog.md
     - __tests
+    - .specs
+    - Libs                  # Packager not too keen on ignoring Libs anymore
     - RCLootCouncil.toc
 
 enable-nolib-creation: no

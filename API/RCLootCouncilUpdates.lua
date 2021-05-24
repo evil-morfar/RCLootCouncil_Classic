@@ -50,7 +50,7 @@ addon.defaults.profile.ignoredItems = {} -- Remove the retail ones
 addon.defaults.profile.ignoredItems[22726] = true -- Splinter of Atiesh
 
 function addon:IsCorrectVersion ()
-   return WOW_PROJECT_CLASSIC == WOW_PROJECT_ID
+   return (WOW_PROJECT_CLASSIC == WOW_PROJECT_ID) or (WOW_PROJECT_BURNING_CRUSADE_CLASSIC == WOW_PROJECT_ID)
 end
 
 function addon:UpdatePlayersData()

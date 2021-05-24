@@ -1,6 +1,5 @@
-## Changes 
+## Changes
 
-### Naxxramas 
+Updated for Classic Era and Burning Crusade Classic.
 
-Added Wartorn Scraps and Word of Thawing to the round robin distributon list (#34).  
-Splinter of Atiesh is now ignored by default as it's not tradeable.
+Frame z-level issues are no longer a thing. Credits to enajork (#206).
