@@ -1,3 +1,3 @@
 ## Changes
 
-Updated for Classic Era.
+Updated for Classic Era and Burning Crusade Classic.
