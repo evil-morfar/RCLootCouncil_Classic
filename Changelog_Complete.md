@@ -1,7 +1,7 @@
 # 0.13.1
 ## Changes
 
-Updated for Classic Era.
+Updated for Classic Era and Burning Crusade Classic.
 
 # v0.12.1
 
