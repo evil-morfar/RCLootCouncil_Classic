@@ -4,11 +4,19 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Deploy-Local",
+            "label": "Deploy Classic",
             "type": "shell",
             "command": "sh .scripts/deploy.sh",
             "args": [
                 "-c"
+            ],
+        },
+        {
+            "label": "Deploy TBC",
+            "type": "shell",
+            "command": "sh .scripts/deploy.sh",
+            "args": [
+                "-b"
             ],
         },
         {
