@@ -4,6 +4,8 @@ local Classic = addon:GetModule("RCClassic")
 local private = {}
 local L = LibStub("AceLocale-3.0"):GetLocale("RCLootCouncil")
 local LC = LibStub("AceLocale-3.0"):GetLocale("RCLootCouncil_Classic")
+local LibDialog = LibStub("LibDialog-1.0")
+
 
 ----------------------------------------------
 -- Core
@@ -156,7 +158,6 @@ local function getGearForAQTokens (itemID)
    end
 end
 
-
 -- AQ Tokens handling
 -- AQ Tokens are quest items that fits multiple slots.
 -- We need to do a bit of a hack to handle these.
@@ -167,6 +168,138 @@ function addon:GetGear(link, equipLoc)
    else
 	   return self:GetPlayersGear(link, equipLoc, addon.playersData.gears) -- Use gear info we stored before
    end
+end
+
+function addon:NewMLCheck()
+   local old_ml = self.masterLooter
+   local old_lm = self.lootMethod
+   self.isMasterLooter, self.masterLooter = self:GetML()
+   self.lootMethod = GetLootMethod()
+   if self.masterLooter and self.masterLooter ~= "" and (self.masterLooter == "Unknown" or Ambiguate(self.masterLooter, "short"):lower() == _G.UNKNOWNOBJECT:lower()) then
+      -- ML might be unknown for some reason
+      self:Debug("NewMLCheck", "Unknown ML")
+      return self:ScheduleTimer("NewMLCheck", 1)
+   end
+   if self:UnitIsUnit(old_ml, "player") and not self.isMasterLooter then
+      -- We were ML, but no longer, so disable masterlooter module
+      self:GetActiveModule("masterlooter"):Disable()
+   end
+   if self:UnitIsUnit(old_ml, self.masterLooter) and old_lm == self.lootMethod then
+      return self:DebugLog("NewMLCheck", "No ML Change") -- no change
+   end
+   local db = self:Getdb()
+   if db.usage.never then return self:DebugLog("NewMLCheck", "db.usage.never") end
+   if self.masterLooter == nil then return end -- We're not using ML
+   -- At this point we know the ML has changed, so we can wipe the council
+   self:Debug("NewMLCheck", "Resetting council as we have a new ML!")
+   self.council = {}
+   -- Check to see if we have recieved mldb within 15 secs, otherwise request it
+   self:ScheduleTimer("Timer", 15, "MLdb_check")
+   if not self.isMasterLooter and self.masterLooter then return self:Debug("Some else is ML") end -- Someone else has become ML
+
+   -- Check if we can use in party
+   if not IsInRaid() and db.onlyUseInRaids then return self:Debug("Not in raid group") end
+
+   -- Don't do popups if we're already handling loot
+	if self.handleLoot then return self:Debug("Already handling loot") end
+
+	-- Don't do pop-ups in pvp
+	local _, type = IsInInstance()
+	if type == "arena" or type == "pvp" then return self:Debug("PVP isntance") end
+
+   -- Check for group loot
+   if addon.lootMethod == "group" and not db.useWithGroupLoot then return self:Debug("lootMethod == group and useWithGroupLoot == false") end
+
+   -- We are ML and shouldn't ask the player for usage
+   if self.isMasterLooter and db.usage.ml then -- addon should auto start
+      self:StartHandleLoot()
+
+      -- We're ML and must ask the player for usage
+   elseif self.isMasterLooter and db.usage.ask_ml then
+      return LibDialog:Spawn("RCLOOTCOUNCIL_CONFIRM_USAGE")
+   end
+end
+
+function addon:OnRaidEnter()
+   local db = self:Getdb()
+   -- NOTE: We shouldn't need to call GetML() as it's most likely called on "LOOT_METHOD_CHANGED"
+   -- There's no ML, and lootmethod ~= ML, but we are the group leader
+   -- Check if we can use in party
+   if not IsInRaid() and db.onlyUseInRaids then return end
+   if not self.masterLooter and UnitIsGroupLeader("player") then
+      -- We don't need to ask the player for usage, so change loot method to master, and make the player ML
+      if db.usage.leader then
+         self.isMasterLooter, self.masterLooter = true, self.playerName
+         self:StartHandleLoot()
+         -- We must ask the player for usage
+      elseif db.usage.ask_leader then
+         return LibDialog:Spawn("RCLOOTCOUNCIL_CONFIRM_USAGE")
+      end
+   end
+end
+
+function addon:GetML()
+   self:DebugLog("GetML()")
+   local lootMethod, mlPartyID, mlRaidID = GetLootMethod()
+   addon.lootMethod = lootMethod
+   self:Debug("LootMethod = ", lootMethod)
+   if GetNumGroupMembers() == 0 and (self.testMode or self.nnp) then -- always the player when testing alone
+      self:ScheduleTimer("Timer", 5, "MLdb_check")
+      return true, self.playerName
+   end
+   if lootMethod == "master" then
+      local name;
+      if mlRaidID then -- Someone in raid
+         name = self:UnitName("raid"..mlRaidID)
+      elseif mlPartyID == 0 then -- Player in party
+         name = self.playerName
+      elseif mlPartyID then -- Someone in party
+         name = self:UnitName("party"..mlPartyID)
+      end
+      self:Debug("MasterLooter = ", name)
+      return IsMasterLooter(), name
+   elseif lootMethod == "group" then
+      -- Set the Group leader as the ML
+	   local name
+      for i=1, GetNumGroupMembers() or 0 do
+	      local name2, rank = GetRaidRosterInfo(i)
+         if not name2 then -- Group info is not completely ready
+            return false, "Unknown"
+         end
+         if rank == 2 then -- Group leader. Btw, name2 can be nil when rank is 2.
+            name = self:UnitName(name2)
+         end
+      end
+      if name then
+         return UnitIsGroupLeader("player"), name
+      end
+   end
+   return false, nil;
+end
+
+function addon:StartHandleLoot()
+   local db = self:Getdb()
+   local lootMethod = GetLootMethod()
+   if lootMethod == "group" and db.useWithGroupLoot then -- luacheck: ignore
+      -- Do nothing.
+   elseif lootMethod ~= "master" and GetNumGroupMembers() > 0 then
+      self:Print(L["Changing LootMethod to Master Looting"])
+      SetLootMethod("master", self.Ambiguate(self.playerName)) -- activate ML
+   end
+   if db.autoAward and GetLootThreshold() ~= 2 and GetLootThreshold() > db.autoAwardLowerThreshold then
+      self:Print(L["Changing loot threshold to enable Auto Awarding"])
+      SetLootThreshold(db.autoAwardLowerThreshold >= 2 and db.autoAwardLowerThreshold or 2)
+   end
+
+   self:Print(L["Now handles looting"])
+   self:Debug("Start handle loot.")
+   self.handleLoot = true
+   self:SendCommand("group", "StartHandleLoot")
+   if #db.council == 0 then -- if there's no council
+      self:Print(L["You haven't set a council! You can edit your council by typing '/rc council'"])
+   end
+   self:CallModule("masterlooter")
+   self:GetActiveModule("masterlooter"):NewML(self.masterLooter)
 end
 ----------------------------------------------
 -- Utils
