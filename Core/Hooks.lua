@@ -87,6 +87,17 @@ tinsert(hooks, {
    end
 })
 
+tinsert(hooks, {
+   object = addon,
+   ref = "OnMLDBReceived",
+   type = "post",
+   func = function(self)
+      if self.mldb.observe and not self:GetActiveModule("votingframe"):IsEnabled() then
+         self:CallModule("votingframe")
+      end
+   end
+})
+
 local rclootcoucnilCoreVersionsToIgnore = {
    ["2.14.0"] = true,
    ["2.15.0"] = true,

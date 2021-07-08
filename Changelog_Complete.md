@@ -6,8 +6,12 @@
 
 Wowhead links now points to `tbc.wowhead.com` (CurseClassic#144).
 
+## Bugfixes
+
+* *Using the observe feature could occasionally cause errors after `/reload`ing (CurseClassic#146).*
 
 # 0.13.0
+
 ## Changes
 
 Updated for Classic Era and Burning Crusade Classic.
