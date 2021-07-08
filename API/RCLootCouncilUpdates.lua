@@ -241,7 +241,6 @@ end
 function addon:GetML()
    self:DebugLog("GetML()")
    local lootMethod, mlPartyID, mlRaidID = GetLootMethod()
-   addon.lootMethod = lootMethod
    self:Debug("LootMethod = ", lootMethod)
    if GetNumGroupMembers() == 0 and (self.testMode or self.nnp) then -- always the player when testing alone
       self:ScheduleTimer("Timer", 5, "MLdb_check")
