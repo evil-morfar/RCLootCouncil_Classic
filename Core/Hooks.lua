@@ -23,7 +23,11 @@ tinsert(hooks, {
    ref = "OnEnable",
    type = "post",
    func = function()
-      HistoryFrame.wowheadBaseUrl = "https://classic.wowhead.com/item="
+      if WOW_PROJECT_BURNING_CRUSADE_CLASSIC == WOW_PROJECT_ID then
+         HistoryFrame.wowheadBaseUrl = "https://tbc.wowhead.com/item="
+      elseif WOW_PROJECT_CLASSIC == WOW_PROJECT_ID then
+         HistoryFrame.wowheadBaseUrl = "https://classic.wowhead.com/item="
+      end
    end
 })
 

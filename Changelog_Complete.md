@@ -1,3 +1,12 @@
+# 0.13.1
+
+## Changes
+
+### Burning Crusade
+
+Wowhead links now points to `tbc.wowhead.com` (CurseClassic#144).
+
+
 # 0.13.0
 ## Changes
 
