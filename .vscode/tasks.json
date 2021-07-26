@@ -38,7 +38,8 @@
             "type": "shell",
             "command": "busted",
             "args": [
-                "${file}"
+            "--lpath=${workspaceFolder}\\RCLootCouncil\\?.lua;${workspaceFolder}\\RCLootCouncil\\__tests\\?.lua",
+                "${file}",
             ],
             "group": "test"
         },

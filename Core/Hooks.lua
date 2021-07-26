@@ -50,6 +50,8 @@ tinsert(hooks, {
    ref = "OnEnable",
    type = "raw",
    func = function()
+      -- Remove "role" column
+      VotingFrame:RemoveColumn("role")
       -- Call original
       Classic.hooks[VotingFrame].OnEnable(VotingFrame)
       VotingFrame.frame.lootStatus:Hide()

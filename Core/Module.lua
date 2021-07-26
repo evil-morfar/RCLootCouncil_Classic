@@ -1,9 +1,13 @@
-local _, addon = ...
-
+local _,
+---@type RCLootCouncil
+addon = ...
+---@class RCLootCouncil_Classic
 local ClassicModule = addon:NewModule("RCClassic", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
 local L = LibStub("AceLocale-3.0"):GetLocale("RCLootCouncil")
 
 function ClassicModule:OnInitialize()
+   ---@type Log
+   self.Log = addon.Require "Utils.Log" : New ("Classic")
    self.version = GetAddOnMetadata("RCLootCouncil_Classic", "Version")
    self.tVersion = nil
    self.debug = false
@@ -14,7 +18,7 @@ function ClassicModule:OnInitialize()
 end
 
 function ClassicModule:OnEnable ()
-   addon:DebugLog("ClassicModule enabled", self.version, self.tVersion)
+   self.Log("ClassicModule enabled", self.version, self.tVersion)
 
    -- Store RCLootCouncil Variables
    self.RCLootCouncil = {}
@@ -30,14 +34,9 @@ function ClassicModule:OnEnable ()
    -- Bump logMaxEntries
    addon.db.global.logMaxEntries = 4000
 
-   self:RegisterAddonComms()
+   self:RegisterAddonComms() -- TODO
    self:DoHooks()
    addon:InitClassIDs()
-
-   -- Remove "role" and corruption column
-   local vf = addon:GetModule("RCVotingFrame")
-   vf:RemoveColumn("role")
-   vf:RemoveColumn("corruption")
 
    -- Quest items can be looted in Classic
    addon.blacklistedItemClasses[12] = nil
