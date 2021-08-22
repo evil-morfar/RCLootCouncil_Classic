@@ -2,6 +2,8 @@
 
 ## Changes
 
+Added a fix for Blizzard breaking Dropdowns when using Master Loot.
+
 ### Burning Crusade
 
 Wowhead links now points to `tbc.wowhead.com` (CurseClassic#144).

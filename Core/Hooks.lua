@@ -11,7 +11,8 @@ function Classic:DoHooks ()
       if data.type == "raw" then
          Classic:RawHook(data.object, data.ref, data.func)
       --elseif data.type == "script" then
-
+      elseif data.type == "secure" then
+         Classic:SecureHook(data.object, data.ref, data.func)
       else
          Classic:Hook(data.object, data.ref, data.func)
       end
@@ -118,4 +119,14 @@ tinsert(hooks, {
          Classic.hooks[addon].PrintOutdatedVersionWarning(addon, newVersion, ourVersion)
       end
    end,
+})
+
+-- Fix for Blizzard screwing up DropDowns when using ML.
+tinsert(hooks, {
+   type = "secure",
+   object = _G.MasterLooterFrame,
+   ref = "Hide",
+   func = function(self)
+      self:ClearAllPoints()
+   end
 })
