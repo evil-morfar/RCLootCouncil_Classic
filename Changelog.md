@@ -1,5 +1,11 @@
 ## Changes
 
-Updated for Classic Era and Burning Crusade Classic.
+Added a fix for Blizzard breaking Dropdowns when using Master Loot.
 
-Frame z-level issues are no longer a thing. Credits to enajork (#206).
+### Burning Crusade
+
+Wowhead links now points to `tbc.wowhead.com` (CurseClassic#144).
+
+## Bugfixes
+
+* *Using the observe feature could occasionally cause errors after `/reload`ing (CurseClassic#146).*

@@ -11,7 +11,8 @@ function Classic:DoHooks ()
       if data.type == "raw" then
          Classic:RawHook(data.object, data.ref, data.func)
       --elseif data.type == "script" then
-
+      elseif data.type == "secure" then
+         Classic:SecureHook(data.object, data.ref, data.func)
       else
          Classic:Hook(data.object, data.ref, data.func)
       end
@@ -23,7 +24,11 @@ tinsert(hooks, {
    ref = "OnEnable",
    type = "post",
    func = function()
-      HistoryFrame.wowheadBaseUrl = "https://classic.wowhead.com/item="
+      if WOW_PROJECT_BURNING_CRUSADE_CLASSIC == WOW_PROJECT_ID then
+         HistoryFrame.wowheadBaseUrl = "https://tbc.wowhead.com/item="
+      elseif WOW_PROJECT_CLASSIC == WOW_PROJECT_ID then
+         HistoryFrame.wowheadBaseUrl = "https://classic.wowhead.com/item="
+      end
    end
 })
 
@@ -83,6 +88,17 @@ tinsert(hooks, {
    end
 })
 
+tinsert(hooks, {
+   object = addon,
+   ref = "OnMLDBReceived",
+   type = "post",
+   func = function(self)
+      if self.mldb.observe and not self:GetActiveModule("votingframe"):IsEnabled() then
+         self:CallModule("votingframe")
+      end
+   end
+})
+
 local rclootcoucnilCoreVersionsToIgnore = {
    ["2.14.0"] = true,
    ["2.15.0"] = true,
@@ -103,4 +119,14 @@ tinsert(hooks, {
          Classic.hooks[addon].PrintOutdatedVersionWarning(addon, newVersion, ourVersion)
       end
    end,
+})
+
+-- Fix for Blizzard screwing up DropDowns when using ML.
+tinsert(hooks, {
+   type = "secure",
+   object = _G.MasterLooterFrame,
+   ref = "Hide",
+   func = function(self)
+      self:ClearAllPoints()
+   end
 })
