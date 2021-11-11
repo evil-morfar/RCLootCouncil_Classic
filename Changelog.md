@@ -1,11 +1,9 @@
 ## Changes
 
-Added a fix for Blizzard breaking Dropdowns when using Master Loot.
+### Classic
 
-### Burning Crusade
+Updated for patch 1.14.1.
 
-Wowhead links now points to `tbc.wowhead.com` (CurseClassic#144).
+### Burning Crusade Classic
 
-## Bugfixes
-
-* *Using the observe feature could occasionally cause errors after `/reload`ing (CurseClassic#146).*
+Updated for patch 2.5.2.
