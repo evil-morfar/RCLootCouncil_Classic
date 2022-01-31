@@ -75,3 +75,8 @@ List.Specials = {
    [20933] = {"ChestSlot"}, -- Husk of the Old God
 
 }
+
+--- List of item IDs that should always be auto awarded.
+List.AlwaysAutoAward = {
+   -- [32249] = "Seaspray Emerald", -- <- Example entry
+}

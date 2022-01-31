@@ -44,13 +44,19 @@ end
 
 function MLModule:ShouldAutoAward (item, quality)
    if not item then return false end
+   local itemid = addon:GetItemIDFromLink(item)
+   
+   -- Check always list first
+   if itemid and Classic.Lists.AlwaysList[itemid] then
+      return true, "normal", db.autoAwardTo
+   end
+
    -- Check for rep item auto award
    local db = addon:Getdb()
    if not db.autoAwardRepItems then
       return orig_ShouldAutoAward(MLModule, item, quality)
    end
 
-   local itemid = addon:GetItemIDFromLink(item)
    if not (itemid and Classic.Lists.RepItems[itemid]) then
       -- We shouldn't handle this
       return orig_ShouldAutoAward(MLModule, item, quality)
