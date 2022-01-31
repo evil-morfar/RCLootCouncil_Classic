@@ -1,9 +1,5 @@
 ## Changes
 
-### Classic
-
-Updated for patch 1.14.1.
-
 ### Burning Crusade Classic
 
-Updated for patch 2.5.2.
+Added `Heart of Darkness` and `Mark of the Illidari` to the rep items loot list.
