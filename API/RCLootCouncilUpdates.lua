@@ -37,6 +37,8 @@ addon.defaults.profile.autoAwardRepItemsModeOptions = {
    RR       = LC["opt_autoAwardRepItemsMode_roundrobin"]
 }
 
+addon.defaults.profile.alwaysAutoAwardItems = {}
+
 addon.defaults.profile.useWithGroupLoot = false
 
 -- Some Main Hand weapons are "Ranged" in Classic

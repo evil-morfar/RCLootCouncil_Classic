@@ -2,7 +2,7 @@
 
 ### Always auto award list
 
-Located in `.../Core/Classes/Lists.lua` is table of itemIDs you can edit to always have certain items auto awarded.
+Added an option to choose items that should always be auto awarded. Located in the 'Awards' tab of the Master Looter options. Items can be added by itemID, name or item link.
 
 ### TradeUI
 
