@@ -1,6 +1,6 @@
 ## Author: Potdisc
 ## Interface: 11401
-## Interface-BCC: 20502
+## Interface-BCC: 20503
 ## Notes: RCLootCouncil for WoW Classic and Burning Crusade Classic v0.14.0
 ## Title: RCLootCouncil Classic
 ## Version: 0.14.0
