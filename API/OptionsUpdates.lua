@@ -69,6 +69,74 @@ function addon:OptionsTable ()
    -- Remove "Bonus Rolls" option
    options.args.mlSettings.args.generalTab.args.lootingOptions.args.saveBonusRolls = nil
 
+    -- AlwaysAutoAward
+    options.args.mlSettings.args.awardsTab.args.autoAward.args.alwaysAutoAward =
+        {
+            order = 5,
+            name = LC.ALWAYS_AUTO_AWARD_OPTION,
+            type = "group",
+            inline = true,
+            args = {
+                desc = {
+                    order = 1,
+                    name = LC.ALWAYS_AUTO_AWARD_OPTION_DESC,
+                    type = "description"
+                },
+                alwaysAutoAwardInput = {
+                    order = 2,
+                    name = L["Add Item"],
+                    desc = LC.ALWAYS_AUTO_AWARD_OPTION_INPUT_DESC,
+                    usage = L["ignore_input_usage"],
+                    type = "input",
+                    validate = function(_, val)
+                        return GetItemInfoInstant(val)
+                    end,
+                    get = function()
+                        return "\"item ID, Name or Link\""
+                    end,
+                    set = function(_, val)
+                        local id = GetItemInfoInstant(val)
+                        if id then
+                            self.db.profile.alwaysAutoAwardItems[id] = true
+                            LibStub("AceConfigRegistry-3.0"):NotifyChange(
+                                "RCLootCouncil")
+                        end
+                    end
+                },
+                alwaysAutoAwardList = {
+                    order = 3,
+                    name = LC.ALWAYS_AUTO_AWARD_OPTION_LIST,
+                    desc = LC.ALWAYS_AUTO_AWARD_OPTION_LIST_DESC,
+                    type = "select",
+                    style = "dropdown",
+                    width = "double",
+                    values = function()
+                        local t = {}
+                        local hasItems = false
+                        for id in pairs(self.db.profile.alwaysAutoAwardItems) do
+                            local link = select(2, GetItemInfo(id))
+                            if link then
+                                t[id] = link .. "  (id: " .. id .. ")"
+                            else
+                                t[id] =
+                                    L["Not cached, please reopen."] .. "  (id: " ..
+                                        id .. ")"
+                            end
+                            hasItems = true
+                        end
+                        if not hasItems then
+                            t[1] = LC.ALWAYS_AUTO_AWARD_OPTION_LIST_NONE
+                        end
+                        return t
+                    end,
+                    get = function() return L["Ignore List"] end,
+                    set = function (_,val)
+                        self.db.profile.alwaysAutoAwardItems[val] = nil
+                    end
+                }
+            }
+        }
+
    -- Add Rep Items options
    options.args.mlSettings.args.awardsTab.args.repItems = {
       order = 1.5,

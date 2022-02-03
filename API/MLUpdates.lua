@@ -44,13 +44,24 @@ end
 
 function MLModule:ShouldAutoAward (item, quality)
    if not item then return false end
-   -- Check for rep item auto award
+   local itemid = addon:GetItemIDFromLink(item)
    local db = addon:Getdb()
+
+   -- Check always list first
+   if itemid and db.autoAward and db.alwaysAutoAwardItems[itemid] then
+      if UnitInRaid(db.autoAwardTo) or UnitInParty(db.autoAwardTo) then -- TEST perhaps use self.group?
+         return true, "normal", db.autoAwardTo
+      else
+         addon:Print(L["Cannot autoaward:"])
+         addon:Print(format(L["Could not find 'player' in the group."], db.autoAwardTo))
+      end
+   end
+
+   -- Check for rep item auto award
    if not db.autoAwardRepItems then
       return orig_ShouldAutoAward(MLModule, item, quality)
    end
 
-   local itemid = addon:GetItemIDFromLink(item)
    if not (itemid and Classic.Lists.RepItems[itemid]) then
       -- We shouldn't handle this
       return orig_ShouldAutoAward(MLModule, item, quality)
