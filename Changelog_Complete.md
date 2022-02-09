@@ -1,3 +1,11 @@
+# 0.14.1
+### Bugfixes
+
+* *Heart of Darkness should now actually be autolootable.*
+* *Selected round robin candidate is now truly random.*
+
+
+
 # 0.14.0
 
 ## Changes
