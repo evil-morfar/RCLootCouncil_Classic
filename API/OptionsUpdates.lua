@@ -98,6 +98,7 @@ function addon:OptionsTable ()
                         local id = GetItemInfoInstant(val)
                         if id then
                             self.db.profile.alwaysAutoAwardItems[id] = true
+                            self.blackListOverride[id] = true
                             LibStub("AceConfigRegistry-3.0"):NotifyChange(
                                 "RCLootCouncil")
                         end
@@ -132,6 +133,7 @@ function addon:OptionsTable ()
                     get = function() return L["Ignore List"] end,
                     set = function (_,val)
                         self.db.profile.alwaysAutoAwardItems[val] = nil
+                        self.blackListOverride[val] = nil
                     end
                 }
             }

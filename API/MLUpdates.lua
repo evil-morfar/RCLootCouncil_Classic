@@ -33,13 +33,18 @@ local function getNextRRCandidate (args)
       if v < min then min = v end
    end
 
-   -- Get the name of the first person to equal min awards
+   -- Produce a list of eligible candidates
+   local eligible = {}
    for name, count in pairs(rrCandidates) do
       if count == min then
-         rrCandidates[name] = count + 1
-         return name
+         tinsert(eligible, name)
       end
    end
+
+   -- pick a random one
+   local name = eligible[math.random(1, #eligible)]
+   rrCandidates[name] = rrCandidates[name] + 1
+   return name
 end
 
 function MLModule:ShouldAutoAward (item, quality)

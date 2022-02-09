@@ -39,8 +39,7 @@ function ClassicModule:OnEnable ()
    vf:RemoveColumn("role")
    vf:RemoveColumn("corruption")
 
-   -- Quest items can be looted in Classic
-   addon.blacklistedItemClasses[12] = nil
+   self:UpdateBlacklist()
 
    self:RegisterEvent("LOOT_OPENED", "LootOpened")
    self:RegisterEvent("LOOT_CLOSED", "LootClosed")
@@ -133,5 +132,22 @@ function ClassicModule:OnLootOpen()
       else
          addon:Print(L["You can't start a loot session while in combat."])
       end
+   end
+end
+
+function ClassicModule:UpdateBlacklist()
+   -- Quest items can be looted in Classic
+   addon.blacklistedItemClasses[12] = nil
+
+   -- Add our "Lists" to blacklist override
+   for _,list in pairs(self.Lists) do
+      for id in pairs(list) do
+         addon.blackListOverride[id] = true
+      end
+   end
+
+   -- Add "always auto award" items to blacklist override
+   for id in pairs(addon.db.profile.alwaysAutoAwardItems) do
+      addon.blackListOverride[id] = true
    end
 end
