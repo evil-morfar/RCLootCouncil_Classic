@@ -1,0 +1,6 @@
+{
+    "todo-tree.tree.showCountsInTree": false,
+    "Lua.runtime.path": [
+        "${workspace}\\RCLootCouncil\\__tests\\?.lua"
+    ]
+}
