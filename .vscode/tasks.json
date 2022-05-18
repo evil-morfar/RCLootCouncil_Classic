@@ -6,16 +6,18 @@
         {
             "label": "Deploy Classic",
             "type": "shell",
-            "command": "sh .scripts/deploy.sh",
+            "command": "sh",
             "args": [
+                ".scripts/deploy.sh",
                 "-c"
             ],
         },
         {
             "label": "Deploy TBC",
             "type": "shell",
-            "command": "sh .scripts/deploy.sh",
+            "command": "sh",
             "args": [
+                ".scripts/deploy.sh",
                 "-b"
             ],
         },
