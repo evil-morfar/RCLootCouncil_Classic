@@ -66,7 +66,7 @@ if [[ ${BASH_VERSINFO[0]} -lt 4 ]] || [[ ${BASH_VERSINFO[0]} -eq 4 && ${BASH_VER
 fi
 
 # Game versions for uploading
-declare -A game_flavors=( ["retail"]="mainline" ["classic"]="classic" ["bcc"]="bcc" )
+declare -A game_flavors=( ["retail"]="mainline" ["classic"]="classic" ["bcc"]="bcc" ["wrath"]="wrath" )
 declare -A game_versions
 toc_version=
 
@@ -86,7 +86,7 @@ escape_substr() {
 filename_filter() {
 	local classic alpha beta invalid
 	[ -n "$skip_invalid" ] && invalid="&" || invalid="_"
-	if [[ "$game_type" != "retail" ]] && [[ "$game_type" != "classic" || "${si_project_version,,}" != *"-classic"* ]] && [[ "$game_type" != "bcc" || "${si_project_version,,}" != *"-bcc"* ]]; then
+	if [[ "$game_type" != "retail" ]] && [[ "$game_type" != "classic" || "${si_project_version,,}" != *"-classic"* ]] && [[ "$game_type" != "bcc" || "${si_project_version,,}" != *"-bcc"* ]] && [[ "$game_type" != "wrath" || "${si_project_version,,}" != *"-wrath"* ]]; then
 		# only append the game type if the tag doesn't include it
 		classic="-$game_type"
 	fi
@@ -184,7 +184,7 @@ while getopts ":celLzusop:dw:a:r:t:g:m:n:" opt; do
 		g) # Set the game type or version
 			OPTARG="${OPTARG,,}"
 			case "$OPTARG" in
-				retail|classic|bcc) game_type="$OPTARG" ;; # game_version from toc
+				retail|classic|bcc|wrath) game_type="$OPTARG" ;; # game_version from toc
 				mainline) game_type="retail" ;;
 				bc)
 					echo "Invalid argument for option \"-g\" ($OPTARG)" >&2
@@ -209,6 +209,8 @@ while getopts ":celLzusop:dw:a:r:t:g:m:n:" opt; do
 							game_type="classic"
 						elif [[ ${BASH_REMATCH[1]} == "2" && ${BASH_REMATCH[2]} == "5" ]]; then
 							game_type="bcc"
+						elif [[ ${BASH_REMATCH[1]} == "3" && ${BASH_REMATCH[2]} == "4" ]]; then
+							game_type="wrath"
 						else
 							game_type="retail"
 						fi
@@ -981,6 +983,7 @@ if [[ -n "$toc_version" && -z "$game_type" ]]; then
 	case $toc_version in
 		114*) game_type="classic" ;;
 		205*) game_type="bcc" ;;
+		304*) game_type="wrath" ;;
 		*) game_type="retail"
 	esac
 else
@@ -997,6 +1000,7 @@ else
 	if [[ -z "$toc_version" ]] || \
 		 [[ "$game_type" == "classic" && "$toc_version" != "114"* ]] || \
 		 [[ "$game_type" == "bcc" && "$toc_version" != "205"* ]] || \
+		 [[ "$game_type" == "wrath" && "$toc_version" != "304"* ]] || \
 		 [[ "$game_type" == "retail" && ("$toc_version" == "114"* || "$toc_version" == "205"*) ]]
 	then
 		toc_version="$game_type_toc_version"
@@ -1005,6 +1009,7 @@ else
 			case $game_type in
 				classic) toc_version=$( sed -n '/@non-[-a-z]*@/,/@end-non-[-a-z]*@/{//b;p}' <<< "$toc_file" | awk '/#[[:blank:]]*## Interface:[[:blank:]]*(114)/ { print $NF; exit }' ) ;;
 				bcc) toc_version=$( sed -n '/@non-[-a-z]*@/,/@end-non-[-a-z]*@/{//b;p}' <<< "$toc_file" | awk '/#[[:blank:]]*## Interface:[[:blank:]]*(205)/ { print $NF; exit }' ) ;;
+				wrath) toc_version=$( sed -n '/@non-[-a-z]*@/,/@end-non-[-a-z]*@/{//b;p}' <<< "$toc_file" | awk '/#[[:blank:]]*## Interface:[[:blank:]]*(304)/ { print $NF; exit }' ) ;;
 			esac
 			# This becomes the actual interface version after string replacements
 			root_toc_version="$toc_version"
