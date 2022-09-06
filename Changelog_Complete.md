@@ -1,5 +1,11 @@
 
-# 0.14.2
+# 0.15.0
+
+## Changes
+
+Updated for Wrath of the Lich King Classic.  
+This includes adding Death Knights to the auto pass table, but there might be other stuff I've forgotten - feel free to reach out if you find anything.
+
 
 ### Bugfixes
 
