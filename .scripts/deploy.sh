@@ -13,7 +13,7 @@ echo "Executing $0" >&2
 usage() {
 	echo "Usage: test.sh [-cbp]" >&2
 	echo "  -c               Pack to _classic_era_ WoW edition. (Classic)" >&2
-	echo "  -b               Pack to _classic_ WoW edition. (TBC)" >&2
+	echo "  -b               Pack to _classic_ WoW edition. (WotLK)" >&2
 	echo "  -p               Pack to _ptr_ WoW edition." >&2
 }
 

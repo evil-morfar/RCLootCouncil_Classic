@@ -53,6 +53,9 @@ List.RepItems = {
    -- Black Temple
    [32428] = "Heart of Darkness",
    [32897] = "Mark of the Illidari",
+
+   -- Sunwell Plateau
+   [34664] = "Sunmote",
 }
 
 List.Specials = {
