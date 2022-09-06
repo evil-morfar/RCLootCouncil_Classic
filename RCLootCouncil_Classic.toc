@@ -1,9 +1,9 @@
 ## Author: Potdisc
 ## Interface: 11403
-## Interface-BCC: 20504
-## Notes: RCLootCouncil for WoW Classic and Burning Crusade Classic v0.14.2
+## Interface-Wrath: 30400
+## Notes: RCLootCouncil for WoW Classic and Wrath of the Lich King Classic v0.15.0
 ## Title: RCLootCouncil Classic
-## Version: 0.14.2
+## Version: 0.15.0
 ## X-Curse-Project-ID: 332955
 ## SavedVariables: RCLootCouncilDB, RCLootCouncilLootDB
 ## OptionalDeps: LibStub, CallbackHandler-1.0, Ace3, lib-st, LibWindow-1.1, LibDialog-1.0
