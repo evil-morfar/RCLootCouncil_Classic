@@ -350,7 +350,7 @@ if [ -z "$topdir" ]; then
 			dir=${dir%/*}
 			topdir="$topdir/.."
 		done
-		if [ ! -d "$topdir/.git" ] && [ ! -d "$topdir/.svn" ] && [ ! -d "$topdir/.hg" ]; then
+		if [ ! -d "$topdir/.git" ] && [ ! -f "$topdir/.git" ] && [ ! -d "$topdir/.svn" ] && [ ! -d "$topdir/.hg" ]; then
 			echo "No Git, SVN, or Hg checkout found." >&2
 			exit 1
 		fi
@@ -440,6 +440,8 @@ esac
 # Set $repository_type to "git" or "svn" or "hg".
 repository_type=
 if [ -d "$topdir/.git" ]; then
+	repository_type=git
+elif [ -f "$topdir/.git" ]; then
 	repository_type=git
 elif [ -d "$topdir/.svn" ]; then
 	repository_type=svn
