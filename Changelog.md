@@ -8,3 +8,4 @@ Added option for restoring `/rc` to its ready check functionality (#215, Curse#4
 
 ### Bugfixes
 
+- *Added `id` to json export (Classic#43).*
