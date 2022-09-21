@@ -4,7 +4,7 @@ Added option for restoring `/rc` to its ready check functionality (#215, Curse#4
 
 ### Dev
 
-- *Added itemLink to `RCMLAwardSuccess` and `RCMLAwardFailed` AceEvents allowing for integration with Classic Loot Manager.*
+- *Added itemLink and responseText to `RCMLAwardSuccess` and `RCMLAwardFailed` AceEvents allowing for integration with Classic Loot Manager.*
 
 ### Bugfixes
 
