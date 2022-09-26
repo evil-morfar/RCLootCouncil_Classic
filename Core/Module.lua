@@ -27,6 +27,7 @@ function ClassicModule:OnEnable ()
 
    addon.db.global.Classic_oldVersion = addon.db.global.Classic_version
    addon.db.global.Classic_version = self.version
+   addon.db.global.Classic_game = WOW_PROJECT_ID
    -- Bump logMaxEntries
    addon.db.global.logMaxEntries = 4000
 

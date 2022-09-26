@@ -1,10 +1,12 @@
 ## Changes
 
-Updated for Wrath of the Lich King Classic.  
-This includes adding Death Knights to the auto pass table, but there might be other stuff I've forgotten - feel free to reach out if you find anything.
+Added option for restoring `/rc` to its ready check functionality (#215, Curse#495).
+
+### Dev
+
+- *Added itemLink and responseText to `RCMLAwardSuccess` and `RCMLAwardFailed` AceEvents allowing for integration with Classic Loot Manager.*
 
 ### Bugfixes
 
-* *TradeUI should now properly handle reawards.*
-* *Doing a `/reload` should no longer incorrectly remove items marked for "award later" or "trade".*
-* *When using the `Observe` feature, voting frame could throw an error if certain comms was received out of order (CurseClassic#169).*
+- *Added `id` to json export (#43).*
+- *Award Later items now remembers which boss they where dropped by (#43).*
