@@ -326,12 +326,19 @@ end
 ----------------------------------------------
 -- Private helper functions
 ----------------------------------------------
+
+--- @param id? int InvSlotId
+--- @returns True if inventory slot is tabard or shirt
+local function skipInventorySlot(id)
+   return not id or id == INVSLOT_TABARD or id == INVSLOT_BODY
+end
+
 --- Recreates functionality of GetAverageItemLevel()
 function private.GetAverageItemLevel()
    local sum, count = 0, 0
    for i=_G.INVSLOT_FIRST_EQUIPPED, _G.INVSLOT_LAST_EQUIPPED do
       local iLink = _G.GetInventoryItemLink("player", i)
-      if iLink and iLink ~= "" then
+      if iLink and iLink ~= "" and not skipInventorySlot(i) then
          local ilvl = select(4, _G.GetItemInfo(iLink)) or 0
          sum = sum + ilvl
          count = count + 1
