@@ -20,9 +20,6 @@ function addon:SendCommand (target, command, ...)
 			self:SendCommMessage("RCLootCouncil", toSend, "WHISPER", self.playerName)
 		end
 
-	elseif target == "v" then
-		self:SendCommMessage("RCLCv", toSend, "WHISPER", self.playerName)
-
 	elseif target == "guild" then
 		self:SendCommMessage("RCLootCouncil", toSend, "GUILD")
 
