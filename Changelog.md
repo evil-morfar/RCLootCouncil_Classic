@@ -1,6 +1,6 @@
 ## Changes
 
-
+`/rc test` now uses WOTLK items in WOTLK.
 
 ### Bugfixes
 

@@ -75,18 +75,36 @@ function addon:RegisterComms ()
    -- Handled in Core/Module.lua
 end
 
--- fullTest is used with Dungeon Journal, and thus is ignored
-function addon:Test (num, fullTest, trinketTest)
-   self:Debug("Test", num, fullTest, trinketTest)
-   num = num or 3
-   local testItems = {
+--- Returns tests items either for Classic or WOTLK depending on current expansion.
+--- @param trinkets? boolean Trinket items?
+--- @return int[] items Array of item ids
+local function getTestItems(trinkets)
+   if WOW_PROJECT_WRATH_CLASSIC == WOW_PROJECT_ID then
+      -- WOTLK
+      return trinkets
+         and {40684,44253, 40255,40682, 37835, 40256,40432,39229}
+         or {41610, 41386,41609,42643,44935,41387,43481,
+         40696,44664,42102,37361,43565,42654,34388,40207,
+         39492, 37642, 42113, 40689, 39497, 42551
+      };
+   else
+      -- Classic
+      return trinkets
+      and { 19406,17064,18820,19395,19289 }
+      or {
       17076,12590,14555,11684,22691,871, -- Weapons
       12640,14551,14153,12757, -- Armor
       18821,19140,19148,1980,942,18813,13143 -- Rings
-   }
-   local trinkets = {
-      19406,17064,18820,19395,19289, -- Trinkets
-   }
+   };
+   end
+end
+
+-- fullTest is used with Dungeon Journal, and thus is ignored
+function addon:Test(num, fullTest, trinketTest)
+   self:Debug("Test", num, fullTest, trinketTest)
+   num = num or 3
+   local testItems = getTestItems()
+   local trinkets = getTestItems(true)
 
    if not trinketTest then
 		for _, t in ipairs(trinkets) do
