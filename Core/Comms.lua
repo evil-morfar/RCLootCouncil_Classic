@@ -79,6 +79,7 @@ local function handleRCLCvComms(serializedMsg)
 		-- v3.0 (Classic v1.0) has been released!
 		if v3VersionWarningCount <= 5 then
 			addon:Print("RCLootCouncil_Classic v1.0 has been released. This version is no longer compatible, please upgrade!")
+			v3VersionWarningCount = v3VersionWarningCount + 1
 		end
 	end
 end
