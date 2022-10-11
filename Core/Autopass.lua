@@ -2,6 +2,7 @@
 -- @author	Potdisc
 -- Create Date : 6/9/2019
 local _,addon = ...
+local Classic = addon:GetModule("RCClassic")
 
 --- Never autopass these armor types.
 -- @table autopassOverride
@@ -33,7 +34,7 @@ local autopassTable = {
 		[LE_ITEM_WEAPON_GUNS]		= {"DEATHKNIGHT", "PALADIN", "DRUID",  "SHAMAN", "PRIEST", "MAGE", "WARLOCK"},
 		[LE_ITEM_WEAPON_MACE1H]		= {"HUNTER", "MAGE", "WARLOCK", },
 		[LE_ITEM_WEAPON_MACE2H]		= {"ROGUE", "HUNTER", "PRIEST", "MAGE", "WARLOCK", },
-		[LE_ITEM_WEAPON_POLEARM] 	= {"ROGUE", "SHAMAN", "PRIEST", "MAGE", "WARLOCK", "DRUID"},
+		[LE_ITEM_WEAPON_POLEARM] 	= {"ROGUE", "SHAMAN", "PRIEST", "MAGE", "WARLOCK"},
 		[LE_ITEM_WEAPON_SWORD1H] 	= {"DRUID", "SHAMAN", "PRIEST",},
 		[LE_ITEM_WEAPON_SWORD2H]	= {"DRUID",   "ROGUE", "SHAMAN", "PRIEST", "MAGE", "WARLOCK", },
 		[LE_ITEM_WEAPON_STAFF]		= {"DEATHKNIGHT", "PALADIN",  "ROGUE", },
@@ -43,6 +44,11 @@ local autopassTable = {
       [LE_ITEM_WEAPON_THROWN]    = {"DEATHKNIGHT", "PALADIN", "DRUID", "PRIEST", "MAGE", "WARLOCK", "HUNTER", "SHAMAN",},
 	},
 }
+
+if Classic:IsClassicEra() then
+	-- Druids pass on polearms in Classic, but not WotLK
+	autopassTable.LE_ITEM_CLASS_WEAPON.LE_ITEM_WEAPON_POLEARM = {"ROGUE", "SHAMAN", "PRIEST", "MAGE", "WARLOCK", "DRUID"}
+end
 
 --- Checks if the player should autopass on a given item.
 -- All params are supplied by the lootTable from the ML.
