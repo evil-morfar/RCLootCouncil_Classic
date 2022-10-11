@@ -10,3 +10,4 @@ Warnings about `v3.0` has been removed for good.
 - *Fixed issue with tokens not showing intended item type info in Voting Frame.*
 - *Fixed issue with adding items to a session not always being parsed correctly.*
 - *Druids no longer auto passes on polearms (CurseClassic#174).*
+- *Deathknights now auto passes librams, idols, and totems.*

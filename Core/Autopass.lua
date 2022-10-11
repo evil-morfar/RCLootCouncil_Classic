@@ -20,10 +20,10 @@ local autopassTable = {
 		[LE_ITEM_ARMOR_PLATE]		= {"DRUID",    "ROGUE",   "HUNTER", "SHAMAN",  "PRIEST", "MAGE",    "WARLOCK", },
 		[LE_ITEM_ARMOR_SHIELD] 		= { "DRUID",   "ROGUE",   "HUNTER", "PRIEST",  "MAGE",   "WARLOCK", "DEATHKNIGHT" },
       -- "Relic" types seem to be coming in phase 5
-      [LE_ITEM_ARMOR_LIBRAM]     = {"WARRIOR", "DRUID", "ROGUE", "PRIEST", "MAGE", "WARLOCK", "HUNTER", "SHAMAN"},
-      [LE_ITEM_ARMOR_IDOL]       = {"WARRIOR",  "PALADIN", "ROGUE", "PRIEST", "MAGE", "WARLOCK", "HUNTER", "SHAMAN",},
-      [LE_ITEM_ARMOR_TOTEM]      = {"WARRIOR",  "PALADIN", "DRUID", "ROGUE", "PRIEST", "MAGE", "WARLOCK", "HUNTER",},
-      [LE_ITEM_ARMOR_SIGIL]      = {"WARRIOR",  "PALADIN", "DRUID", "ROGUE", "PRIEST", "MAGE", "WARLOCK", "HUNTER", "SHAMAN",}, -- Deathknight only?
+      [LE_ITEM_ARMOR_LIBRAM]     = {"WARRIOR", "DRUID", "ROGUE", "PRIEST", "MAGE", "WARLOCK", "HUNTER", "SHAMAN", "DEATHKNIGHT"},	-- Paladin only
+      [LE_ITEM_ARMOR_IDOL]       = {"WARRIOR",  "PALADIN", "ROGUE", "PRIEST", "MAGE", "WARLOCK", "HUNTER", "SHAMAN","DEATHKNIGHT"},-- Druid only
+      [LE_ITEM_ARMOR_TOTEM]      = {"WARRIOR",  "PALADIN", "DRUID", "ROGUE", "PRIEST", "MAGE", "WARLOCK", "HUNTER","DEATHKNIGHT"},	-- Shaman only
+      [LE_ITEM_ARMOR_SIGIL]      = {"WARRIOR",  "PALADIN", "DRUID", "ROGUE", "PRIEST", "MAGE", "WARLOCK", "HUNTER", "SHAMAN",}, 	-- Deathknight only
 	},
 	[LE_ITEM_CLASS_WEAPON] = {
 		[LE_ITEM_WEAPON_AXE1H]		= {"DRUID", "PRIEST", "MAGE", "WARLOCK"},
