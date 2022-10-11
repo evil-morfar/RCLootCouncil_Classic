@@ -152,3 +152,8 @@ function ClassicModule:UpdateBlacklist()
       addon.blackListOverride[id] = true
    end
 end
+
+---@return boolean #True if running Classic Era game
+function ClassicModule:IsClassicEra()
+   return WOW_PROJECT_CLASSIC == WOW_PROJECT_ID
+end
