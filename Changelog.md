@@ -1,7 +1,10 @@
 ## Changes
 
-`/rc test` now uses WOTLK items in WOTLK.  
+`/rc test` now uses WOTLK items in WOTLK.
+
 Warnings about `v3.0` has been removed for good.
+
+Added `itemName` to JSON export (CurseClassic#137).
 
 ### Bugfixes
 
