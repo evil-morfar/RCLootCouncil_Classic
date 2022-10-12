@@ -19,3 +19,4 @@ Simply use `/rc add bags` or `/rc add all` to do so. You must obviously still be
 - *Fixed issue with adding items to a session not always being parsed correctly.*
 - *Druids no longer auto passes on polearms (CurseClassic#174).*
 - *Deathknights now auto passes librams, idols, and totems.*
+- *Fixed issue with responses not updating their sort order when moving them around.*
