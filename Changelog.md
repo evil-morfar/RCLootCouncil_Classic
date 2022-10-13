@@ -22,3 +22,4 @@ Simply use `/rc add bags` or `/rc add all` to do so. You must obviously still be
 - *Druids no longer auto passes on polearms (CurseClassic#174).*
 - *Deathknights now auto passes librams, idols, and totems.*
 - *Fixed issue with responses not updating their sort order when moving them around.*
+- *Fixed issues with TradeUI removing wrong items after trading.*
