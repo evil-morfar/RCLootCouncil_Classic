@@ -6,6 +6,8 @@ Warnings about `v3.0` has been removed for good.
 
 Added `itemName` to JSON export (CurseClassic#137).
 
+Looting in combat is now possible if settings dictates no frames would be created.
+
 ### Add all tradeable items to session
 
 It's now possible to add all items from your bags with a trade timer on them to a session at once.
