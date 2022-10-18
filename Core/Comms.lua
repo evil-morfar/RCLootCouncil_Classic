@@ -63,9 +63,35 @@ local function decompressor (data)
    return serializedMsg or ""
 end
 
+local v3VersionWarningCount = 0
+local function handleRCLCvComms(serializedMsg)
+	local test, command, data = addon:Deserialize(serializedMsg)
+	if not test then return addon:Debug("Error in deserializing comm:", command, data) end
+	-- This can either originate from a retail version or if classic is finally updated to
+	-- RCLootCouncil v3. Version >= 3 if retail, and < 2 if classic. This check will be removed
+	-- once Classic reaches 1.0.
+	-- We simply ignore any versions higher than 1.
+	if command == "v" or command == "r" then
+		local version, tVersion = unpack(data)
+		if tVersion then return end -- We don't care about tVersions either.
+		if tonumber(version:sub(0,1)) > 1 then return end -- Retail version
+
+		-- v3.0 (Classic v1.0) has been released!
+		if v3VersionWarningCount <= 5 then
+			addon:Print("RCLootCouncil_Classic v1.0 has been released. This version is no longer compatible, please upgrade!")
+			v3VersionWarningCount = v3VersionWarningCount + 1
+		end
+	end
+end
+
 local function OnCommReceived (self, origHandler, prefix, compressedMessage, distri, sender)
-   local serializedMsg = decompressor(compressedMessage)
-   origHandler(self, prefix, serializedMsg, distri, sender)
+	local serializedMsg = decompressor(compressedMessage)
+	-- TODO: Remove when integrating v3.0.
+	if prefix == "RCLCv" then
+		handleRCLCvComms(serializedMsg)
+	else
+		origHandler(self, prefix, serializedMsg, distri, sender)
+	end
 end
 
 function Classic:DoCommsCompressFix ()
