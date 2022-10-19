@@ -15,7 +15,7 @@ mkdir "$curDir/.tmp/RCLootCouncil_Classic"
 # Build RCLootCouncil (locale only) (and skip Libs as they shouldn't be processed with the keyword replacements)
 ( bash "$release_script" -dLsz -t "$curDir/RCLootCouncil" -r "$curDir/.tmp/RCLootCouncil_Classic" -p 39928 -m ".pkgmeta-rclootcouncil" )
 # Now just copy the original libs to the build
-cp -R "$curDir/RCLootCouncil/Libs/" "$curDir/.tmp/RCLootCouncil_Classic/RCLootCouncil/Libs"
+cp -R "$curDir/RCLootCouncil/Libs/" "$curDir/.tmp/RCLootCouncil_Classic/RCLootCouncil/Libs/"
 
 # # Do replacements
 . "./.scripts/replace.sh"

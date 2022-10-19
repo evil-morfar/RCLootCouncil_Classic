@@ -47,7 +47,7 @@ local autopassTable = {
 
 if Classic:IsClassicEra() then
 	-- Druids pass on polearms in Classic, but not WotLK
-	autopassTable.LE_ITEM_CLASS_WEAPON.LE_ITEM_WEAPON_POLEARM = {"ROGUE", "SHAMAN", "PRIEST", "MAGE", "WARLOCK", "DRUID"}
+	autopassTable[LE_ITEM_CLASS_WEAPON][LE_ITEM_WEAPON_POLEARM] = {"ROGUE", "SHAMAN", "PRIEST", "MAGE", "WARLOCK", "DRUID"}
 end
 
 --- Checks if the player should autopass on a given item.
