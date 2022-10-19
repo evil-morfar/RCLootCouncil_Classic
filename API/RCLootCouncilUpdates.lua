@@ -253,29 +253,13 @@ function addon:GetML()
    local lootMethod, mlPartyID, mlRaidID = GetLootMethod()
    self:Debug("LootMethod = ", lootMethod)
 
-   -- Can't be ML in pvp
-   local _, type = IsInInstance()
-   if type == "arena" or type == "pvp" then
-      self:Debug("PVP instance")
-      return false, nil
-   end
-
    if GetNumGroupMembers() == 0 and (self.testMode or self.nnp) then -- always the player when testing alone
       self:ScheduleTimer("Timer", 5, "MLdb_check")
       return true, self.playerName
    end
-   local db = self:Getdb()
-   -- We shouldn't be ML if settings doesn't allow us to
-   if db.usage.never then
-      self:DebugLog("GetML", "db.usage.never")
-      return false, nil
-
-   elseif not IsInRaid() and db.onlyUseInRaids then
-      self:Debug("Not in raid group")
-      return false, nil
 
    -- Otherwise figure it out based on loot method:
-   elseif lootMethod == "master" then
+   if lootMethod == "master" then
       local name;
       if mlRaidID then -- Someone in raid
          name = self:UnitName("raid"..mlRaidID)
@@ -285,13 +269,8 @@ function addon:GetML()
          name = self:UnitName("party"..mlPartyID)
       end
       self:Debug("MasterLooter = ", name)
-      return IsMasterLooter(), name
-   elseif lootMethod == "group" then
-      -- Are we even allowed to use group loot?
-      if not db.useWithGroupLoot then
-         self:Debug("useWithGroupLoot == false")
-         return false, nil
-      end
+      return IsMasterLooter() and self:IsPlayerML(), name
+   else
       -- Set the Group leader as the ML
 	   local name
       for i=1, GetNumGroupMembers() or 0 do
@@ -303,11 +282,33 @@ function addon:GetML()
             name = self:UnitName(name2)
          end
       end
-      if name then
-         return UnitIsGroupLeader("player"), name
-      end
+      return UnitIsGroupLeader("player") and self:IsPlayerML(), name
    end
-   return false, nil;
+end
+
+function addon:IsPlayerML()
+   local lootMethod = GetLootMethod()
+   -- Can't be ML in pvp
+   local _, type = IsInInstance()
+   if type == "arena" or type == "pvp" then
+      self:Debug("PVP instance")
+      return false
+   end
+   local db = self:Getdb()
+   -- We shouldn't be ML if settings doesn't allow us to
+   if db.usage.never then
+      self:DebugLog("GetML", "db.usage.never")
+      return false
+
+   elseif not IsInRaid() and db.onlyUseInRaids then
+      self:Debug("Not in raid group")
+      return false
+   -- Are we even allowed to use group loot?
+   elseif lootMethod == "group" and not db.useWithGroupLoot then
+      self:Debug("useWithGroupLoot == false")
+      return false
+   end
+   return true
 end
 
 function addon:StartHandleLoot()
