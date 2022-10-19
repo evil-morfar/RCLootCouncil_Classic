@@ -124,9 +124,16 @@ function addon:Test(num, fullTest, trinketTest)
 	self.isMasterLooter, self.masterLooter = self:GetML()
 	-- We must be in a group and not the ML
 	if not self.isMasterLooter then
-		self:Print(L.error_test_as_non_leader)
-		self.testMode = false
-		return
+      -- If we're the group leader we can still test.
+      -- We might not be marked as ML due to certain settings - we ignore those when testing.
+      if UnitIsGroupLeader("player") then
+         self.isMasterLooter = true
+         self.masterLooter = self.playerName
+      else
+         self:Print(L.error_test_as_non_leader)
+         self.testMode = false
+         return
+      end
 	end
 	-- Call ML module and let it handle the rest
 	self:CallModule("masterlooter")
