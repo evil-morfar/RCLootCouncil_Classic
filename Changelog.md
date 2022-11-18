@@ -1,5 +1,9 @@
 ## Changes
 
+### Checkmark
+
+Awarded items now also has a checkmark overlay on their session button.
+
 ### Esc closing frames
 
 All RCLootCouncil frames except `Loot-` and `Voting Frame` can now be closed by pressing `Escape`.
