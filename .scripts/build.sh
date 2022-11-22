@@ -18,7 +18,7 @@ mkdir "$curDir/.tmp/RCLootCouncil_Classic"
 cp -R "$curDir/RCLootCouncil/Libs/" "$curDir/.tmp/RCLootCouncil_Classic/RCLootCouncil/"
 
 # # Do replacements
-. "./.scripts/replace.sh"
+. "./.scripts/replace.sh" "$curDir/.tmp/RCLootCouncil_Classic"
 
 # Build for Classic Era
 # -d: Skip Upload
