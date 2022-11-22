@@ -18,3 +18,4 @@ Furthermore added a delete button to the TradeUI allowing one to remove items fr
 
 - *Frames will no longer intercept mouse scrolls when hidden (CurseClassic#181).*
 - *Items registered for "award_later", "to_trade", etc will now properly be removed on relog if  they no longer exists in players bags.*
+- *Test versions will no longer be listed as newer if you're not running a test version yourself.*
