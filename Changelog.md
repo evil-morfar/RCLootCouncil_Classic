@@ -8,6 +8,12 @@ Awarded items now also has a checkmark overlay on their session button.
 
 All RCLootCouncil frames except `Loot-` and `Voting Frame` can now be closed by pressing `Escape`.
 
+### TradeUI and ItemStorage
+
+Made several fixes to the ItemStorage which should eliminate outstanding issues with wrong warnings about trade timers and items staying in the award later list forever.
+
+Furthermore added a delete button to the TradeUI allowing one to remove items from it.
+
 ## Bugfixes
 
 - *Frames will no longer intercept mouse scrolls when hidden (CurseClassic#181).*
