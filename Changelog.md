@@ -1,4 +1,22 @@
-### Bugfixes
+## Changes
 
-- *Revamped last update's changes to ML detection - a few specific settings would cause canidates to ignore messages from the ML when they shouldn't.*
-- *Classic Era: Fixed login error related to auto pass.*
+### Checkmark
+
+Awarded items now also has a checkmark overlay on their session button.
+
+### Esc closing frames
+
+All RCLootCouncil frames except `Loot-` and `Voting Frame` can now be closed by pressing `Escape`.
+
+### TradeUI and ItemStorage
+
+Made several fixes to the ItemStorage which should eliminate outstanding issues with wrong warnings about trade timers and items staying in the award later list forever.
+
+Furthermore added a delete button to the TradeUI allowing one to remove items from it.
+
+## Bugfixes
+
+- *Frames will no longer intercept mouse scrolls when hidden (CurseClassic#181).*
+- *Items registered for "award_later", "to_trade", etc will now properly be removed on relog if  they no longer exists in players bags.*
+- *Test versions will no longer be listed as newer if you're not running a test version yourself.*
+- *Fixed potential nil error (#46).*
