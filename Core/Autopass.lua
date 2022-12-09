@@ -68,7 +68,6 @@ function addon:AutoPassCheck(link, equipLoc, typeID, subTypeID, classesFlag, isT
 			end
 		end
 	end
-	if self:Getdb()[equipLoc] then return true end
 	if not tContains(autopassOverride, equipLoc) then
 		if autopassTable[typeID] and autopassTable[typeID][subTypeID] then
 			return tContains(autopassTable[typeID][subTypeID], class)
