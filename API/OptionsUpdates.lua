@@ -113,83 +113,84 @@ function addon:OptionsTable ()
 									},
 									INVTYPE_HEAD = {
 										order = 8,
-										name = "Head",
+										name = INVTYPE_HEAD,
 										type = "toggle",
 									},
 									INVTYPE_NECK = {
 										order = 8,
-										name = "Neck",
+										name = INVTYPE_NECK,
 										type = "toggle",
 									},
 									INVTYPE_SHOULDER = {
 										order = 10,
-										name = "Shoulder",
+										name = INVTYPE_SHOULDER,
 										type = "toggle",
 									},
 									
-									INVTYPE_BODY = {
+									INVTYPE_CLOAK  = {
 										order = 11,
-										name = "Shirt",
+										name = INVTYPE_CLOAK ,
 										type = "toggle",
 									},
+									
 									INVTYPE_CHEST = {
 										order = 12,
-										name = "Chest",
+										name = INVTYPE_CHEST,
 										type = "toggle",
 									},
 									INVTYPE_WAIST = {
 										order = 13,
-										name = "Waist",
+										name = INVTYPE_WAIST,
 										type = "toggle",
 									},
 									INVTYPE_LEGS = {
 										order = 14,
-										name = "Legs",
+										name = INVTYPE_LEGS,
 										type = "toggle",
 									},
 									INVTYPE_FEET = {
 										order = 15,
-										name = "Feet",
+										name = INVTYPE_FEET,
 										type = "toggle",
 									},
 									INVTYPE_WRIST = {
 										order = 16,
-										name = "Wrist",
+										name = INVTYPE_WRIST,
 										type = "toggle",
 									},
 									INVTYPE_HAND = {
 										order = 17,
-										name = "Hands",
+										name = INVTYPE_HAND,
 										type = "toggle"
 									},
 									INVTYPE_FINGER = {
 										order = 18,
-										name = "Finger",
+										name = INVTYPE_FINGER,
 										type = "toggle"
 									},
 									INVTYPE_TRINKET = {
 										order = 19,
-										name = "Trinket",
+										name = INVTYPE_TRINKET,
 										type = "toggle"
 									},
 									INVTYPE_RANGED = {
 										order = 20,
-										name = "Ranged",
+										name = INVTYPE_RANGED,
 										type = "toggle"
 									},
 									INVTYPE_WEAPON = {
 										order = 21,
-										name = "One-Hand",
+										name = INVTYPE_WEAPON,
 										type = "toggle"
 									},
 									INVTYPE_SHIELD = {
 										order = 22,
-										name = "Off Hand",
+										name = INVTYPE_SHIELD,
 										type = "toggle"
 									},
 									INVTYPE_2HWEAPON = {
 										order = 23,
-										name = "Two-Hand",
+										name = INVTYPE_2HWEAPON,
 										type = "toggle"
 									}											
 	}
