@@ -68,132 +68,151 @@ function addon:OptionsTable ()
 
    -- Remove "Bonus Rolls" option
    options.args.mlSettings.args.generalTab.args.lootingOptions.args.saveBonusRolls = nil
-	options.args.settings.args.generalSettingsTab.args.responseOptions.args =
-	{
-								
-									autoPass = {
-										order = 1,
-										name = L["Auto Pass"],
-										desc = L["auto_pass_desc"],
-										type = "toggle",
-									},
-									autoPassTrinket = {
-										order = 2,
-										name = L["Auto Pass Trinkets"],
-										desc = L["auto_pass_trinket_desc"],
-										type = "toggle",
-									},
-									silentAutoPass = {
-										order = 3,
-										name = L["Silent Auto Pass"],
-										desc = L["silent_auto_pass_desc"],
-										type = "toggle",
-									},
-									autoPassBoE = {
-										order = 4,
-										name = L["Auto pass BoE"],
-										desc = L["auto_pass_boe_desc"],
-										type = "toggle",
-									},
-									printResponse = {
-										order = 5,
-										name = L["Print Responses"],
-										desc = L["print_response_desc"],
-										type = "toggle",
-									},									
-									autoheadheader = {
-										order = 6,
-										type = "header",
-										name = "",
-									},
-									autoheadheader123 = {
-										order = 7,
-										type = "description",
-										name = "AUTO PASS SLOTS",
-									},
-									INVTYPE_HEAD = {
-										order = 8,
-										name = INVTYPE_HEAD,
-										type = "toggle",
-									},
-									INVTYPE_NECK = {
-										order = 8,
-										name = INVTYPE_NECK,
-										type = "toggle",
-									},
-									INVTYPE_SHOULDER = {
-										order = 10,
-										name = INVTYPE_SHOULDER,
-										type = "toggle",
-									},
-									
-									INVTYPE_CLOAK  = {
-										order = 11,
-										name = INVTYPE_CLOAK ,
-										type = "toggle",
-									},
-									
-									INVTYPE_CHEST = {
-										order = 12,
-										name = INVTYPE_CHEST,
-										type = "toggle",
-									},
-									INVTYPE_WAIST = {
-										order = 13,
-										name = INVTYPE_WAIST,
-										type = "toggle",
-									},
-									INVTYPE_LEGS = {
-										order = 14,
-										name = INVTYPE_LEGS,
-										type = "toggle",
-									},
-									INVTYPE_FEET = {
-										order = 15,
-										name = INVTYPE_FEET,
-										type = "toggle",
-									},
-									INVTYPE_WRIST = {
-										order = 16,
-										name = INVTYPE_WRIST,
-										type = "toggle",
-									},
-									INVTYPE_HAND = {
-										order = 17,
-										name = INVTYPE_HAND,
-										type = "toggle"
-									},
-									INVTYPE_FINGER = {
-										order = 18,
-										name = INVTYPE_FINGER,
-										type = "toggle"
-									},
-									INVTYPE_TRINKET = {
-										order = 19,
-										name = INVTYPE_TRINKET,
-										type = "toggle"
-									},
-									INVTYPE_RANGED = {
-										order = 20,
-										name = INVTYPE_RANGED,
-										type = "toggle"
-									},
-									INVTYPE_WEAPON = {
-										order = 21,
-										name = INVTYPE_WEAPON,
-										type = "toggle"
-									},
-									INVTYPE_SHIELD = {
-										order = 22,
-										name = INVTYPE_SHIELD,
-										type = "toggle"
-									},
-									INVTYPE_2HWEAPON = {
-										order = 23,
-										name = INVTYPE_2HWEAPON,
-										type = "toggle"
-									}											
-	}
+
+   -- Custom getter/setter for autoPassSlotOptions.
+   -- Will keep the options grouped in `db.autoPassSlot` whilst allowing them to be 
+   -- named e.g. `INVTYPE_HEAD` global for easy fetching on demand.
+   local function autoPassOptionsGet(info)
+      return self.db.profile.autoPassSlot[info[#info]]
+   end
+
+   local function autoPassOptionsSet(info, val)
+      self.db.profile.autoPassSlot[info[#info]] = val
+   end
+
+   -- Setup new options
+   local autoPassSlotsOptions = {
+      header = {
+         order = 6,
+         type = "header",
+         name = "",
+      },
+      description = {
+         order = 7,
+         type = "description",
+         name = "AUTO PASS SLOTS", -- TODO create better description
+      },
+      INVTYPE_HEAD = {
+         order = 8,
+         name = INVTYPE_HEAD,
+         type = "toggle",
+         get = autoPassOptionsGet,
+         set = autoPassOptionsSet
+      },
+      INVTYPE_NECK = {
+         order = 8,
+         name = INVTYPE_NECK,
+         type = "toggle",
+         get = autoPassOptionsGet,
+         set = autoPassOptionsSet
+      },
+      INVTYPE_SHOULDER = {
+         order = 10,
+         name = INVTYPE_SHOULDER,
+         type = "toggle",
+         get = autoPassOptionsGet,
+         set = autoPassOptionsSet
+      },
+
+      INVTYPE_CLOAK = {
+         order = 11,
+         name = INVTYPE_CLOAK,
+         type = "toggle",
+         get = autoPassOptionsGet,
+         set = autoPassOptionsSet
+      },
+
+      INVTYPE_CHEST = {
+         order = 12,
+         name = INVTYPE_CHEST,
+         type = "toggle",
+         get = autoPassOptionsGet,
+         set = autoPassOptionsSet
+      },
+      INVTYPE_WAIST = {
+         order = 13,
+         name = INVTYPE_WAIST,
+         type = "toggle",
+         get = autoPassOptionsGet,
+         set = autoPassOptionsSet
+      },
+      INVTYPE_LEGS = {
+         order = 14,
+         name = INVTYPE_LEGS,
+         type = "toggle",
+         get = autoPassOptionsGet,
+         set = autoPassOptionsSet
+      },
+      INVTYPE_FEET = {
+         order = 15,
+         name = INVTYPE_FEET,
+         type = "toggle",
+         get = autoPassOptionsGet,
+         set = autoPassOptionsSet
+      },
+      INVTYPE_WRIST = {
+         order = 16,
+         name = INVTYPE_WRIST,
+         type = "toggle",
+         get = autoPassOptionsGet,
+         set = autoPassOptionsSet
+      },
+      INVTYPE_HAND = {
+         order = 17,
+         name = INVTYPE_HAND,
+         type = "toggle",
+         get = autoPassOptionsGet,
+         set = autoPassOptionsSet
+      },
+      INVTYPE_FINGER = {
+         order = 18,
+         name = INVTYPE_FINGER,
+         type = "toggle",
+         get = autoPassOptionsGet,
+         set = autoPassOptionsSet
+      },
+      INVTYPE_TRINKET = {
+         order = 19,
+         name = INVTYPE_TRINKET,
+         type = "toggle",
+         get = autoPassOptionsGet,
+         set = autoPassOptionsSet
+      },
+      INVTYPE_RANGED = {
+         order = 20,
+         name = INVTYPE_RANGED,
+         type = "toggle",
+         get = autoPassOptionsGet,
+         set = autoPassOptionsSet
+      },
+      INVTYPE_WEAPON = {
+         order = 21,
+         name = INVTYPE_WEAPON,
+         type = "toggle",
+         get = autoPassOptionsGet,
+         set = autoPassOptionsSet
+      },
+      INVTYPE_SHIELD = {
+         order = 22,
+         name = INVTYPE_SHIELD,
+         type = "toggle",
+         get = autoPassOptionsGet,
+         set = autoPassOptionsSet
+      },
+      INVTYPE_2HWEAPON = {
+         order = 23,
+         name = INVTYPE_2HWEAPON,
+         type = "toggle",
+         get = autoPassOptionsGet,
+         set = autoPassOptionsSet
+      }
+   }
+
+   -- Add them after existing response options
+   for k,v in pairs(autoPassSlotsOptions) do
+      options.args.settings.args.generalSettingsTab.args.responseOptions.args[k] = v
+   end
+	
     -- AlwaysAutoAward
     options.args.mlSettings.args.awardsTab.args.autoAward.args.alwaysAutoAward =
         {
