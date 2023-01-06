@@ -80,7 +80,11 @@ function addon:OptionsTable ()
       self.db.profile.autoPassSlot[info[#info]] = val
    end
 
-   -- Setup new options
+   local function autoPassSlotHidden() 
+      return not self.db.profile.autoPassSlot.enabled
+   end
+
+   -- Setup new options group
    local autoPassSlotsOptions = {
       order = 4.1,
       name = LC.opt_advancedAutoPass_name,
@@ -89,95 +93,60 @@ function addon:OptionsTable ()
       get = autoPassOptionsGet,
       set = autoPassOptionsSet,
       args = {
+         enabled = {
+            order = 0,
+            type = "toggle",
+            name = _G.ENABLE,
+            set = function(info, val)
+               autoPassOptionsSet(info, val)
+               if not val then
+                  -- Uncheck everything when disabling group:
+                  for k in pairs(self.db.profile.autoPassSlot) do
+                     self.db.profile.autoPassSlot[k] = false
+                  end
+               end
+            end
+         },
          description = {
             order = 1,
             type = "description",
-            name = LC.opt_advancedAutoPass_desc
+            name = LC.opt_advancedAutoPass_desc,
+            hidden = autoPassSlotHidden
          },
-         INVTYPE_HEAD = {
-            order = 2,
-            name = INVTYPE_HEAD,
-            type = "toggle",
-         },
-         INVTYPE_NECK = {
-            order = 3,
-            name = INVTYPE_NECK,
-            type = "toggle",
-         },
-         INVTYPE_SHOULDER = {
-            order = 4,
-            name = INVTYPE_SHOULDER,
-            type = "toggle",
-         },
-
-         INVTYPE_CLOAK = {
-            order = 5,
-            name = INVTYPE_CLOAK,
-            type = "toggle",
-         },
-
-         INVTYPE_CHEST = {
-            order = 6,
-            name = INVTYPE_CHEST,
-            type = "toggle",
-         },
-         INVTYPE_WAIST = {
-            order = 7,
-            name = INVTYPE_WAIST,
-            type = "toggle",
-         },
-         INVTYPE_LEGS = {
-            order = 8,
-            name = INVTYPE_LEGS,
-            type = "toggle",
-         },
-         INVTYPE_FEET = {
-            order = 9,
-            name = INVTYPE_FEET,
-            type = "toggle",
-         },
-         INVTYPE_WRIST = {
-            order = 10,
-            name = INVTYPE_WRIST,
-            type = "toggle",
-         },
-         INVTYPE_HAND = {
-            order = 11,
-            name = INVTYPE_HAND,
-            type = "toggle",
-         },
-         INVTYPE_FINGER = {
-            order = 12,
-            name = INVTYPE_FINGER,
-            type = "toggle",
-         },
-         INVTYPE_TRINKET = {
-            order = 13,
-            name = INVTYPE_TRINKET,
-            type = "toggle",
-         },
-         INVTYPE_RANGED = {
-            order = 14,
-            name = INVTYPE_RANGED,
-            type = "toggle",
-         },
-         INVTYPE_WEAPON = {
-            order = 15,
-            name = INVTYPE_WEAPON,
-            type = "toggle",
-         },
-         INVTYPE_SHIELD = {
-            order = 16,
-            name = INVTYPE_SHIELD,
-            type = "toggle",
-         },
-         INVTYPE_2HWEAPON = {
-            order = 17,
-            name = INVTYPE_2HWEAPON,
-            type = "toggle",
-         }
+         -- Fields created below
       }
    }
+   -- Each type listed is the global string for an item equip location that should
+   -- be an option for auto pass slot. They're added to the options menu in this order.
+   local fields = {
+      "INVTYPE_HEAD",
+      "INVTYPE_NECK",
+      "INVTYPE_SHOULDER",
+      "INVTYPE_CLOAK",
+      "INVTYPE_CHEST",
+      "INVTYPE_WAIST",
+      "INVTYPE_LEGS",
+      "INVTYPE_FEET",
+      "INVTYPE_WRIST",
+      "INVTYPE_HAND",
+      "INVTYPE_FINGER",
+      "INVTYPE_TRINKET",
+      "INVTYPE_RANGED",
+      "INVTYPE_WEAPON",
+      "INVTYPE_SHIELD",
+      "INVTYPE_2HWEAPON",
+   }
+
+   for i, name in ipairs(fields) do
+      autoPassSlotsOptions.args[name] = {
+         order = i + 1,
+         type = "toggle",
+         name = _G[name],
+         desc = format(LC.opt_advancedAutoPassSlot_desc, _G[name]),
+         hidden = autoPassSlotHidden
+      }
+   end
+
    options.args.settings.args.generalSettingsTab.args.autoPassSlots = autoPassSlotsOptions
 
     -- AlwaysAutoAward
