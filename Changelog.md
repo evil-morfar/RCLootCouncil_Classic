@@ -1,8 +1,7 @@
 ## Changes
 
+Updated for patch 3.4.1.
 
 ## Bugfixes
 
-- *Closing the TradeUI would make it stop functioning properly (Curse#182, Curse#183, #47).*
-- *If an error occured when doing award later, last item would cause a lua error.*
-
+- *Date selection in delete history options now again shows the chosen value.*
