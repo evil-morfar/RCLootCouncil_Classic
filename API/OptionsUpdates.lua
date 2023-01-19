@@ -78,6 +78,10 @@ function addon:OptionsTable ()
 
    local function autoPassOptionsSet(info, val)
       self.db.profile.autoPassSlot[info[#info]] = val
+      -- Also set robes when dealing with chest.
+      if info[#info] == "INVTYPE_CHEST" then
+         self.db.profile.autoPassSlot["INVTYPE_ROBE"] = val
+      end
    end
 
    local function autoPassSlotHidden() 

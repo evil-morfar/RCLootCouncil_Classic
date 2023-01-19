@@ -16,6 +16,10 @@ Added new chat command `/rc export` which will export a csv formatted list of th
 
 Added button groups for mounts and bags.
 
+### Auto pass specific slots
+
+Added option to always auto pass specific equip slots - credit to Loogosh.
+
 ## Bugfixes
 
 - *Date selection in delete history options now again shows the chosen value.*
