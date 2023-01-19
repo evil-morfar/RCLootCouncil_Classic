@@ -12,6 +12,10 @@ Now shows the equip location of recently awarded items.
 
 Added new chat command `/rc export` which will export a csv formatted list of the items currently in session.
 
+### Additional Buttons
+
+Added button groups for mounts and bags.
+
 ## Bugfixes
 
 - *Date selection in delete history options now again shows the chosen value.*
