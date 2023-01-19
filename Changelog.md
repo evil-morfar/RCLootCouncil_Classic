@@ -2,6 +2,10 @@
 
 Updated for patch 3.4.1.
 
+### Voting Frame More Info
+
+Now shows the equip location of recently awarded items.
+
 ## Bugfixes
 
 - *Date selection in delete history options now again shows the chosen value.*
