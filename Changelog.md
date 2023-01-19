@@ -6,6 +6,10 @@ Updated for patch 3.4.1.
 
 Now shows the equip location of recently awarded items.
 
+### Export items in session
+
+Added new chat command `/rc export` which will export a csv formatted list of the items currently in session.
+
 ## Bugfixes
 
 - *Date selection in delete history options now again shows the chosen value.*
