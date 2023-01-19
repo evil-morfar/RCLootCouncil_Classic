@@ -2,6 +2,8 @@
 
 Updated for patch 3.4.1.
 
+Add `/rc start` command which either shows the usage pop-up or starts the addon depending on your usage settings.
+
 ### Voting Frame More Info
 
 Now shows the equip location of recently awarded items.
