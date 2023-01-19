@@ -69,6 +69,90 @@ function addon:OptionsTable ()
    -- Remove "Bonus Rolls" option
    options.args.mlSettings.args.generalTab.args.lootingOptions.args.saveBonusRolls = nil
 
+   -- Custom getter/setter for autoPassSlotOptions.
+   -- Will keep the options grouped in `db.autoPassSlot` whilst allowing them to be 
+   -- named e.g. `INVTYPE_HEAD` global for easy fetching on demand.
+   local function autoPassOptionsGet(info)
+      return self.db.profile.autoPassSlot[info[#info]]
+   end
+
+   local function autoPassOptionsSet(info, val)
+      self.db.profile.autoPassSlot[info[#info]] = val
+      -- Also set robes when dealing with chest.
+      if info[#info] == "INVTYPE_CHEST" then
+         self.db.profile.autoPassSlot["INVTYPE_ROBE"] = val
+      end
+   end
+
+   local function autoPassSlotHidden() 
+      return not self.db.profile.autoPassSlot.enabled
+   end
+
+   -- Setup new options group
+   local autoPassSlotsOptions = {
+      order = 4.1,
+      name = LC.opt_advancedAutoPass_name,
+      type = "group",
+      inline = true,
+      get = autoPassOptionsGet,
+      set = autoPassOptionsSet,
+      args = {
+         enabled = {
+            order = 0,
+            type = "toggle",
+            name = _G.ENABLE,
+            set = function(info, val)
+               autoPassOptionsSet(info, val)
+               if not val then
+                  -- Uncheck everything when disabling group:
+                  for k in pairs(self.db.profile.autoPassSlot) do
+                     self.db.profile.autoPassSlot[k] = false
+                  end
+               end
+            end
+         },
+         description = {
+            order = 1,
+            type = "description",
+            name = LC.opt_advancedAutoPass_desc,
+            hidden = autoPassSlotHidden
+         },
+         -- Fields created below
+      }
+   }
+   -- Each type listed is the global string for an item equip location that should
+   -- be an option for auto pass slot. They're added to the options menu in this order.
+   local fields = {
+      "INVTYPE_HEAD",
+      "INVTYPE_NECK",
+      "INVTYPE_SHOULDER",
+      "INVTYPE_CLOAK",
+      "INVTYPE_CHEST",
+      "INVTYPE_WAIST",
+      "INVTYPE_LEGS",
+      "INVTYPE_FEET",
+      "INVTYPE_WRIST",
+      "INVTYPE_HAND",
+      "INVTYPE_FINGER",
+      "INVTYPE_TRINKET",
+      "INVTYPE_RANGED",
+      "INVTYPE_WEAPON",
+      "INVTYPE_SHIELD",
+      "INVTYPE_2HWEAPON",
+   }
+
+   for i, name in ipairs(fields) do
+      autoPassSlotsOptions.args[name] = {
+         order = i + 1,
+         type = "toggle",
+         name = _G[name],
+         desc = format(LC.opt_advancedAutoPassSlot_desc, _G[name]),
+         hidden = autoPassSlotHidden
+      }
+   end
+
+   options.args.settings.args.generalSettingsTab.args.autoPassSlots = autoPassSlotsOptions
+
     -- AlwaysAutoAward
     options.args.mlSettings.args.awardsTab.args.autoAward.args.alwaysAutoAward =
         {

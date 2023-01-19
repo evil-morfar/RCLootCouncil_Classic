@@ -68,6 +68,10 @@ function addon:AutoPassCheck(link, equipLoc, typeID, subTypeID, classesFlag, isT
 			end
 		end
 	end
+	
+	-- If player has enabled `db.autoPassSlot[equipLoc]` we should auto pass
+	if self:Getdb().autoPassSlot[equipLoc] then return true end
+
 	if not tContains(autopassOverride, equipLoc) then
 		if autopassTable[typeID] and autopassTable[typeID][subTypeID] then
 			return tContains(autopassTable[typeID][subTypeID], class)

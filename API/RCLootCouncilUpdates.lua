@@ -27,6 +27,10 @@ addon.defaults.profile.usage = {
    state = "ask_ml"
 }
 
+addon.defaults.profile.autoPassSlot = {
+   ["*"] = false
+}
+
 -- Rep Items defaults:
 addon.defaults.profile.autoAwardRepItems = false
 addon.defaults.profile.autoAwardRepItemsReason = 1

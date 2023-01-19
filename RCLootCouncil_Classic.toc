@@ -1,9 +1,9 @@
 ## Author: Potdisc
 ## Interface: 11403
-## Interface-Wrath: 30400
-## Notes: RCLootCouncil for WoW Classic and Wrath of the Lich King Classic v0.17.1
+## Interface-Wrath: 30401
+## Notes: RCLootCouncil for WoW Classic and Wrath of the Lich King Classic v0.18.0
 ## Title: RCLootCouncil Classic
-## Version: 0.17.1
+## Version: 0.18.0
 ## X-Curse-Project-ID: 332955
 ## SavedVariables: RCLootCouncilDB, RCLootCouncilLootDB
 ## OptionalDeps: LibStub, CallbackHandler-1.0, Ace3, lib-st, LibWindow-1.1, LibDialog-1.0
@@ -16,6 +16,7 @@ RCLootCouncil\embeds.xml
 Libs\LibDeflate\LibDeflate.lua
 RCLootCouncil\Locale\Locales.xml
 
+API\GlobalUpdates.lua
 RCLootCouncil\Core\Constants.lua
 RCLootCouncil\Core\Defaults.lua
 RCLootCouncil\Core\CoreEvents.lua
