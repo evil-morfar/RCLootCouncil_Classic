@@ -1,6 +1,6 @@
 ## Author: Potdisc
 ## Interface: 11403
-## Interface-Wrath: 30400
+## Interface-Wrath: 30401
 ## Notes: RCLootCouncil for WoW Classic and Wrath of the Lich King Classic v0.17.1
 ## Title: RCLootCouncil Classic
 ## Version: 0.17.1
