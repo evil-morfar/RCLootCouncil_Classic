@@ -1,3 +1,11 @@
+# 0.18.1
+
+
+## Bugfixes
+
+- *Fixed error related to warning about tradeable items becoming non-tradeable.*
+
+
 # 0.18.0
 
 ## Changes
