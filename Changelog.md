@@ -1,3 +1,5 @@
+# 0.18.2
+
 ## Bugfixes
 
-- *Fixed error related to warning about tradeable items becoming non-tradeable.*
+- *Fixed issue with outdated libraries causing history frame to not show.*
