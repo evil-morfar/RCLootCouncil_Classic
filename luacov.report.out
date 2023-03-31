@@ -1,0 +1,2002 @@
+==============================================================================
+c:\Users\nnpil\.vscode\extensions\tomblind.local-lua-debugger-vscode-0.3.3\debugger\lldebugger.lua
+==============================================================================
+
+  1 local ____modules = {}
+  1 local ____moduleCache = {}
+  1 local ____originalRequire = require
+    local function require(file, ...)
+ 18     if ____moduleCache[file] then
+  9         return ____moduleCache[file].value
+        end
+  9     if ____modules[file] then
+  9         local module = ____modules[file]
+  9         ____moduleCache[file] = { value = (select("#", ...) > 0) and module(...) or module(file) }
+  9         return ____moduleCache[file].value
+        else
+**0         if ____originalRequire then
+**0             return ____originalRequire(file)
+            else
+**0             error("module '" .. file .. "' not found")
+            end
+        end
+    end
+  1 ____modules = {
+    ["luafuncs"] = function(...) 
+  1 local ____exports = {}
+  1 if _G.unpack == nil then
+**0     _G.unpack = table.unpack
+    end
+  1 ____exports.luaAssert = _G.assert
+  1 ____exports.luaError = _G.error
+  1 ____exports.luaCoroutineWrap = coroutine.wrap
+  1 ____exports.luaDebugTraceback = debug.traceback
+  1 ____exports.luaCoroutineCreate = coroutine.create
+  1 ____exports.luaCoroutineResume = coroutine.resume
+  2 ____exports.luaLenMetamethodSupported = (function() return #setmetatable(
+  1     {},
+        {
+  1         __len = function() return 42 end
+        }
+  2 ) == 42 end)()
+  1 ____exports.luaRawLen = rawlen or (function(v)
+**0     if not ____exports.luaLenMetamethodSupported then
+**0         return #v
+        end
+**0     local mt = debug.getmetatable(v)
+**0     if (not mt) or (not rawget(mt, "__len")) then
+**0         return #v
+        else
+**0         local len = 1
+**0         while rawget(v, len) do
+**0             len = len + 1
+            end
+**0         return len - 1
+        end
+    end)
+  1 function ____exports.loadLuaString(str, env)
+  1     if setfenv ~= nil then
+  1         local f, e = loadstring(str, str)
+  1         if f and env then
+**0             setfenv(f, env)
+            end
+  1         return f, e
+        else
+**0         return load(str, str, "t", env)
+        end
+    end
+  1 function ____exports.loadLuaFile(filename, env)
+**0     if setfenv ~= nil then
+**0         local f, e = loadfile(filename)
+**0         if f and env then
+**0             setfenv(f, env)
+            end
+**0         return f, e
+        else
+**0         return loadfile(filename, "t", env)
+        end
+    end
+  1 function ____exports.luaGetEnv(level, thread)
+**0     local info = (thread and debug.getinfo(thread, level, "f")) or debug.getinfo(level + 1, "f")
+**0     if (not info) or (not info.func) then
+**0         return
+        end
+**0     if getfenv ~= nil then
+**0         return getfenv(info.func)
+        else
+**0         local i = 1
+            while true do
+**0             local name, value = debug.getupvalue(info.func, i)
+**0             if not name then
+                    break
+                end
+**0             if name == "_ENV" then
+**0                 return value
+                end
+**0             i = i + 1
+            end
+        end
+    end
+  1 return ____exports
+     end,
+    ["path"] = function(...) 
+  1 local ____exports = {}
+  1 local ____luafuncs = require("luafuncs")
+  1 local luaAssert = ____luafuncs.luaAssert
+  1 ____exports.Path = {}
+  1 local Path = ____exports.Path
+    do
+**0     Path.separator = (function()
+  1         local config = _G.package.config
+  1         if config then
+  1             local sep = config:match("^[^\n]+")
+  1             if sep then
+  1                 return sep
+                end
+            end
+**0         return "/"
+  1     end)()
+        local cwd
+  1     function Path.getCwd()
+**0         if not cwd then
+**0             local p = io.popen(((Path.separator == "\\") and "cd") or "pwd")
+**0             if p then
+**0                 local output = p:read("*a")
+**0                 if output then
+**0                     cwd = output:match("^%s*(.-)%s*$")
+                    end
+                end
+**0             cwd = cwd or ""
+            end
+**0         return cwd
+        end
+  1     function Path.dirName(path)
+**0         local dir = path:match(((("^(.-)" .. Path.separator) .. "+[^") .. Path.separator) .. "]+$")
+**0         return dir or "."
+        end
+  1     function Path.splitDrive(path)
+**0         local drive, pathPart = path:match("^[@=]?([a-zA-Z]:)[\\/](.*)")
+**0         if drive then
+**0             drive = drive:upper() .. Path.separator
+            else
+**0             drive, pathPart = path:match("^[@=]?([\\/]*)(.*)")
+            end
+**0         return luaAssert(drive), luaAssert(pathPart)
+        end
+  1     local formattedPathCache = {}
+  1     function Path.format(path)
+**0         local formattedPath = formattedPathCache[path]
+**0         if not formattedPath then
+**0             local drive, pathOnly = Path.splitDrive(path)
+**0             local pathParts = {}
+**0             for part in luaAssert(pathOnly):gmatch("[^\\/]+") do
+**0                 if part ~= "." then
+**0                     if ((part == "..") and (#pathParts > 0)) and (pathParts[#pathParts] ~= "..") then
+**0                         table.remove(pathParts)
+                        else
+**0                         table.insert(pathParts, part)
+                        end
+                    end
+                end
+**0             local formattedDrive = drive:gsub("[\\/]+", Path.separator)
+**0             formattedPath = formattedDrive .. table.concat(pathParts, Path.separator)
+**0             formattedPathCache[path] = formattedPath
+            end
+**0         return formattedPath
+        end
+  1     function Path.isAbsolute(path)
+**0         local drive = Path.splitDrive(path)
+**0         return #drive > 0
+        end
+  1     function Path.getAbsolute(path)
+**0         if Path.isAbsolute(path) then
+**0             return Path.format(path)
+            end
+**0         return Path.format(
+**0             (Path.getCwd() .. Path.separator) .. path
+            )
+        end
+    end
+  1 return ____exports
+     end,
+    ["sourcemap"] = function(...) 
+  1 local ____exports = {}
+  1 local ____luafuncs = require("luafuncs")
+  1 local luaAssert = ____luafuncs.luaAssert
+  1 local ____path = require("path")
+  1 local Path = ____path.Path
+  1 ____exports.SourceMap = {}
+  1 local SourceMap = ____exports.SourceMap
+    do
+  1     local cache = {}
+  1     local base64Lookup = {A = 0, B = 1, C = 2, D = 3, E = 4, F = 5, G = 6, H = 7, I = 8, J = 9, K = 10, L = 11, M = 12, N = 13, O = 14, P = 15, Q = 16, R = 17, S = 18, T = 19, U = 20, V = 21, W = 22, X = 23, Y = 24, Z = 25, a = 26, b = 27, c = 28, d = 29, e = 30, f = 31, g = 32, h = 33, i = 34, j = 35, k = 36, l = 37, m = 38, n = 39, o = 40, p = 41, q = 42, r = 43, s = 44, t = 45, u = 46, v = 47, w = 48, x = 49, y = 50, z = 51, ["0"] = 52, ["1"] = 53, ["2"] = 54, ["3"] = 55, ["4"] = 56, ["5"] = 57, ["6"] = 58, ["7"] = 59, ["8"] = 60, ["9"] = 61, ["+"] = 62, ["/"] = 63, ["="] = 0}
+        local function base64Decode(input)
+**0         local results = {}
+**0         local bits = {}
+**0         for c in input:gmatch(".") do
+**0             local sextet = luaAssert(base64Lookup[c])
+**0             for i = 1, 6 do
+**0                 local bit = (sextet % 2) ~= 0
+**0                 table.insert(bits, i, bit)
+**0                 sextet = math.floor(sextet / 2)
+                end
+**0             if #bits >= 8 then
+**0                 local value = 0
+**0                 for i = 7, 0, -1 do
+**0                     local bit = table.remove(bits)
+**0                     if bit then
+**0                         value = value + (2 ^ i)
+                        end
+                    end
+**0                 table.insert(
+                        results,
+**0                     string.char(value)
+                    )
+                end
+            end
+**0         return table.concat(results)
+        end
+        local function decodeBase64VLQ(input)
+**0         local values = {}
+**0         local bits = {}
+**0         for c in input:gmatch(".") do
+**0             local sextet = luaAssert(base64Lookup[c])
+**0             for _ = 1, 5 do
+**0                 local bit = (sextet % 2) ~= 0
+**0                 table.insert(bits, bit)
+**0                 sextet = math.floor(sextet / 2)
+                end
+**0             local continueBit = (sextet % 2) ~= 0
+**0             if not continueBit then
+**0                 local value = 0
+**0                 for i = 1, #bits - 1 do
+**0                     if bits[i + 1] then
+**0                         value = value + (2 ^ (i - 1))
+                        end
+                    end
+**0                 if bits[1] then
+**0                     value = -value
+                    end
+**0                 table.insert(values, value)
+**0                 bits = {}
+                end
+            end
+**0         return values
+        end
+        local function build(data, mapDir, luaScript)
+**0         local sources = data:match("\"sources\"%s*:%s*(%b[])")
+**0         local mappings = data:match("\"mappings\"%s*:%s*\"([^\"]+)\"")
+**0         if (not mappings) or (not sources) then
+**0             return nil
+            end
+**0         local sourceMap = {mappings = {}, sources = {}, sourceNames = {}, luaNames = {}, hasMappedNames = false}
+**0         local sourceRoot = data:match("\"sourceRoot\"%s*:%s*\"([^\"]+)\"")
+**0         if (sourceRoot == nil) or (#sourceRoot == 0) then
+**0             sourceRoot = "."
+            end
+**0         for source in sources:gmatch("\"([^\"]+)\"") do
+**0             if Path.isAbsolute(source) then
+**0                 table.insert(
+**0                     sourceMap.sources,
+**0                     Path.format(source)
+                    )
+                else
+**0                 local sourcePath = (((mapDir .. Path.separator) .. sourceRoot) .. Path.separator) .. source
+**0                 table.insert(
+**0                     sourceMap.sources,
+**0                     Path.getAbsolute(sourcePath)
+                    )
+                end
+            end
+**0         local names = data:match("\"names\"%s*:%s*(%b[])")
+            local nameList
+**0         if names then
+**0             nameList = {}
+**0             for name in names:gmatch("\"([^\"]+)\"") do
+**0                 table.insert(nameList, name)
+                end
+            end
+            local luaLines
+**0         local line = 1
+**0         local column = 1
+**0         local sourceIndex = 0
+**0         local sourceLine = 1
+**0         local sourceColumn = 1
+**0         local nameIndex = 0
+**0         for mapping, separator in mappings:gmatch("([^;,]*)([;,]?)") do
+**0             if #mapping > 0 then
+**0                 local colOffset, sourceOffset, sourceLineOffset, sourceColOffset, nameOffset = unpack(
+**0                     decodeBase64VLQ(mapping)
+                    )
+**0                 column = column + (colOffset or 0)
+**0                 sourceIndex = sourceIndex + (sourceOffset or 0)
+**0                 sourceLine = sourceLine + (sourceLineOffset or 0)
+**0                 sourceColumn = sourceColumn + (sourceColOffset or 0)
+**0                 if nameList and nameOffset then
+**0                     nameIndex = nameIndex + nameOffset
+**0                     local sourceName = luaAssert(nameList[nameIndex + 1])
+**0                     if not luaLines then
+**0                         luaLines = {}
+**0                         for luaLineStr in luaScript:gmatch("([^\r\n]*)\r?\n") do
+**0                             table.insert(luaLines, luaLineStr)
+                            end
+                        end
+**0                     local luaLine = luaLines[line]
+**0                     if luaLine then
+**0                         local luaName = luaLine:sub(column):match("[a-zA-Z_][A-Za-z0-9_]*")
+**0                         if luaName then
+**0                             sourceMap.sourceNames[luaName] = sourceName
+**0                             sourceMap.luaNames[sourceName] = luaName
+**0                             sourceMap.hasMappedNames = true
+                            end
+                        end
+                    end
+**0                 local lineMapping = sourceMap.mappings[line]
+**0                 if ((not lineMapping) or (sourceLine < lineMapping.sourceLine)) or ((sourceLine == lineMapping.sourceLine) and (sourceColumn < lineMapping.sourceColumn)) then
+**0                     sourceMap.mappings[line] = {sourceIndex = sourceIndex, sourceLine = sourceLine, sourceColumn = sourceColumn}
+                    end
+                end
+**0             if separator == ";" then
+**0                 line = line + 1
+**0                 column = 1
+                end
+            end
+**0         return sourceMap
+        end
+  1     local scriptRootsEnv = "LOCAL_LUA_DEBUGGER_SCRIPT_ROOTS"
+        local scriptRoots
+        local function getScriptRoots()
+**0         if not scriptRoots then
+**0             scriptRoots = {}
+**0             local scriptRootsStr = os.getenv(scriptRootsEnv)
+**0             if scriptRootsStr then
+**0                 for path in scriptRootsStr:gmatch("[^;]+") do
+**0                     path = Path.format(path) .. Path.separator
+**0                     table.insert(scriptRoots, path)
+                    end
+                end
+            end
+**0         return scriptRoots
+        end
+        local function getMap(filePath, file)
+**0         local data = file:read("*a")
+**0         file:close()
+**0         if not data then
+**0             return
+            end
+**0         local encodedMap = data:match("--# sourceMappingURL=data:application/json;base64,([A-Za-z0-9+/=]+)%s*$")
+**0         if encodedMap then
+**0             local map = base64Decode(encodedMap)
+**0             local fileDir = Path.dirName(filePath)
+**0             return build(map, fileDir, data)
+            end
+**0         local mapFile = io.open(filePath .. ".map")
+**0         if mapFile then
+**0             local map = mapFile:read("*a")
+**0             mapFile:close()
+**0             if not map then
+**0                 return
+                end
+**0             local fileDir = Path.dirName(filePath)
+**0             return build(map, fileDir, data)
+            end
+        end
+        local function findMap(fileName)
+**0         local file = io.open(fileName)
+**0         if file then
+**0             local map = getMap(fileName, file)
+**0             if map then
+**0                 return map
+                end
+            end
+**0         for ____, path in ipairs(
+**0             getScriptRoots()
+**0         ) do
+**0             local filePath = path .. fileName
+**0             file = io.open(filePath)
+**0             if file then
+**0                 local map = getMap(filePath, file)
+**0                 if map then
+**0                     return map
+                    end
+                end
+            end
+        end
+  1     function SourceMap.get(fileName)
+**0         if fileName == "[C]" then
+**0             return nil
+            end
+**0         local sourceMap = cache[fileName]
+**0         if sourceMap == nil then
+**0             sourceMap = findMap(fileName) or false
+**0             cache[fileName] = sourceMap
+            end
+**0         if sourceMap ~= false then
+**0             return sourceMap
+            end
+        end
+  1     function SourceMap.find(sourceFile)
+**0         for scriptFile, sourceMap in pairs(cache) do
+**0             if sourceMap ~= false then
+**0                 for ____, source in ipairs(sourceMap.sources) do
+**0                     if source == sourceFile then
+**0                         return scriptFile, sourceMap
+                        end
+                    end
+                end
+            end
+**0         return nil, nil
+        end
+    end
+  1 return ____exports
+     end,
+    ["breakpoint"] = function(...) 
+  1 local ____exports = {}
+  1 local ____sourcemap = require("sourcemap")
+  1 local SourceMap = ____sourcemap.SourceMap
+  1 local ____path = require("path")
+  1 local Path = ____path.Path
+  1 ____exports.Breakpoint = {}
+  1 local Breakpoint = ____exports.Breakpoint
+    do
+  1     local current = {}
+  1     local count = 0
+  1     function Breakpoint.get(file, line)
+**0         file = Path.format(file)
+**0         for breakpointLine, lineBreakpoints in pairs(current) do
+**0             for ____, breakpoint in ipairs(lineBreakpoints) do
+**0                 if breakpoint.sourceMap then
+**0                     if (breakpoint.sourceLine == line) and (breakpoint.sourceFile == file) then
+**0                         return breakpoint
+                        end
+**0                 elseif (breakpointLine == line) and (breakpoint.file == file) then
+**0                     return breakpoint
+                    end
+                end
+            end
+        end
+  1     function Breakpoint.getLookup()
+  1         return current
+        end
+  1     function Breakpoint.getAll()
+**0         local breakpointList = {}
+**0         for _, lineBreakpoints in pairs(current) do
+**0             for ____, breakpoint in ipairs(lineBreakpoints) do
+**0                 table.insert(breakpointList, breakpoint)
+                end
+            end
+**0         return breakpointList
+        end
+  1     function Breakpoint.add(file, line, condition)
+**0         file = Path.format(file)
+            local sourceFile
+            local sourceLine
+**0         local scriptFile, sourceMap = SourceMap.find(file)
+**0         if scriptFile and sourceMap then
+**0             for scriptLine, mapping in pairs(sourceMap.mappings) do
+**0                 if mapping.sourceLine == line then
+**0                     sourceFile = file
+**0                     file = scriptFile
+**0                     sourceLine = line
+**0                     line = scriptLine
+                        break
+                    end
+                end
+            end
+**0         local lineBreakpoints = current[line]
+**0         if not lineBreakpoints then
+**0             lineBreakpoints = {}
+**0             current[line] = lineBreakpoints
+            end
+**0         table.insert(lineBreakpoints, {file = file, line = line, enabled = true, condition = condition, sourceFile = sourceFile, sourceLine = sourceLine, sourceMap = sourceMap})
+**0         count = count + 1
+        end
+        local function removeBreakpoint(breakpointLine, lineBreakpoints, i)
+**0         table.remove(lineBreakpoints, i)
+**0         if #lineBreakpoints == 0 then
+**0             current[breakpointLine] = nil
+            end
+**0         count = count - 1
+        end
+  1     function Breakpoint.remove(file, line)
+**0         file = Path.format(file)
+**0         for breakpointLine, lineBreakpoints in pairs(current) do
+**0             for i, breakpoint in ipairs(lineBreakpoints) do
+**0                 if breakpoint.sourceMap then
+**0                     if (breakpoint.sourceLine == line) and (breakpoint.sourceFile == file) then
+**0                         removeBreakpoint(breakpointLine, lineBreakpoints, i)
+**0                         return
+                        end
+**0                 elseif (breakpointLine == line) and (breakpoint.file == file) then
+**0                     removeBreakpoint(breakpointLine, lineBreakpoints, i)
+**0                     return
+                    end
+                end
+            end
+        end
+  1     function Breakpoint.clear()
+**0         for line in pairs(current) do
+**0             current[line] = nil
+            end
+**0         count = 0
+        end
+  1     function Breakpoint.getCount()
+  1         return count
+        end
+    end
+  1 return ____exports
+     end,
+    ["format"] = function(...) 
+  1 local ____exports = {}
+  1 local ____luafuncs = require("luafuncs")
+  1 local luaRawLen = ____luafuncs.luaRawLen
+  1 local luaAssert = ____luafuncs.luaAssert
+  1 ____exports.Format = {}
+  1 local Format = ____exports.Format
+    do
+  1     Format.arrayTag = {}
+  1     function Format.makeExplicitArray(arr)
+**0         if arr == nil then
+**0             arr = {}
+            end
+**0         arr[Format.arrayTag] = true
+**0         return arr
+        end
+  1     local indentStr = "  "
+  1     local escapes = {["\n"] = "\\n", ["\r"] = "\\r", ["\""] = "\\\"", ["\\"] = "\\\\", ["\b"] = "\\b", ["\f"] = "\\f", ["\t"] = "\\t"}
+  1     local escapesPattern = "[\n\r\"\\\b\f\t%z-]"
+        local function replaceEscape(char)
+**0         local byte = luaAssert(
+**0             string.byte(char)
+            )
+**0         if (byte >= 0) and (byte < 32) then
+**0             return string.format("\\u%.4X", byte)
+            end
+**0         return luaAssert(escapes[char])
+        end
+        local function escape(str)
+**0         local escaped = str:gsub(escapesPattern, replaceEscape)
+**0         return escaped
+        end
+        local function isArray(val)
+**0         if val[Format.arrayTag] then
+**0             return true
+            end
+**0         local len = luaRawLen(val)
+**0         if len == 0 then
+**0             return false
+            end
+**0         for k in pairs(val) do
+**0             if (type(k) ~= "number") or (k > len) then
+**0                 return false
+                end
+            end
+**0         return true
+        end
+  1     function Format.asJson(val, indent, tables)
+**0         if indent == nil then
+**0             indent = 0
+            end
+**0         tables = tables or ({})
+**0         local valType = type(val)
+**0         if (valType == "table") and (not tables[val]) then
+**0             tables[val] = true
+**0             if isArray(val) then
+**0                 local arrayVals = {}
+**0                 for _, arrayVal in ipairs(val) do
+**0                     local valStr = Format.asJson(arrayVal, indent + 1, tables)
+**0                     table.insert(
+                            arrayVals,
+**0                         ("\n" .. indentStr:rep(indent + 1)) .. valStr
+                        )
+                    end
+**0                 return ((("[" .. table.concat(arrayVals, ",")) .. "\n") .. indentStr:rep(indent)) .. "]"
+                else
+**0                 local kvps = {}
+**0                 for k, v in pairs(val) do
+**0                     local valStr = Format.asJson(v, indent + 1, tables)
+**0                     table.insert(
+                            kvps,
+**0                         (((("\n" .. indentStr:rep(indent + 1)) .. "\"") .. escape(
+**0                             tostring(k)
+**0                         )) .. "\": ") .. valStr
+                        )
+                    end
+**0                 return ((#kvps > 0) and (((("{" .. table.concat(kvps, ",")) .. "\n") .. indentStr:rep(indent)) .. "}")) or "{}"
+                end
+**0         elseif (valType == "number") or (valType == "boolean") then
+**0             return tostring(val)
+            else
+**0             return ("\"" .. escape(
+**0                 tostring(val)
+**0             )) .. "\""
+            end
+        end
+    end
+  1 return ____exports
+     end,
+    ["thread"] = function(...) 
+  1 local ____exports = {}
+  1 ____exports.mainThreadName = "main thread"
+  1 function ____exports.isThread(val)
+  1     return type(val) == "thread"
+    end
+**0 ____exports.mainThread = (function()
+  1     local LUA_RIDX_MAINTHREAD = 1
+  1     local registryMainThread = debug.getregistry()[LUA_RIDX_MAINTHREAD]
+  1     return (____exports.isThread(registryMainThread) and registryMainThread) or ____exports.mainThreadName
+  1 end)()
+  1 return ____exports
+     end,
+    ["send"] = function(...) 
+  1 local ____exports = {}
+  1 local ____luafuncs = require("luafuncs")
+  1 local luaError = ____luafuncs.luaError
+  1 local luaLenMetamethodSupported = ____luafuncs.luaLenMetamethodSupported
+  1 local luaRawLen = ____luafuncs.luaRawLen
+  1 local ____format = require("format")
+  1 local Format = ____format.Format
+  1 local ____thread = require("thread")
+  1 local mainThread = ____thread.mainThread
+  1 local mainThreadName = ____thread.mainThreadName
+  1 ____exports.Send = {}
+  1 local Send = ____exports.Send
+    do
+  1     local startToken = "@lldbg|"
+  1     local endToken = "|lldbg@"
+  1     local outputFileEnv = "LOCAL_LUA_DEBUGGER_OUTPUT_FILE"
+  1     local outputFilePath = os.getenv(outputFileEnv)
+        local outputFile
+  1     if outputFilePath and (#outputFilePath > 0) then
+**0         local file, err = io.open(outputFilePath, "w+")
+**0         if not file then
+**0             luaError(
+**0                 ((("Failed to open output file \"" .. outputFilePath) .. "\": ") .. tostring(err)) .. "\n"
+                )
+            end
+**0         outputFile = file
+**0         outputFile:setvbuf("no")
+        else
+  1         outputFile = io.stdout
+        end
+        local function getPrintableValue(value)
+**0         local valueType = type(value)
+**0         if valueType == "string" then
+**0             return ("\"" .. tostring(value)) .. "\""
+**0         elseif ((valueType == "number") or (valueType == "boolean")) or (valueType == "nil") then
+**0             return tostring(value)
+            else
+**0             local _, str = pcall(tostring, value)
+**0             local strType = type(str)
+**0             if strType ~= "string" then
+**0                 return ("[" .. strType) .. "]"
+                end
+**0             return ("[" .. str) .. "]"
+            end
+        end
+        local function isElementKey(tbl, tblLen, key)
+**0         return ((type(key) == "number") and (key >= 1)) and (key <= tblLen)
+        end
+        local function buildVariable(name, value)
+**0         local dbgVar = {
+                type = type(value),
+                name = name,
+**0             value = getPrintableValue(value)
+            }
+**0         if type(value) == "table" then
+**0             dbgVar.length = luaRawLen(value)
+            end
+**0         return dbgVar
+        end
+        local function buildVarArgs(name, values)
+**0         local valueStrs = {}
+**0         for _, val in ipairs(values) do
+**0             table.insert(
+                    valueStrs,
+**0                 getPrintableValue(val)
+                )
+            end
+**0         return {
+                type = "table",
+                name = name,
+                value = table.concat(valueStrs, ", "),
+**0             length = #values
+            }
+        end
+        local function send(message)
+**0         outputFile:write(
+**0             (startToken .. Format.asJson(message)) .. endToken
+            )
+        end
+  1     function Send.error(err)
+**0         local dbgError = {tag = "$luaDebug", type = "error", error = err}
+**0         send(dbgError)
+        end
+  1     function Send.debugBreak(message, breakType, threadId)
+**0         local dbgBreak = {tag = "$luaDebug", type = "debugBreak", message = message, breakType = breakType, threadId = threadId}
+**0         send(dbgBreak)
+        end
+  1     function Send.result(...)
+**0         local values = {...}
+**0         local results = Format.makeExplicitArray()
+**0         for ____, value in ipairs(values) do
+**0             table.insert(
+                    results,
+                    {
+                        type = type(value),
+**0                     value = getPrintableValue(value)
+                    }
+                )
+            end
+**0         local dbgResult = {tag = "$luaDebug", type = "result", results = results}
+**0         send(dbgResult)
+        end
+  1     function Send.frames(frameList)
+**0         local dbgStack = {tag = "$luaDebug", type = "stack", frames = frameList}
+**0         send(dbgStack)
+        end
+  1     function Send.threads(threadIds, activeThread)
+**0         local dbgThreads = {tag = "$luaDebug", type = "threads", threads = {}}
+**0         for thread, threadId in pairs(threadIds) do
+**0             if (thread == mainThread) or (coroutine.status(thread) ~= "dead") then
+**0                 local dbgThread = {
+                        name = ((thread == mainThread) and mainThreadName) or tostring(thread),
+                        id = threadId,
+**0                     active = (thread == activeThread) or nil
+                    }
+**0                 table.insert(dbgThreads.threads, dbgThread)
+                end
+            end
+**0         send(dbgThreads)
+        end
+  1     function Send.vars(varsObj)
+**0         local dbgVariables = {
+                tag = "$luaDebug",
+                type = "variables",
+**0             variables = Format.makeExplicitArray()
+            }
+**0         for name, info in pairs(varsObj) do
+**0             local dbgVar = ((name == "...") and buildVarArgs(name, info.val)) or buildVariable(name, info.val)
+**0             table.insert(dbgVariables.variables, dbgVar)
+            end
+**0         send(dbgVariables)
+        end
+  1     function Send.props(tbl, kind, first, count)
+**0         local dbgProperties = {
+                tag = "$luaDebug",
+                type = "properties",
+**0             properties = Format.makeExplicitArray()
+            }
+**0         if kind == "indexed" then
+**0             if first == nil then
+**0                 first = 1
+                end
+**0             local last = (count and ((first + count) - 1)) or ((first + luaRawLen(tbl)) - 1)
+**0             for i = first, last do
+**0                 local val = tbl[i]
+**0                 local name = getPrintableValue(i)
+**0                 local dbgVar = buildVariable(name, val)
+**0                 table.insert(dbgProperties.properties, dbgVar)
+                end
+            else
+**0             local len = luaRawLen(tbl)
+**0             for key, val in pairs(tbl) do
+**0                 if (kind ~= "named") or (not isElementKey(tbl, len, key)) then
+**0                     local name = getPrintableValue(key)
+**0                     local dbgVar = buildVariable(name, val)
+**0                     table.insert(dbgProperties.properties, dbgVar)
+                    end
+                end
+**0             local meta = getmetatable(tbl)
+**0             if meta then
+**0                 dbgProperties.metatable = {
+                        type = type(meta),
+**0                     value = getPrintableValue(meta)
+                    }
+                end
+**0             local lenStatus, tblLen = pcall(
+**0                 function() return #tbl end
+                )
+**0             if not lenStatus then
+**0                 dbgProperties.length = {
+                        type = type(tblLen),
+**0                     error = tblLen
+                    }
+**0             elseif tblLen ~= 0 then
+**0                 dbgProperties.length = {
+                        type = type(tblLen),
+**0                     value = tostring(tblLen)
+                    }
+                else
+**0                 local mt = debug.getmetatable(tbl)
+**0                 if ((not mt) and (#dbgProperties.properties == 0)) or ((mt and luaLenMetamethodSupported) and mt.__len) then
+**0                     dbgProperties.length = {
+                            type = type(tblLen),
+**0                         value = tostring(tblLen)
+                        }
+                    end
+                end
+            end
+**0         send(dbgProperties)
+        end
+  1     function Send.breakpoints(breaks)
+**0         local breakpointList = {}
+**0         for ____, breakpoint in ipairs(breaks) do
+**0             table.insert(breakpointList, {line = breakpoint.sourceLine or breakpoint.line, file = breakpoint.sourceFile or breakpoint.file, condition = breakpoint.condition, enabled = breakpoint.enabled})
+            end
+**0         local dbgBreakpoints = {
+                tag = "$luaDebug",
+                type = "breakpoints",
+**0             breakpoints = Format.makeExplicitArray(breakpointList)
+            }
+**0         send(dbgBreakpoints)
+        end
+  1     function Send.help(...)
+**0         local helpStrs = {...}
+**0         local nameLength = 0
+**0         for _, nameAndDesc in ipairs(helpStrs) do
+**0             nameLength = math.max(nameLength, #nameAndDesc[2])
+            end
+**0         local builtStrs = {}
+**0         for _, nameAndDesc in ipairs(helpStrs) do
+**0             local name, desc = unpack(nameAndDesc)
+**0             table.insert(
+                    builtStrs,
+**0                 ((name .. string.rep(" ", (nameLength - #name) + 1)) .. ": ") .. desc
+                )
+            end
+**0         outputFile:write(
+**0             table.concat(builtStrs, "\n") .. "\n"
+            )
+        end
+    end
+  1 return ____exports
+     end,
+    ["debugger"] = function(...) 
+  1 local ____exports = {}
+  1 local ____luafuncs = require("luafuncs")
+  1 local luaAssert = ____luafuncs.luaAssert
+  1 local luaError = ____luafuncs.luaError
+  1 local luaCoroutineCreate = ____luafuncs.luaCoroutineCreate
+  1 local luaCoroutineWrap = ____luafuncs.luaCoroutineWrap
+  1 local luaCoroutineResume = ____luafuncs.luaCoroutineResume
+  1 local luaDebugTraceback = ____luafuncs.luaDebugTraceback
+  1 local loadLuaString = ____luafuncs.loadLuaString
+  1 local luaGetEnv = ____luafuncs.luaGetEnv
+  1 local ____path = require("path")
+  1 local Path = ____path.Path
+  1 local ____sourcemap = require("sourcemap")
+  1 local SourceMap = ____sourcemap.SourceMap
+  1 local ____send = require("send")
+  1 local Send = ____send.Send
+  1 local ____breakpoint = require("breakpoint")
+  1 local Breakpoint = ____breakpoint.Breakpoint
+  1 local ____thread = require("thread")
+  1 local mainThread = ____thread.mainThread
+  1 local mainThreadName = ____thread.mainThreadName
+  1 local isThread = ____thread.isThread
+  1 ____exports.Debugger = {}
+  1 local Debugger = ____exports.Debugger
+    do
+  1     local debuggerName = "lldebugger.lua"
+  1     local builtinFunctionPrefix = "[builtin:"
+  1     local inputFileEnv = "LOCAL_LUA_DEBUGGER_INPUT_FILE"
+  1     local inputFilePath = os.getenv(inputFileEnv)
+        local inputFile
+  1     if inputFilePath and (#inputFilePath > 0) then
+**0         local file, err = io.open(inputFilePath, "r+")
+**0         if not file then
+**0             luaError(
+**0                 ((("Failed to open input file \"" .. inputFilePath) .. "\": ") .. tostring(err)) .. "\n"
+                )
+            end
+**0         inputFile = file
+**0         inputFile:setvbuf("no")
+        else
+  1         inputFile = io.stdin
+        end
+  1     local skipNextBreak = false
+  1     local hookStack = {}
+  1     local threadIds = setmetatable({}, {__mode = "k"})
+  1     local threadStackOffsets = setmetatable({}, {__mode = "k"})
+  1     local mainThreadId = 1
+  1     threadIds[mainThread] = mainThreadId
+  1     local nextThreadId = mainThreadId + 1
+        local function getThreadId(thread)
+**0         return luaAssert(threadIds[thread])
+        end
+        local function getActiveThread()
+**0         return coroutine.running() or mainThread
+        end
+        local function getLine(info)
+**0         local currentLine = info.currentline and tonumber(info.currentline)
+**0         if currentLine and (currentLine > 0) then
+**0             return currentLine
+            end
+**0         local lineDefined = info.linedefined and tonumber(info.linedefined)
+**0         if lineDefined and (lineDefined > 0) then
+**0             return lineDefined
+            end
+**0         return -1
+        end
+        local function backtrace(stack, frameIndex)
+**0         local frames = {}
+**0         for i = 0, #stack - 1 do
+**0             local info = luaAssert(stack[i + 1])
+**0             local frame = {
+                    source = (info.source and Path.format(info.source)) or "?",
+**0                 line = getLine(info)
+                }
+**0             if info.source then
+**0                 local sourceMap = SourceMap.get(frame.source)
+**0                 if sourceMap then
+**0                     local lineMapping = sourceMap.mappings[frame.line]
+**0                     if lineMapping then
+**0                         frame.mappedLocation = {
+                                source = luaAssert(sourceMap.sources[lineMapping.sourceIndex + 1]),
+                                line = lineMapping.sourceLine,
+**0                             column = lineMapping.sourceColumn
+                            }
+                        end
+                    end
+                end
+**0             if info.name then
+**0                 frame.func = info.name
+**0             elseif info.func then
+**0                 frame.func = tostring(info.func)
+                end
+**0             if i == frameIndex then
+**0                 frame.active = true
+                end
+**0             table.insert(frames, frame)
+            end
+**0         Send.frames(frames)
+        end
+**0     local supportsUtf8Identifiers = (function()
+  1         local identifier = (string.char(226) .. string.char(143)) .. string.char(176)
+  1         local ____, err = loadLuaString((("local " .. identifier) .. " = true return ") .. identifier)
+  1         return err == nil
+  1     end)()
+        local function isValidIdentifier(name)
+**0         if supportsUtf8Identifiers then
+**0             for c in name:gmatch("[^a-zA-Z0-9_]") do
+**0                 local a = c:byte()
+**0                 if a and (a < 128) then
+**0                     return false
+                    end
+                end
+**0             return true
+            else
+**0             local invalidChar = name:match("[^a-zA-Z0-9_]")
+**0             return invalidChar == nil
+            end
+        end
+        local function getLocals(level, thread)
+**0         local locs = {vars = {}}
+**0         if thread == mainThreadName then
+**0             return locs
+            end
+            local info
+**0         if thread then
+**0             info = debug.getinfo(thread, level, "u")
+            else
+**0             info = debug.getinfo(level + 1, "u")
+            end
+**0         if not info then
+**0             return locs
+            end
+            local name
+            local val
+**0         local index = 1
+            while true do
+**0             if thread then
+**0                 name, val = debug.getlocal(thread, level, index)
+                else
+**0                 name, val = debug.getlocal(level + 1, index)
+                end
+**0             if not name then
+                    break
+                end
+**0             if isValidIdentifier(name) then
+**0                 locs.vars[name] = {
+                        val = val,
+                        index = index,
+**0                     type = type(val)
+                    }
+                end
+**0             index = index + 1
+            end
+**0         local isVarArg = info.isvararg
+**0         if isVarArg ~= false then
+**0             if isVarArg then
+**0                 locs.varargs = {}
+                end
+**0             index = -1
+                while true do
+**0                 if thread then
+**0                     name, val = debug.getlocal(thread, level, index)
+                    else
+**0                     name, val = debug.getlocal(level + 1, index)
+                    end
+**0                 if not name then
+                        break
+                    end
+**0                 if not locs.varargs then
+**0                     locs.varargs = {}
+                    end
+**0                 table.insert(
+**0                     locs.varargs,
+                        {
+                            val = val,
+                            index = index,
+**0                         type = type(val)
+                        }
+                    )
+**0                 index = index - 1
+                end
+            end
+**0         return locs
+        end
+        local function getUpvalues(info)
+**0         local ups = {vars = {}}
+**0         if (not info.nups) or (not info.func) then
+**0             return ups
+            end
+**0         for index = 1, info.nups do
+**0             local name, val = debug.getupvalue(info.func, index)
+**0             ups.vars[luaAssert(name)] = {
+                    val = val,
+                    index = index,
+**0                 type = type(val)
+                }
+            end
+**0         return ups
+        end
+        local function populateGlobals(globs, tbl, metaStack)
+**0         metaStack[tbl] = true
+**0         local meta = debug.getmetatable(tbl)
+**0         if ((meta ~= nil) and (type(meta.__index) == "table")) and (metaStack[meta] == nil) then
+**0             populateGlobals(globs, meta.__index, metaStack)
+            end
+**0         for key, val in pairs(tbl) do
+**0             local name = tostring(key)
+**0             globs[name] = {
+                    val = val,
+**0                 type = type(val)
+                }
+            end
+        end
+        local function getGlobals(level, thread)
+**0         if thread == mainThreadName then
+**0             thread = nil
+            end
+**0         if not thread then
+**0             level = level + 1
+            end
+**0         local globs = {}
+**0         local fenv = luaGetEnv(level, thread) or _G
+**0         local metaStack = {}
+**0         populateGlobals(globs, fenv, metaStack)
+**0         return globs
+        end
+        local function mapVarNames(vars, sourceMap)
+**0         if not sourceMap then
+**0             return
+            end
+**0         local addVars = {}
+**0         local removeVars = {}
+**0         for name, info in pairs(vars) do
+**0             local mappedName = sourceMap.sourceNames[name]
+**0             if mappedName then
+**0                 addVars[mappedName] = info
+**0                 table.insert(removeVars, name)
+                end
+            end
+**0         for _, name in ipairs(removeVars) do
+**0             vars[name] = nil
+            end
+**0         for name, info in pairs(addVars) do
+**0             vars[name] = info
+            end
+        end
+        local function mapExpressionNames(expression, sourceMap)
+**0         if (not sourceMap) or (not sourceMap.hasMappedNames) then
+**0             return expression
+            end
+            local function mapName(sourceName, isProperty)
+**0             if isProperty then
+**0                 if not isValidIdentifier(sourceName) then
+**0                     return ("[\"" .. sourceName) .. "\"]"
+                    else
+**0                     return "." .. sourceName
+                    end
+                else
+**0                 return luaAssert(sourceMap).luaNames[sourceName] or sourceName
+                end
+            end
+            local inQuote
+**0         local isEscaped = false
+            local nameStart
+**0         local nameIsProperty = false
+**0         local nonNameStart = 1
+**0         local mappedExpression = ""
+**0         for i = 1, #expression do
+**0             local char = expression:sub(i, i)
+**0             if inQuote then
+**0                 if char == "\\" then
+**0                     isEscaped = not isEscaped
+**0                 elseif (char == inQuote) and (not isEscaped) then
+**0                     inQuote = nil
+                    else
+**0                     isEscaped = false
+                    end
+**0             elseif (char == "\"") or (char == "'") then
+**0                 inQuote = char
+                else
+**0                 local nameChar = char:match("[^\"'`~!@#%%^&*%(%)%-+=%[%]{}|\\/<>,%.:;%s]")
+**0                 if nameStart then
+**0                     if not nameChar then
+**0                         local sourceName = expression:sub(nameStart, i - 1)
+**0                         mappedExpression = mappedExpression .. mapName(sourceName, nameIsProperty)
+**0                         nameStart = nil
+**0                         nonNameStart = i
+                        end
+**0                 elseif nameChar then
+**0                     local lastChar = expression:sub(i - 1, i - 1)
+**0                     nameIsProperty = lastChar == "."
+**0                     nameStart = i
+**0                     mappedExpression = mappedExpression .. expression:sub(nonNameStart, nameStart - ((nameIsProperty and 2) or 1))
+                    end
+                end
+            end
+**0         if nameStart then
+**0             local sourceName = expression:sub(nameStart)
+**0             mappedExpression = mappedExpression .. mapName(sourceName, nameIsProperty)
+            else
+**0             mappedExpression = mappedExpression .. expression:sub(nonNameStart)
+            end
+**0         return mappedExpression
+        end
+  1     local metatableAccessor = "lldbg_getmetatable"
+        local function execute(statement, level, info, thread)
+**0         if thread == mainThreadName then
+**0             return false, "unable to access main thread while running in a coroutine"
+            end
+**0         if not thread then
+**0             level = level + 1
+            end
+**0         local locs = getLocals(level, thread)
+**0         local ups = getUpvalues(info)
+**0         local fenv = luaGetEnv(level, thread) or _G
+**0         local env = setmetatable(
+                {},
+                {
+                    __index = function(self, name)
+**0                     if name == metatableAccessor then
+**0                         return getmetatable
+                        end
+**0                     local variable = locs.vars[name] or ups.vars[name]
+**0                     if variable ~= nil then
+**0                         return variable.val
+                        end
+**0                     return fenv[name]
+                    end,
+                    __newindex = function(self, name, val)
+**0                     local variable = locs.vars[name] or ups.vars[name]
+**0                     if variable ~= nil then
+**0                         variable.type = type(val)
+**0                         variable.val = val
+                        else
+**0                         fenv[name] = val
+                        end
+                    end
+                }
+            )
+**0         local loadStringResult = {
+**0             loadLuaString(statement, env)
+            }
+**0         local func = loadStringResult[1]
+**0         if not func then
+**0             return false, loadStringResult[2]
+            end
+**0         local varargs = {}
+**0         if locs.varargs then
+**0             for ____, vararg in ipairs(locs.varargs) do
+**0                 table.insert(varargs, vararg.val)
+                end
+            end
+**0         local results = {
+**0             pcall(
+                    func,
+**0                 unpack(varargs)
+                )
+            }
+**0         if results[1] then
+**0             for _, loc in pairs(locs.vars) do
+**0                 if thread then
+**0                     debug.setlocal(thread, level, loc.index, loc.val)
+                    else
+**0                     debug.setlocal(level, loc.index, loc.val)
+                    end
+                end
+**0             for _, up in pairs(ups.vars) do
+**0                 debug.setupvalue(
+**0                     luaAssert(info.func),
+**0                     up.index,
+                        up.val
+                    )
+                end
+**0             return true, unpack(results, 2)
+            end
+**0         return false, results[2]
+        end
+        local function getInput()
+**0         local inp = inputFile:read("*l")
+**0         return inp
+        end
+        local function getStack(threadOrOffset)
+            local thread
+**0         local i = 1
+**0         if isThread(threadOrOffset) then
+**0             thread = threadOrOffset
+**0             local offset = threadStackOffsets[thread]
+**0             if offset then
+**0                 i = i + offset
+                end
+            else
+**0             i = i + threadOrOffset
+            end
+**0         local stack = {}
+            while true do
+                local stackInfo
+**0             if thread then
+**0                 stackInfo = debug.getinfo(thread, i, "nSluf")
+                else
+**0                 stackInfo = debug.getinfo(i, "nSluf")
+                end
+**0             if not stackInfo then
+                    break
+                end
+**0             table.insert(stack, stackInfo)
+**0             i = i + 1
+            end
+**0         return stack
+        end
+  1     local breakAtDepth = -1
+        local breakInThread
+        local updateHook
+        local ignorePatterns
+  1     local inDebugBreak = false
+        local function debugBreak(activeThread, stackOffset, activeLine)
+**0         assert(not inDebugBreak)
+**0         inDebugBreak = true
+**0         stackOffset = stackOffset + 1
+**0         local activeStack = getStack(stackOffset)
+**0         if activeLine and (#activeStack > 0) then
+**0             luaAssert(activeStack[1]).currentline = activeLine
+            end
+**0         local activeThreadFrameOffset = stackOffset
+**0         breakAtDepth = -1
+**0         breakInThread = nil
+**0         local frameOffset = activeThreadFrameOffset
+**0         local frame = 0
+**0         local currentThread = activeThread
+**0         local currentStack = activeStack
+**0         local info = luaAssert(currentStack[frame + 1])
+**0         local source = Path.format(
+**0             luaAssert(info.source)
+            )
+**0         local sourceMap = SourceMap.get(source)
+            while true do
+**0             local inp = getInput()
+**0             if (not inp) or (inp == "quit") then
+**0                 os.exit(0)
+**0             elseif (inp == "cont") or (inp == "continue") then
+                    break
+**0             elseif (inp == "autocont") or (inp == "autocontinue") then
+**0                 updateHook()
+**0                 inDebugBreak = false
+**0                 return false
+**0             elseif inp == "help" then
+**0                 Send.help({"help", "show available commands"}, {"cont|continue", "continue execution"}, {"autocont|autocontinue", "continue execution if not stopped at a breakpoint"}, {"quit", "stop program and debugger"}, {"step", "step to next line"}, {"stepin", "step in to current line"}, {"stepout", "step out to calling line"}, {"stack", "show current stack trace"}, {"frame n", "set active stack frame"}, {"locals", "show all local variables available in current context"}, {"ups", "show all upvalue variables available in the current context"}, {"globals", "show all global variables in current environment"}, {"props indexed [start] [count]", "show array elements of a table"}, {"props named|all", "show properties of a table"}, {"eval", "evaluate an expression in the current context"}, {"exec", "execute a statement in the current context"}, {"break set file.ext:n [cond]", "set a breakpoint"}, {"break del|delete file.ext:n", "delete a breakpoint"}, {"break en|enable file.ext:n", "enable a breakpoint"}, {"break dis|disable file.ext:n", "disable a breakpoint"}, {"break list", "show all breakpoints"}, {"break clear", "delete all breakpoints"}, {"threads", "list active thread ids"}, {"thread n", "set current thread by id"}, {"script", "add known script file (pre-caches sourcemap for breakpoint)"}, {"ignore", "add pattern for files to ignore when stepping"})
+**0             elseif inp == "threads" then
+**0                 Send.threads(threadIds, activeThread)
+**0             elseif inp:sub(1, 6) == "thread" then
+**0                 local newThreadIdStr = inp:match("^thread%s+(%d+)$")
+**0                 if newThreadIdStr ~= nil then
+**0                     local newThreadId = luaAssert(
+**0                         tonumber(newThreadIdStr)
+                        )
+                        local newThread
+**0                     for thread, threadId in pairs(threadIds) do
+**0                         if threadId == newThreadId then
+**0                             newThread = thread
+                                break
+                            end
+                        end
+**0                     if newThread ~= nil then
+**0                         if newThread == activeThread then
+**0                             currentStack = activeStack
+**0                         elseif newThread == mainThreadName then
+**0                             currentStack = {{name = "unable to access main thread while running in a coroutine", source = ""}}
+                            else
+**0                             currentStack = getStack(newThread)
+**0                             if #currentStack == 0 then
+**0                                 table.insert(currentStack, {name = "thread has not been started", source = ""})
+                                end
+                            end
+**0                         currentThread = newThread
+**0                         frame = 0
+**0                         frameOffset = ((currentThread == activeThread) and activeThreadFrameOffset) or (1 + (threadStackOffsets[currentThread] or 0))
+**0                         info = luaAssert(currentStack[frame + 1])
+**0                         source = Path.format(
+**0                             luaAssert(info.source)
+                            )
+**0                         sourceMap = SourceMap.get(source)
+**0                         backtrace(currentStack, frame)
+                        else
+**0                         Send.error("Bad thread id")
+                        end
+                    else
+**0                     Send.error("Bad thread id")
+                    end
+**0             elseif inp == "step" then
+**0                 breakAtDepth = #activeStack
+**0                 breakInThread = activeThread
+                    break
+**0             elseif inp == "stepin" then
+**0                 breakAtDepth = math.huge
+**0                 breakInThread = nil
+                    break
+**0             elseif inp == "stepout" then
+**0                 breakAtDepth = #activeStack - 1
+**0                 breakInThread = activeThread
+                    break
+**0             elseif inp == "stack" then
+**0                 backtrace(currentStack, frame)
+**0             elseif inp:sub(1, 5) == "frame" then
+**0                 local newFrameStr = inp:match("^frame%s+(%d+)$")
+**0                 if newFrameStr ~= nil then
+**0                     local newFrame = luaAssert(
+**0                         tonumber(newFrameStr)
+                        )
+**0                     if (newFrame > 0) and (newFrame <= #currentStack) then
+**0                         frame = newFrame - 1
+**0                         info = luaAssert(currentStack[frame + 1])
+**0                         source = Path.format(
+**0                             luaAssert(info.source)
+                            )
+**0                         sourceMap = SourceMap.get(source)
+**0                         backtrace(currentStack, frame)
+                        else
+**0                         Send.error("Bad frame")
+                        end
+                    else
+**0                     Send.error("Bad frame")
+                    end
+**0             elseif inp == "locals" then
+**0                 local locs = getLocals(frame + frameOffset, ((currentThread ~= activeThread) and currentThread) or nil)
+**0                 mapVarNames(locs.vars, sourceMap)
+**0                 if locs.varargs then
+**0                     local varArgVals = {}
+**0                     for ____, vararg in ipairs(locs.varargs) do
+**0                         table.insert(varArgVals, vararg.val)
+                        end
+**0                     locs.vars["..."] = {val = varArgVals, index = -1, type = "table"}
+                    end
+**0                 Send.vars(locs.vars)
+**0             elseif inp == "ups" then
+**0                 local ups = getUpvalues(info)
+**0                 mapVarNames(ups.vars, sourceMap)
+**0                 Send.vars(ups.vars)
+**0             elseif inp == "globals" then
+**0                 local globs = getGlobals(frame + frameOffset, ((currentThread ~= activeThread) and currentThread) or nil)
+**0                 mapVarNames(globs, sourceMap)
+**0                 Send.vars(globs)
+**0             elseif inp:sub(1, 5) == "break" then
+**0                 local cmd = inp:match("^break%s+([a-z]+)")
+                    local file
+                    local line
+                    local breakpoint
+**0                 if ((((((cmd == "set") or (cmd == "del")) or (cmd == "delete")) or (cmd == "dis")) or (cmd == "disable")) or (cmd == "en")) or (cmd == "enable") then
+                        local lineStr
+**0                     file, lineStr = inp:match("^break%s+[a-z]+%s+(.-):(%d+)")
+**0                     if (file ~= nil) and (lineStr ~= nil) then
+**0                         line = luaAssert(
+**0                             tonumber(lineStr)
+                            )
+**0                         breakpoint = Breakpoint.get(file, line)
+                        end
+                    end
+**0                 if cmd == "set" then
+**0                     if (file ~= nil) and (line ~= nil) then
+**0                         local condition = inp:match("^break%s+[a-z]+%s+.-:%d+%s+(.+)")
+**0                         Breakpoint.add(file, line, condition)
+**0                         breakpoint = luaAssert(
+**0                             Breakpoint.get(file, line)
+                            )
+**0                         Send.breakpoints({breakpoint})
+                        else
+**0                         Send.error("Bad breakpoint")
+                        end
+**0                 elseif (cmd == "del") or (cmd == "delete") then
+**0                     if (file ~= nil) and (line ~= nil) then
+**0                         Breakpoint.remove(file, line)
+**0                         Send.result(nil)
+                        else
+**0                         Send.error("Bad breakpoint")
+                        end
+**0                 elseif (cmd == "dis") or (cmd == "disable") then
+**0                     if breakpoint ~= nil then
+**0                         breakpoint.enabled = false
+**0                         Send.breakpoints({breakpoint})
+                        else
+**0                         Send.error("Bad breakpoint")
+                        end
+**0                 elseif (cmd == "en") or (cmd == "enable") then
+**0                     if breakpoint ~= nil then
+**0                         breakpoint.enabled = true
+**0                         Send.breakpoints({breakpoint})
+                        else
+**0                         Send.error("Bad breakpoint")
+                        end
+**0                 elseif cmd == "clear" then
+**0                     Breakpoint.clear()
+**0                     Send.breakpoints(
+**0                         Breakpoint.getAll()
+                        )
+**0                 elseif cmd == "list" then
+**0                     Send.breakpoints(
+**0                         Breakpoint.getAll()
+                        )
+                    else
+**0                     Send.error("Bad breakpoint command")
+                    end
+**0             elseif inp:sub(1, 4) == "eval" then
+**0                 local expression = inp:match("^eval%s+(.+)$")
+**0                 if not expression then
+**0                     Send.error("Bad expression")
+                    else
+**0                     local mappedExpression = mapExpressionNames(expression, sourceMap)
+**0                     local results = {
+**0                         execute("return " .. mappedExpression, frame + frameOffset, info, ((currentThread ~= activeThread) and currentThread) or nil)
+                        }
+**0                     if results[1] then
+**0                         Send.result(
+**0                             unpack(results, 2)
+                            )
+                        else
+**0                         Send.error(results[2])
+                        end
+                    end
+**0             elseif inp:sub(1, 5) == "props" then
+**0                 local expression, kind, first, count = inp:match("^props%s+(.-)%s*([a-z]+)%s*(%d*)%s*(%d*)$")
+**0                 if not expression then
+**0                     Send.error("Bad expression")
+**0                 elseif ((kind ~= "all") and (kind ~= "named")) and (kind ~= "indexed") then
+**0                     Send.error(
+**0                         "Bad kind: " .. (("'" .. tostring(kind)) .. "'")
+                        )
+                    else
+**0                     local mappedExpression = mapExpressionNames(expression, sourceMap)
+**0                     local s, r = execute("return " .. mappedExpression, frame + frameOffset, info, ((currentThread ~= activeThread) and currentThread) or nil)
+**0                     if s then
+**0                         if type(r) == "table" then
+**0                             Send.props(
+                                    r,
+                                    kind,
+**0                                 tonumber(first),
+**0                                 tonumber(count)
+                                )
+                            else
+**0                             Send.error(("Expression \"" .. mappedExpression) .. "\" is not a table")
+                            end
+                        else
+**0                         Send.error(r)
+                        end
+                    end
+**0             elseif inp:sub(1, 4) == "exec" then
+**0                 local statement = inp:match("^exec%s+(.+)$")
+**0                 if not statement then
+**0                     Send.error("Bad statement")
+                    else
+**0                     local results = {
+**0                         execute(statement, frame + frameOffset, info, ((currentThread ~= activeThread) and currentThread) or nil)
+                        }
+**0                     if results[1] then
+**0                         Send.result(
+**0                             unpack(results, 2)
+                            )
+                        else
+**0                         Send.error(results[2])
+                        end
+                    end
+**0             elseif inp:sub(1, 6) == "script" then
+**0                 local scriptFile = inp:match("^script%s+(.+)$")
+**0                 if not scriptFile then
+**0                     Send.error("Bad script file")
+                    else
+**0                     scriptFile = Path.format(scriptFile)
+**0                     local foundSourceMap = SourceMap.get(scriptFile)
+**0                     if foundSourceMap then
+**0                         Send.result(("added " .. scriptFile) .. ": source map found")
+                        else
+**0                         Send.result(("added " .. scriptFile) .. ": source map NOT found!")
+                        end
+                    end
+**0             elseif inp:sub(1, 6) == "ignore" then
+**0                 local ignorePattern = inp:match("^ignore%s+(.+)$")
+**0                 if not ignorePattern then
+**0                     Send.error("Bad ignore pattern")
+                    else
+**0                     local match, err = pcall(string.match, "", ignorePattern)
+**0                     if not match then
+**0                         Send.error(
+**0                             (("Bad ignore pattern \"" .. ignorePattern) .. "\": ") .. tostring(err)
+                            )
+                        else
+**0                         if not ignorePatterns then
+**0                             ignorePatterns = {}
+                            end
+**0                         table.insert(ignorePatterns, ignorePattern)
+**0                         Send.result(("Added ignore pattern \"" .. ignorePattern) .. "\"")
+                        end
+                    end
+                else
+**0                 Send.error("Bad command")
+                end
+            end
+**0         updateHook()
+**0         inDebugBreak = false
+**0         return true
+        end
+        local function comparePaths(a, b)
+**0         local aLen = #a
+**0         local bLen = #b
+**0         if aLen == bLen then
+**0             return a == b
+            end
+**0         if bLen < aLen then
+**0             a, aLen, b = b, bLen, a
+            end
+**0         if a ~= b:sub(-aLen) then
+**0             return false
+            end
+**0         if a:sub(1, 1) == Path.separator then
+**0             return true
+            end
+**0         local bSep = -(aLen + 1)
+**0         return b:sub(bSep, bSep) == Path.separator
+        end
+  1     local debugHookStackOffset = 2
+  1     local breakpointLookup = Breakpoint.getLookup()
+  1     local stepUnmappedLinesEnv = "LOCAL_LUA_DEBUGGER_STEP_UNMAPPED_LINES"
+  1     local skipUnmappedLines = os.getenv(stepUnmappedLinesEnv) ~= "1"
+        local function debugHook(event, line)
+**0         if breakAtDepth >= 0 then
+**0             local activeThread = getActiveThread()
+                local stepBreak
+**0             if breakInThread == nil then
+**0                 stepBreak = true
+**0             elseif activeThread == breakInThread then
+**0                 stepBreak = #getStack(debugHookStackOffset) <= breakAtDepth
+                else
+**0                 stepBreak = (breakInThread ~= mainThread) and (coroutine.status(breakInThread) == "dead")
+                end
+**0             if stepBreak then
+**0                 local topFrameSource = debug.getinfo(debugHookStackOffset, "S")
+**0                 if (not topFrameSource) or (not topFrameSource.source) then
+**0                     return
+                    end
+**0                 if topFrameSource.source:sub(-#debuggerName) == debuggerName then
+**0                     return
+                    end
+**0                 if topFrameSource.short_src and (topFrameSource.short_src:sub(1, #builtinFunctionPrefix) == builtinFunctionPrefix) then
+**0                     return
+                    end
+                    local source
+**0                 if ignorePatterns then
+**0                     source = Path.format(topFrameSource.source)
+**0                     for ____, pattern in ipairs(ignorePatterns) do
+**0                         local match = source:match(pattern)
+**0                         if match then
+**0                             return
+                            end
+                        end
+                    end
+**0                 if skipUnmappedLines then
+**0                     if not source then
+**0                         source = Path.format(topFrameSource.source)
+                        end
+**0                     local sourceMap = SourceMap.get(source)
+**0                     if sourceMap and (not sourceMap.mappings[line]) then
+**0                         return
+                        end
+                    end
+**0                 Send.debugBreak(
+                        "step",
+                        "step",
+**0                     getThreadId(activeThread)
+                    )
+**0                 if debugBreak(activeThread, debugHookStackOffset, line) then
+**0                     return
+                    end
+                end
+            end
+**0         local lineBreakpoints = breakpointLookup[line]
+**0         if not lineBreakpoints then
+**0             return
+            end
+**0         local topFrame = debug.getinfo(debugHookStackOffset, "S")
+**0         if (not topFrame) or (not topFrame.source) then
+**0             return
+            end
+**0         local source = Path.format(topFrame.source)
+**0         topFrame = nil
+**0         for ____, breakpoint in ipairs(lineBreakpoints) do
+**0             if breakpoint.enabled and comparePaths(breakpoint.file, source) then
+**0                 if breakpoint.condition then
+**0                     local mappedCondition = mapExpressionNames(breakpoint.condition, breakpoint.sourceMap)
+**0                     local condition = "return " .. mappedCondition
+**0                     topFrame = topFrame or luaAssert(
+**0                         debug.getinfo(debugHookStackOffset, "nSluf")
+                        )
+**0                     local success, result = execute(condition, debugHookStackOffset, topFrame)
+**0                     if success and result then
+**0                         local activeThread = getActiveThread()
+**0                         local conditionDisplay = ((("\"" .. breakpoint.condition) .. "\" = \"") .. tostring(result)) .. "\""
+**0                         local breakpointFile, breakpointLine = breakpoint.sourceFile or breakpoint.file, breakpoint.sourceLine or breakpoint.line
+**0                         Send.debugBreak(
+**0                             (((("breakpoint hit: \"" .. breakpointFile) .. ":") .. tostring(breakpointLine)) .. "\", ") .. conditionDisplay,
+                                "breakpoint",
+**0                             getThreadId(activeThread)
+                            )
+**0                         debugBreak(activeThread, debugHookStackOffset, line)
+                            break
+                        end
+                    else
+**0                     local activeThread = getActiveThread()
+**0                     local breakpointFile, breakpointLine = breakpoint.sourceFile or breakpoint.file, breakpoint.sourceLine or breakpoint.line
+**0                     Send.debugBreak(
+**0                         ((("breakpoint hit: \"" .. breakpointFile) .. ":") .. tostring(breakpointLine)) .. "\"",
+                            "breakpoint",
+**0                         getThreadId(activeThread)
+                        )
+**0                     debugBreak(activeThread, debugHookStackOffset, line)
+                        break
+                    end
+                end
+            end
+        end
+        local function mapSource(indent, file, lineStr, remainder)
+**0         file = Path.format(file)
+**0         local sourceMap = SourceMap.get(file)
+**0         if sourceMap then
+**0             local line = luaAssert(
+**0                 tonumber(lineStr)
+                )
+**0             local lineMapping = sourceMap.mappings[line]
+**0             if lineMapping then
+**0                 local sourceFile = sourceMap.sources[lineMapping.sourceIndex + 1]
+**0                 local sourceLine = lineMapping.sourceLine
+**0                 local sourceColumn = lineMapping.sourceColumn
+**0                 return ((((((indent .. tostring(sourceFile)) .. ":") .. tostring(sourceLine)) .. ":") .. tostring(sourceColumn)) .. ":") .. remainder
+                end
+            end
+**0         return ((((indent .. file) .. ":") .. lineStr) .. ":") .. remainder
+        end
+        local function mapSources(str)
+**0         str = str:gsub("(%s*)([^\r\n]+):(%d+):([^\r\n]+)", mapSource)
+**0         return str
+        end
+        local function breakForError(err, level, propagate)
+**0         local message = mapSources(
+**0             tostring(err)
+            )
+**0         level = (level or 1) + 1
+**0         if skipNextBreak then
+**0             skipNextBreak = false
+**0         elseif not inDebugBreak then
+**0             local thread = getActiveThread()
+**0             Send.debugBreak(
+                    message,
+                    "error",
+**0                 getThreadId(thread)
+                )
+**0             debugBreak(thread, level)
+            end
+**0         if propagate then
+**0             skipNextBreak = true
+**0             luaError(message, level)
+            end
+        end
+        local function registerThread(thread)
+**0         assert(not threadIds[thread])
+**0         local threadId = nextThreadId
+**0         nextThreadId = nextThreadId + 1
+**0         threadIds[thread] = threadId
+**0         local hook = debug.gethook()
+**0         if hook == debugHook then
+**0             debug.sethook(thread, debugHook, "l")
+            end
+**0         return threadId
+        end
+        local canYieldAcrossPcall
+        local function useXpcallInCoroutine()
+**0         if canYieldAcrossPcall == nil then
+**0             local _, yieldResult = luaCoroutineResume(
+**0                 luaCoroutineCreate(
+**0                     function() return pcall(
+**0                         function() return coroutine.yield(true) end
+**0                     ) end
+                    )
+                )
+**0             canYieldAcrossPcall = yieldResult == true
+            end
+**0         return canYieldAcrossPcall
+        end
+        local function debuggerCoroutineCreate(f, allowBreak)
+**0         if allowBreak and useXpcallInCoroutine() then
+**0             local originalFunc = f
+                local function debugFunc(...)
+**0                 local args = {...}
+                    local function wrappedFunc()
+**0                     return originalFunc(
+**0                         unpack(args)
+                        )
+                    end
+**0                 local results = {
+**0                     xpcall(wrappedFunc, breakForError)
+                    }
+**0                 if results[1] then
+**0                     return unpack(results, 2)
+                    else
+**0                     skipNextBreak = true
+**0                     local message = mapSources(
+**0                         tostring(results[2])
+                        )
+**0                     return luaError(message, 2)
+                    end
+                end
+**0             f = debugFunc
+            end
+**0         local thread = luaCoroutineCreate(f)
+**0         registerThread(thread)
+**0         return thread
+        end
+        local function debuggerCoroutineResume(thread, ...)
+**0         local activeThread = getActiveThread()
+**0         threadStackOffsets[activeThread] = 1
+**0         local results = {
+**0             luaCoroutineResume(thread, ...)
+            }
+**0         if not results[1] then
+**0             breakForError(results[2], 2)
+            end
+**0         threadStackOffsets[activeThread] = nil
+**0         return unpack(results)
+        end
+        local function debuggerCoroutineWrap(f)
+**0         local thread = debuggerCoroutineCreate(f, true)
+            local function resumer(...)
+**0             local activeThread = getActiveThread()
+**0             threadStackOffsets[activeThread] = 1
+**0             local results = {
+**0                 luaCoroutineResume(thread, ...)
+                }
+**0             if not results[1] then
+**0                 breakForError(results[2], 2, true)
+                end
+**0             threadStackOffsets[activeThread] = nil
+**0             return unpack(results, 2)
+            end
+**0         return resumer
+        end
+        local function debuggerTraceback(threadOrMessage, messageOrLevel, level)
+            local trace
+**0         if isThread(threadOrMessage) then
+**0             trace = luaDebugTraceback(threadOrMessage, messageOrLevel or "", (level or 1) + 1)
+            else
+**0             trace = luaDebugTraceback(threadOrMessage or "", (messageOrLevel or 1) + 1)
+            end
+**0         trace = mapSources(trace)
+**0         if skipNextBreak then
+**0             skipNextBreak = false
+**0         elseif hookStack[#hookStack] == "global" then
+**0             local info = debug.getinfo(2, "S")
+**0             if info and (info.what == "C") then
+**0                 local thread = (isThread(threadOrMessage) and threadOrMessage) or getActiveThread()
+**0                 Send.debugBreak(
+                        trace,
+                        "error",
+**0                     getThreadId(thread)
+                    )
+**0                 debugBreak(thread, 3)
+                end
+            end
+**0         return trace
+        end
+        local function debuggerError(message, level)
+**0         breakForError(message, (level or 1) + 1, true)
+        end
+        local function debuggerAssert(v, ...)
+**0         local args = {...}
+**0         if not v then
+**0             local message = ((args[1] ~= nil) and args[1]) or "assertion failed"
+**0             breakForError(message, 1, true)
+            end
+**0         return v, unpack(args)
+        end
+        local function setErrorHandler()
+  1         local hookType = hookStack[#hookStack]
+  1         if hookType ~= nil then
+  1             _G.error = debuggerError
+  1             _G.assert = debuggerAssert
+  1             debug.traceback = debuggerTraceback
+            else
+**0             _G.error = luaError
+**0             _G.assert = luaAssert
+**0             debug.traceback = luaDebugTraceback
+            end
+        end
+        updateHook = function()
+  1         if (breakAtDepth < 0) and (Breakpoint.getCount() == 0) then
+  1             debug.sethook()
+**0             for thread in pairs(threadIds) do
+**0                 if isThread(thread) and (coroutine.status(thread) ~= "dead") then
+**0                     debug.sethook(thread)
+                    end
+                end
+            else
+**0             debug.sethook(debugHook, "l")
+**0             for thread in pairs(threadIds) do
+**0                 if isThread(thread) and (coroutine.status(thread) ~= "dead") then
+**0                     debug.sethook(thread, debugHook, "l")
+                    end
+                end
+            end
+        end
+  1     function Debugger.clearHook()
+**0         while #hookStack > 0 do
+**0             table.remove(hookStack)
+            end
+**0         setErrorHandler()
+**0         coroutine.create = luaCoroutineCreate
+**0         coroutine.wrap = luaCoroutineWrap
+**0         coroutine.resume = luaCoroutineResume
+**0         debug.sethook()
+**0         for thread in pairs(threadIds) do
+**0             if isThread(thread) and (coroutine.status(thread) ~= "dead") then
+**0                 debug.sethook(thread)
+                end
+            end
+        end
+  1     local breakInCoroutinesEnv = "LOCAL_LUA_DEBUGGER_BREAK_IN_COROUTINES"
+  1     local breakInCoroutines = os.getenv(breakInCoroutinesEnv) == "1"
+  1     function Debugger.pushHook(hookType)
+  1         table.insert(hookStack, hookType)
+  1         setErrorHandler()
+  1         if #hookStack > 1 then
+**0             return
+            end
+  1         coroutine.create = function(f) return debuggerCoroutineCreate(f, breakInCoroutines) end
+  1         coroutine.wrap = debuggerCoroutineWrap
+  1         coroutine.resume = (breakInCoroutines and debuggerCoroutineResume) or luaCoroutineResume
+  1         local currentThread = coroutine.running()
+  1         if currentThread and (not threadIds[currentThread]) then
+**0             registerThread(currentThread)
+            end
+  1         updateHook()
+        end
+  1     function Debugger.popHook()
+**0         table.remove(hookStack)
+**0         if #hookStack == 0 then
+**0             Debugger.clearHook()
+            else
+**0             setErrorHandler()
+**0             updateHook()
+            end
+        end
+  1     function Debugger.triggerBreak()
+**0         breakAtDepth = math.huge
+**0         updateHook()
+        end
+  1     function Debugger.debugGlobal(breakImmediately)
+  1         Debugger.pushHook("global")
+**0         if breakImmediately then
+**0             Debugger.triggerBreak()
+            end
+        end
+  1     function Debugger.debugFunction(func, breakImmediately, args)
+**0         Debugger.pushHook("function")
+**0         if breakImmediately then
+**0             Debugger.triggerBreak()
+            end
+**0         local results = {
+**0             xpcall(
+**0                 function() return func(
+**0                     unpack(args)
+**0                 ) end,
+                    breakForError
+                )
+            }
+**0         Debugger.popHook()
+**0         if results[1] then
+**0             return unpack(results, 2)
+            else
+**0             skipNextBreak = true
+**0             local message = mapSources(
+**0                 tostring(results[2])
+                )
+**0             return luaError(message, 2)
+            end
+        end
+    end
+  1 return ____exports
+     end,
+    ["lldebugger"] = function(...) 
+  1 local ____exports = {}
+  1 local ____luafuncs = require("luafuncs")
+  1 local luaAssert = ____luafuncs.luaAssert
+  1 local loadLuaFile = ____luafuncs.loadLuaFile
+  1 local ____debugger = require("debugger")
+  1 local Debugger = ____debugger.Debugger
+  1 _G.lldebugger = _G.lldebugger or ____exports
+  1 if io.stdout then
+  1     io.stdout:setvbuf("no")
+    end
+  1 if io.stderr then
+  1     io.stderr:setvbuf("no")
+    end
+  1 function ____exports.start(breakImmediately)
+  1     if breakImmediately == nil then
+  1         breakImmediately = os.getenv("LOCAL_LUA_DEBUGGER_VSCODE") == "1"
+        end
+  1     Debugger.debugGlobal(breakImmediately)
+    end
+  1 function ____exports.finish()
+**0     Debugger.popHook()
+    end
+  1 function ____exports.stop()
+**0     Debugger.clearHook()
+    end
+  1 function ____exports.runFile(filePath, breakImmediately, arg)
+**0     if type(filePath) ~= "string" then
+**0         error(
+**0             ("expected string as first argument to runFile, but got '" .. type(filePath)) .. "'",
+                0
+            )
+        end
+**0     if (breakImmediately ~= nil) and (type(breakImmediately) ~= "boolean") then
+**0         error(
+**0             ("expected boolean as second argument to runFile, but got '" .. type(breakImmediately)) .. "'",
+                0
+            )
+        end
+**0     local env = setmetatable(
+**0         {arg = arg},
+            {
+                __index = _G,
+                __newindex = function(____self, key, value)
+**0                 _G[key] = value
+                end
+            }
+        )
+**0     local func = luaAssert(
+**0         loadLuaFile(filePath, env)
+        )
+**0     return Debugger.debugFunction(func, breakImmediately, arg or ({}))
+    end
+  1 function ____exports.call(func, breakImmediately, ...)
+**0     local args = {...}
+**0     if type(func) ~= "function" then
+**0         error(
+**0             ("expected string as first argument to debugFile, but got '" .. type(func)) .. "'",
+                0
+            )
+        end
+**0     if (breakImmediately ~= nil) and (type(breakImmediately) ~= "boolean") then
+**0         error(
+**0             ("expected boolean as second argument to debugFunction, but got '" .. type(breakImmediately)) .. "'",
+                0
+            )
+        end
+**0     return Debugger.debugFunction(func, breakImmediately, args)
+    end
+  1 function ____exports.requestBreak()
+**0     Debugger.triggerBreak()
+    end
+  1 return ____exports
+     end,
+  1 }
+  1 return require("lldebugger", ...)
+
+==============================================================================
+Summary
+==============================================================================
+
+File                                                                                               Hits Missed Coverage
+-----------------------------------------------------------------------------------------------------------------------
+c:\Users\nnpil\.vscode\extensions\tomblind.local-lua-debugger-vscode-0.3.3\debugger\lldebugger.lua 229  1063   17.72%
+-----------------------------------------------------------------------------------------------------------------------
+Total                                                                                              229  1063   17.72%

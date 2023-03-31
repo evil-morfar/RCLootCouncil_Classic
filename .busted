@@ -1,0 +1,22 @@
+return {
+   _all = {
+      ["pattern"] = ".spec",
+      ["coverage"] = true,
+   },
+   default = {
+      ["ROOT"] = { ".specs"},
+      ["output"] = "utfTerminal"
+   },
+
+   Classes = {
+      ["ROOT"] = {"RCLootCouncil/.specs/Classes"},
+   },
+
+   Classes_Utils = {
+      ["ROOT"] = {"RCLootCouncil/.specs/Classes/Utils"},
+   },
+
+   Classes_Services = {
+      ["ROOT"] = {"RCLootCouncil/.specs/Classes/Services"},
+   }
+}

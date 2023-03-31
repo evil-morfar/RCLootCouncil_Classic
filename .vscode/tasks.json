@@ -34,14 +34,35 @@
                 "kind": "test",
                 "isDefault": true
             },
+            "windows": {
+                "args": [
+                    "--lpath=${workspaceFolder}\\RCLootCouncil\\__tests\\?.lua",
+                    "--helper=${workspaceFolder}\\.specs\\ClassicEnvironment.lua"
+                ]
+            },
+            "args": [
+                "--lpath=${workspaceFolder}/RCLootCouncil/__tests/?.lua",
+                "--helper=${workspaceFolder}/.specs/ClassicEnvironment.lua"
+            ]
         },
         {
             "label": "Busted this file",
             "type": "shell",
             "command": "busted",
             "args": [
-                "${file}"
+                "--lpath=${workspaceFolder}/RCLootCouncil/__tests/?.lua",
+                "--helper=${workspaceFolder}/.specs/ClassicEnvironment.lua",
+                "-v",
+                "${file}",
             ],
+            "windows": {
+                "args": [
+                    "--lpath=${workspaceFolder}\\RCLootCouncil\\__tests\\?.lua",
+                    "--helper=${workspaceFolder}\\.specs\\ClassicEnvironment.lua",
+                    "-v",
+                    "${file}",
+                ],
+            },
             "group": "test"
         },
         {

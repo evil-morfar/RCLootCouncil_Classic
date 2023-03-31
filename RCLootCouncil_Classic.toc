@@ -13,7 +13,6 @@
 RCLootCouncil\Patches\UiDropDownMenuTaintCommunities.lua
 
 RCLootCouncil\embeds.xml
-Libs\LibDeflate\LibDeflate.lua
 RCLootCouncil\Locale\Locales.xml
 
 API\GlobalUpdates.lua
@@ -21,8 +20,20 @@ RCLootCouncil\Core\Constants.lua
 RCLootCouncil\Core\Defaults.lua
 RCLootCouncil\Core\CoreEvents.lua
 
+RCLootCouncil\Classes\Core.lua
+RCLootCouncil\Classes\Lib\RxLua\embeds.xml
+RCLootCouncil\Classes\Utils\TempTable.lua
+RCLootCouncil\Classes\Utils\Log.lua
+RCLootCouncil\Classes\Services\ErrorHandler.lua
+RCLootCouncil\Classes\Utils\GroupLoot.lua
+
+RCLootCouncil\Classes\Data\Player.lua
+RCLootCouncil\Classes\Data\Council.lua
+
+RCLootCouncil\Classes\Services\Comms.lua
+RCLootCouncil\Classes\Data\MLDB.lua
+
 RCLootCouncil\core.lua
-RCLootCouncil\Core\ErrorHandler.lua
 RCLootCouncil\ml_core.lua
 
 RCLootCouncil\UI\UI.lua
@@ -36,7 +47,6 @@ RCLootCouncil\Utils\trinketData.lua
 RCLootCouncil\Utils\tokenData.lua
 RCLootCouncil\Utils\ItemStorage.lua
 RCLootCouncil\Utils\autopass.lua
-RCLootCouncil\Utils\sync.lua
 RCLootCouncil\Utils\popups.lua
 
 ## Classic Module
