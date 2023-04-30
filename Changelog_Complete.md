@@ -1,3 +1,9 @@
+# 0.18.3
+
+## Bugfixes
+
+- *Fixed issue with Bagnon (#53)*
+
 # 0.18.2
 
 ## Bugfixes
