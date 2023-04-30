@@ -7,6 +7,7 @@ if not C_Container then
         GetContainerItemLink = GetContainerItemLink,
         GetContainerNumFreeSlots = GetContainerNumFreeSlots,
         GetContainerItemInfo = GetContainerItemInfo,
-        PickupContainerItem = PickupContainerItem
+        PickupContainerItem = PickupContainerItem,
+        GetBagSlotFlag = GetBagSlotFlag
     }
 end

@@ -1,5 +1,5 @@
-# 0.18.2
+# 0.18.3
 
 ## Bugfixes
 
-- *Fixed issue with outdated libraries causing history frame to not show.*
+- *Fixed issue with Bagnon (#53)*
