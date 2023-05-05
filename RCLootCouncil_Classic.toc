@@ -16,7 +16,7 @@ RCLootCouncil\embeds.xml
 Libs\LibDeflate\LibDeflate.lua
 RCLootCouncil\Locale\Locales.xml
 
-API\GlobalUpdates.lua
+RCLootCouncil\Core\GlobalUpdates.lua
 RCLootCouncil\Core\Constants.lua
 RCLootCouncil\Core\Defaults.lua
 RCLootCouncil\Core\CoreEvents.lua
