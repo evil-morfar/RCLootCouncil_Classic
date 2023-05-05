@@ -1,5 +1,5 @@
-# 0.18.3
+Updated Ace3.
 
 ## Bugfixes
 
-- *Fixed issue with Bagnon (#53)*
+- *Removed creation of `C_Container` namespace which clashes with other addons (#53).*
