@@ -1,5 +1,3 @@
-# 0.18.4
-
 Updated Ace3.
 
 ## Bugfixes
