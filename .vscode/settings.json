@@ -2,5 +2,14 @@
     "todo-tree.tree.showCountsInTree": false,
     "Lua.runtime.path": [
         "${workspace}\\RCLootCouncil\\__tests\\?.lua"
-    ]
+    ],
+    "Lua.workspace.library": [
+        "${workspace}/../RCLootCouncil",
+        "${3rd}/lfs/library",
+        "${userHome}\\.vscode\\extensions\\ketho.wow-api-0.9.14\\EmmyLua\\API",
+        "${userHome}\\.vscode\\extensions\\ketho.wow-api-0.9.14\\EmmyLua\\Optional",
+        "${userHome}/AppData/Roaming/Code/User/globalStorage/sumneko.lua/addonManager/addons/busted/module/library",
+        "${3rd}/luassert/library"
+    ],
+    "Lua.workspace.checkThirdParty": false
 }
