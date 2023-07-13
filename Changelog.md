@@ -10,6 +10,10 @@ This change is not backwards compatible, once the ML upgrades, everyone will hav
 
 Is now considered an armor token for buttons and responses. Also added ilvl data.
 
+### Voting Frame session buttons
+
+Selecting an awarded session now shows a yellow checkmark instead of nothing on the session button.
+
 ## Bugfixes
 
 - *History now records the correct response instead of "Awarded" when awarding multiple copies of the same item to a player.*
