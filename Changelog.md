@@ -1,5 +1,3 @@
-Updated Ace3.
-
 ## Bugfixes
 
-- *Removed creation of `C_Container` namespace which clashes with other addons (#53).*
+- *History now records the correct response instead of "Awarded" when awarding multiple copies of the same item to a player.*
