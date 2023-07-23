@@ -17,3 +17,4 @@ Selecting an awarded session now shows a yellow checkmark instead of nothing on 
 ## Bugfixes
 
 - *History now records the correct response instead of "Awarded" when awarding multiple copies of the same item to a player.*
+- *Voting frame rows should no longer be jumping around excessively.*
