@@ -1,5 +1,7 @@
 ## Changes
 
+Updated for patch 3.4.2.
+
 ### Roll column
 
 Switched to a new system that's much lighter on comms for propergating the automatic random rolls. This should fix the issues some people have with the last few sessions not receiving random rolls.
