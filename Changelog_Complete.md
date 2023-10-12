@@ -1,3 +1,10 @@
+# 0.20.0
+
+## Changes
+
+Updated for patch 3.4.3 and 1.14.4.
+
+
 # 0.19.0
 
 ## Changes
