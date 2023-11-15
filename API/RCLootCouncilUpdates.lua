@@ -56,6 +56,7 @@ addon.LOGO_LOCATION = "Interface\\AddOns\\RCLootCouncil_Classic\\RCLootCouncil\\
 -- Ignored Items
 addon.defaults.profile.ignoredItems = {} -- Remove the retail ones
 addon.defaults.profile.ignoredItems[22726] = true -- Splinter of Atiesh
+addon.defaults.profile.ignoredItems[50274] = true -- Shadowfrost Shard
 
 function addon:IsCorrectVersion ()
    return (WOW_PROJECT_CLASSIC == WOW_PROJECT_ID) or (WOW_PROJECT_WRATH_CLASSIC == WOW_PROJECT_ID)
