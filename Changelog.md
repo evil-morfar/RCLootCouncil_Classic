@@ -1,3 +1,4 @@
 ## Changes
 
-Updated for patch 1.15.0
+Updated toc for patch 1.15.1 SoD Phase 2.  
+Added support for Gnomeregan tier tokens.

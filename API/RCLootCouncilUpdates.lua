@@ -174,7 +174,7 @@ function addon:UpdateAndSendRecentTradableItem()
    -- Intentionally left empty
 end
 
-local function getGearForAQTokens (itemID)
+local function getGearForTokens (itemID)
    local entry = Classic.Lists.Specials[itemID]
    if #entry > 1 then
       local items = {true, true}
@@ -190,13 +190,14 @@ local function getGearForAQTokens (itemID)
    end
 end
 
--- AQ Tokens handling
--- AQ Tokens are quest items that fits multiple slots.
+-- Tokens handling
+-- Handles "special" tokens that are not in the default token list, such as AQ quest items
+-- that fits multiple slots.
 -- We need to do a bit of a hack to handle these.
 function addon:GetGear(link, equipLoc)
    local itemID = self.Utils:GetItemIDFromLink(link)
    if Classic.Lists.Specials[itemID] then
-      return getGearForAQTokens(itemID)
+      return getGearForTokens(itemID)
    else
 	   return self:GetPlayersGear(link, equipLoc, addon.playersData.gears) -- Use gear info we stored before
    end

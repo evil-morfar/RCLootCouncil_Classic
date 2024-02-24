@@ -76,5 +76,9 @@ List.Specials = {
    [20931] = {"LegsSlot"}, -- Skin of the Great Sandworm
    [20932] = {"ShoulderSlot", "FeetSlot"}, -- Bindings of Dominance
    [20933] = {"ChestSlot"}, -- Husk of the Old God
-
 }
+
+-- SoD Gnomeregan
+RCTokenTable[217007] = "FeetSlot"  -- Power Depleted Boots
+RCTokenTable[217008] = "ChestSlot" -- Power Depleted Chest
+RCTokenTable[217009] = "LegsSlot"  -- Power Depleted Legs

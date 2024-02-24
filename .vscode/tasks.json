@@ -40,8 +40,18 @@
             "type": "shell",
             "command": "busted",
             "args": [
-                "${file}"
+                "--lpath=${workspaceFolder}/RCLootCouncil/__tests/?.lua",
+                "-v",
+                "${file}",
             ],
+            "windows": {
+                "args": [
+                    "--lpath=${workspaceFolder}\\RCLootCouncil\\__tests\\?.lua",
+                    "-C=./RCLootCouncil",
+                    "-v",
+                    "${file}",
+                ],
+            },
             "group": "test"
         },
         {
