@@ -1,3 +1,3 @@
 ## Changes
 
-Updated for patch 1.15.0
+SoD: Added support for Gnomeregan tier tokens.
