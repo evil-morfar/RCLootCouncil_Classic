@@ -26,7 +26,7 @@ cp -R "$curDir/RCLootCouncil/Libs/" "$curDir/.tmp/RCLootCouncil_Classic/RCLootCo
 "$release_script" -do -g classic -r "$curDir/.tmp" -m ".pkgmeta-build"
 
 # Build for BBC
-"$release_script" -do -g wrath -r "$curDir/.tmp" -m ".pkgmeta-build"
+"$release_script" -do -g cata -r "$curDir/.tmp" -m ".pkgmeta-build"
 
 
 # # Move the zip
