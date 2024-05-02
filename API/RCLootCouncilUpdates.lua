@@ -4,7 +4,7 @@ local Classic = addon:GetModule("RCClassic")
 local private = {}
 local L = LibStub("AceLocale-3.0"):GetLocale("RCLootCouncil")
 local LC = LibStub("AceLocale-3.0"):GetLocale("RCLootCouncil_Classic")
-local LibDialog = LibStub("LibDialog-1.0")
+local LibDialog = LibStub("LibDialog-1.1")
 
 
 ----------------------------------------------
