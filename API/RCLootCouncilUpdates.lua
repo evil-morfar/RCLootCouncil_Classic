@@ -59,7 +59,7 @@ addon.defaults.profile.ignoredItems[22726] = true -- Splinter of Atiesh
 addon.defaults.profile.ignoredItems[50274] = true -- Shadowfrost Shard
 
 function addon:IsCorrectVersion ()
-   return (WOW_PROJECT_CLASSIC == WOW_PROJECT_ID) or (WOW_PROJECT_WRATH_CLASSIC == WOW_PROJECT_ID)
+   return (WOW_PROJECT_CLASSIC == WOW_PROJECT_ID) or (WOW_PROJECT_CATACLYSM_CLASSIC == WOW_PROJECT_ID)
 end
 
 function addon:UpdatePlayersData()
