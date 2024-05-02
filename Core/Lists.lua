@@ -82,3 +82,7 @@ List.Specials = {
 RCTokenTable[217007] = "FeetSlot"  -- Power Depleted Boots
 RCTokenTable[217008] = "ChestSlot" -- Power Depleted Chest
 RCTokenTable[217009] = "LegsSlot"  -- Power Depleted Legs
+
+-- SoD Sunken Temple
+RCTokenTable[220636] = "MultiSlots" -- Atal'ai Blood Icon
+RCTokenTable[220637] = "MultiSlots" -- Atal'ai Ritual Token
