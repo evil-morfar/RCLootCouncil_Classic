@@ -1,3 +1,11 @@
+# 0.22.0
+
+## Changes
+
+### Season of Discovery
+
+Added Sunken Temple tokens to the token list (#56 Credit @Klemms).
+
 # 0.21.0
 
 ## Changes
