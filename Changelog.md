@@ -1,9 +1,5 @@
 ## Changes
 
-### Comms throttle
-
-Voting Frame data is no longer being sent when reloading/reconnecting.
-
 ### Bugfixes
 
 - *Fixed chat spam when a loot frame roll with required note timed out.*
