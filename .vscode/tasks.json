@@ -4,13 +4,22 @@
     "version": "2.0.0",
     "tasks": [
         {
+            "label": "Deploy both",
+            "dependsOn": [
+                "Deploy Classic",
+                "Deploy TBC"
+            ],
+            "dependsOrder": "parallel",
+            "problemMatcher": []
+        },
+        {
             "label": "Deploy Classic",
             "type": "shell",
             "command": "sh",
             "args": [
                 ".scripts/deploy.sh",
                 "-c"
-            ],
+            ]
         },
         {
             "label": "Deploy TBC",
@@ -19,12 +28,12 @@
             "args": [
                 ".scripts/deploy.sh",
                 "-b"
-            ],
+            ]
         },
         {
             "label": "Build and Release",
             "type": "shell",
-            "command": ".scripts\\build.sh",
+            "command": ".scripts\\build.sh"
         },
         {
             "label": "Busted All",
@@ -33,7 +42,7 @@
             "group": {
                 "kind": "test",
                 "isDefault": true
-            },
+            }
         },
         {
             "label": "Busted this file",
@@ -42,15 +51,15 @@
             "args": [
                 "--lpath=${workspaceFolder}/RCLootCouncil/__tests/?.lua",
                 "-v",
-                "${file}",
+                "${file}"
             ],
             "windows": {
                 "args": [
                     "--lpath=${workspaceFolder}\\RCLootCouncil\\__tests\\?.lua",
                     "-C=./RCLootCouncil",
                     "-v",
-                    "${file}",
-                ],
+                    "${file}"
+                ]
             },
             "group": "test"
         },

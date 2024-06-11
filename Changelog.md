@@ -1,9 +1,7 @@
 ## Changes
 
-### Comms Throttle
+### Bugfixes
 
-Voting Frame data is no longer being sent when reloading/reconnecting.
-
-### Cataclysm Classic
-
-Non main armor types are now autopassed.
+- *Fixed chat spam when a loot frame roll with required note timed out.*
+- *Miscellaneous items is now listed as their subtype instead of "armor token" (unless their subtype is junk) in voting frame more info.*
+- *Fixed `/rc council` not properly opening council menu.*
