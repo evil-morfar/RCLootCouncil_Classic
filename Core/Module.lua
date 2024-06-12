@@ -10,6 +10,11 @@ function ClassicModule:OnInitialize()
    self.nnp = false
    addon.isClassic = true
 
+   -- Remove "role" and corruption column
+   local vf = addon:GetModule("RCVotingFrame")
+   vf:RemoveColumn("role")
+   vf:RemoveColumn("corruption")
+
    self:ScheduleTimer("Enable", 0) -- Enable just after RCLootCouncil has had the chance to be enabled
 end
 
@@ -34,11 +39,6 @@ function ClassicModule:OnEnable ()
    self:RegisterAddonComms()
    self:DoHooks()
    addon:InitClassIDs()
-
-   -- Remove "role" and corruption column
-   local vf = addon:GetModule("RCVotingFrame")
-   vf:RemoveColumn("role")
-   vf:RemoveColumn("corruption")
 
    self:UpdateBlacklist()
 
