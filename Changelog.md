@@ -1,5 +1,9 @@
 ## Changes
 
+### TradeUI
+
+Addons can no longer check whether people are in trade range during combat, so now the labels are yellow in combat. Clicking the yellow label will attempt to open trade.
+
 ### Bugfixes
 
-- *Fixed issue introduced in v0.22.2 causing voting frame to break when reloading with access to the voting frame.*
+- *Added fix for histories containing broken colors.*

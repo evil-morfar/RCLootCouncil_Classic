@@ -30,6 +30,11 @@ function ClassicModule:OnEnable ()
    addon.debug = self.debug
    addon.nnp = self.nnp
 
+   if addon.db.global.Classic_version then
+      addon:Debug("Running compat")
+      self.Compat:Run()
+   end
+
    addon.db.global.Classic_oldVersion = addon.db.global.Classic_version
    addon.db.global.Classic_version = self.version
    addon.db.global.Classic_game = WOW_PROJECT_ID
