@@ -35,7 +35,7 @@
             "command": "sh",
             "args": [
                 ".scripts/deploy.sh",
-                "-bp"
+                "-z"
             ]
         },
         {
