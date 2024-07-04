@@ -22,12 +22,11 @@
                 "command": "busted",
             },
             "args": [
-                "-e require('lldebugger').start()",
-                // "--lpath=${workspaceFolder}\\__tests\\?.lua",
+                "---verbose",
                 "${file}"
             ],
             "env": {
-                "LUA_PATH": "${env:LUA_PATH};${workspaceFolder}/__tests/?.lua",
+                "LUA_PATH": "${env:LUA_PATH};${workspaceFolder}/RCLootCouncil/__tests/?.lua",
             }
         }
     ]

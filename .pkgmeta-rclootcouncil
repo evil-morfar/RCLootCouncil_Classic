@@ -10,7 +10,7 @@ ignore:
     - changelog.md
     - __tests
     - .specs
-    - Libs                  # Packager not too keen on ignoring Libs anymore
+    - Libs
     - RCLootCouncil.toc
 
 enable-nolib-creation: no
