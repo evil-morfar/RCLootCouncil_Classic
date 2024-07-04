@@ -1,3 +1,11 @@
+# 0.22.5
+
+## Changes
+
+### Bugfixes
+
+- *Supressed response related error.*
+
 # 0.22.4
 
 ## Changes
