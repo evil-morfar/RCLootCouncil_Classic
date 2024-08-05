@@ -46,8 +46,12 @@ local autopassTable = {
 }
 
 if Classic:IsClassicEra() then
-	-- Druids pass on polearms in Classic, but not WotLK
-	autopassTable[LE_ITEM_CLASS_WEAPON][LE_ITEM_WEAPON_POLEARM] = {"ROGUE", "SHAMAN", "PRIEST", "MAGE", "WARLOCK", "DRUID"}
+	-- Druids pass on polearms in Classic, but not WotLK (or SoD)
+	if Classic:IsSeasonOfDiscovery() then
+		autopassTable[LE_ITEM_CLASS_WEAPON][LE_ITEM_WEAPON_POLEARM] = { "ROGUE", "SHAMAN", "PRIEST", "MAGE", "WARLOCK" }
+	else
+		autopassTable[LE_ITEM_CLASS_WEAPON][LE_ITEM_WEAPON_POLEARM] = {"ROGUE", "SHAMAN", "PRIEST", "MAGE", "WARLOCK", "DRUID"}
+	end
 	-- From Cataclysm, all classes use their main gear type, which still may not be true in vanilla
 	autopassTable[LE_ITEM_CLASS_ARMOR][LE_ITEM_ARMOR_CLOTH]		= { }
 	autopassTable[LE_ITEM_CLASS_ARMOR][LE_ITEM_ARMOR_LEATHER] 	= {"PRIEST", "MAGE",    "WARLOCK"}

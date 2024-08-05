@@ -164,3 +164,7 @@ end
 function ClassicModule:IsClassicEra()
    return WOW_PROJECT_CLASSIC == WOW_PROJECT_ID
 end
+
+function ClassicModule:IsSeasonOfDiscovery()
+   return self:IsClassicEra() and C_Seasons.GetActiveSeason() == Enum.SeasonID.SeasonOfDiscovery
+end

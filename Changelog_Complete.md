@@ -1,3 +1,13 @@
+# 0.22.7
+
+## Changes
+
+### Bugfixes
+
+- *Fixed inconsistancies when adding council members, leading to characters with special first character not being registered on the council.*
+
+- *Druids no longer autopass polearms in Season of Discovery.*
+
 # 0.22.6
 
 ## Changes
