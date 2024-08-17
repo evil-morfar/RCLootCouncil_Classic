@@ -86,3 +86,31 @@ RCTokenTable[217009] = "LegsSlot"  -- Power Depleted Legs
 -- SoD Sunken Temple
 RCTokenTable[220636] = "MultiSlots" -- Atal'ai Blood Icon
 RCTokenTable[220637] = "MultiSlots" -- Atal'ai Ritual Token
+
+-- SoD Molten Core
+RCTokenTable[227530] = "WaistSlot" -- Incandescent Belt
+RCTokenTable[227531] = "WristSlot" -- Incandescent Bindings
+RCTokenTable[227536] = "FeetSlot" -- Incandescent Boots
+RCTokenTable[227533] = "HandsSlot" -- Incandescent Gloves
+RCTokenTable[227532] = "HeadSlot" -- Incandescent Hood
+RCTokenTable[227534] = "LegsSlot" -- Incandescent Leggings
+RCTokenTable[227535] = "ChestSlot" -- Incandescent Robe
+RCTokenTable[227537] = "ShoulderSlot" -- Incandescent Shoulderpads
+
+RCTokenTable[227751] = "WaistSlot" -- Molten Scaled Belt
+RCTokenTable[227750] = "WristSlot" -- Molten Scaled Bindings
+RCTokenTable[227757] = "FeetSlot" -- Molten Scaled Boots
+RCTokenTable[227758] = "ChestSlot" -- Molten Scaled Chest
+RCTokenTable[227756] = "HandsSlot" -- Molten Scaled Gloves
+RCTokenTable[227755] = "HeadSlot" -- Molten Scaled Helm
+RCTokenTable[227754] = "LegsSlot" -- Molten Scaled Leggings
+RCTokenTable[227752] = "ShoulderSlot" -- Molten Scaled Shoulderpads
+
+RCTokenTable[227761] = "WaistSlot" -- Scorched Core Belt
+RCTokenTable[227760] = "WristSlot" -- Scorched Core Bindings
+RCTokenTable[227765] = "FeetSlot" -- Scorched Core Boots
+RCTokenTable[227766] = "ChestSlot" -- Scorched Core Chest
+RCTokenTable[227759] = "HandsSlot" -- Scorched Core Gloves
+RCTokenTable[227764] = "HeadSlot" -- Scorched Core Helm
+RCTokenTable[227763] = "LegsSlot" -- Scorched Core Leggings
+RCTokenTable[227762] = "ShoulderSlot" -- Scorched Core Shoulderpads
