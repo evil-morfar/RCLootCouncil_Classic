@@ -86,3 +86,37 @@ RCTokenTable[217009] = "LegsSlot"  -- Power Depleted Legs
 -- SoD Sunken Temple
 RCTokenTable[220636] = "MultiSlots" -- Atal'ai Blood Icon
 RCTokenTable[220637] = "MultiSlots" -- Atal'ai Ritual Token
+
+-- SoD Phase 4
+RCTokenTable[227532] = "HeadSlot"
+RCTokenTable[227755] = "HeadSlot"
+RCTokenTable[227764] = "HeadSlot"
+
+RCTokenTable[227537] = "ShoulderSlot"
+RCTokenTable[227752] = "ShoulderSlot"
+RCTokenTable[227762] = "ShoulderSlot"
+
+RCTokenTable[227535] = "ChestSlot"
+RCTokenTable[227758] = "ChestSlot"
+RCTokenTable[227766] = "ChestSlot"
+
+RCTokenTable[227533] = "HandsSlot"
+RCTokenTable[227756] = "HandsSlot"
+RCTokenTable[227759] = "HandsSlot"
+
+RCTokenTable[227531] = "WristSlot"
+RCTokenTable[227750] = "WristSlot"
+RCTokenTable[227760] = "WristSlot"
+
+RCTokenTable[227530] = "WaistSlot"
+RCTokenTable[227751] = "WaistSlot"
+RCTokenTable[227761] = "WaistSlot"
+
+RCTokenTable[227534] = "LegsSlot"
+RCTokenTable[227754] = "LegsSlot"
+RCTokenTable[227763] = "LegsSlot"
+
+RCTokenTable[227536] = "FeetSlot"
+RCTokenTable[227757] = "FeetSlot"
+RCTokenTable[227765] = "FeetSlot"
+
