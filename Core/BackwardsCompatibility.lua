@@ -55,5 +55,18 @@ Compat.list = {
             end
             addon:Debug("Fixed", count, "history colors")
         end
+    },
+    {
+        name = "Update 'tierToken' in history",
+        version = "0.23.0",
+        func = function()
+            for _, factionrealm in pairs(addon.lootDB.sv.factionrealm) do
+                for _, data in pairs(factionrealm) do
+                    for _, v in ipairs(data) do
+                        v.tierToken = RCTokenTable[addon.Utils:GetItemIDFromLink(v.lootWon)] and true
+                    end
+                end
+            end
+        end
     }
 }

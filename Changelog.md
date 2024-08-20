@@ -1,5 +1,11 @@
 ## Changes
 
+### Tier Tokens
+
+Tier Tokens now again shows up in the history.
+
+Responses from the "Armor Token" button group are now shown seperately to the normal responses in more info tooltips.
+
 ### SoD
 
 Added tokens from Phase 4.
