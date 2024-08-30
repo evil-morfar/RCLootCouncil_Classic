@@ -1,7 +1,17 @@
 ## Changes
 
-### Bugfixes
+### Tier Tokens
 
-- *Fixed inconsistancies when adding council members, leading to characters with special first character not being registered on the council.*
+Tier Tokens now again shows up in the history.
 
-- *Druids no longer autopass polearms in Season of Discovery.*
+Responses from the "Armor Token" button group are now shown seperately to the normal responses in more info tooltips.
+
+### Cataclysm Classic
+
+Warriors now pass on staves.
+
+### SoD
+
+Added tokens from Phase 4.
+
+Instance name and difficulties will now be properly parses for SoD instances.

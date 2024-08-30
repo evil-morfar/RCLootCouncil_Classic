@@ -11,8 +11,6 @@ The [RCLootCouncil Wiki](https://github.com/evil-morfar/RCLootCouncil2/wiki) is 
 
 ## Description
 
-> Note: *Each game version has a seperate file for download*.
-
 This project is an direct extension to RCLootCouncil, so that it may be updated without any changes to the core project. Instead patches, hooks, and replacements are implemented to modify the core addon to function within the Classic environment.
 
 This also allows for future updates of RCLootCouncil to be easily implemented, as it's mostly core features that need changing for Classic.
