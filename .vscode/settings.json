@@ -24,6 +24,32 @@
         "utf8": "disable"
     },
     "Lua.diagnostics.globals": [
-        "lfs"
+        "lfs",
+        "tFilter",
+        "HandleModifiedItemClick",
+        "FindInTableIf",
+        "UIParent",
+        "FauxScrollFrame_Update",
+        "getglobal",
+        "FauxScrollFrame_OnVerticalScroll",
+        "BackdropTemplateMixin",
+        "FauxScrollFrame_GetOffset",
+        "BACKPACK_CONTAINER",
+        "NUM_BAG_SLOTS",
+        "tInvert",
+        "CopyTable",
+        "tContains",
+        "GUILD_BANK_LOG_TIME",
+        "SecondsToTime",
+        "escapePatternSymbols",
+        "WOW_PROJECT_ID",
+        "WOW_PROJECT_CLASSIC",
+        "GetUnitName",
+        "GameTooltip_AddColoredDoubleLine",
+        "GameTooltip_AddBlankLineToTooltip",
+        "GameTooltip",
+        "GameTooltip_AddColoredLine",
+        "tDeleteItem",
+        "REQUEST_ROLL"
     ]
 }
