@@ -50,6 +50,26 @@
         "GameTooltip",
         "GameTooltip_AddColoredLine",
         "tDeleteItem",
-        "REQUEST_ROLL"
+        "REQUEST_ROLL",
+        "ChatFrame_AddMessageEventFilter",
+        "ReloadUI",
+        "INVSLOT_LAST_EQUIPPED",
+        "WOW_PROJECT_MAINLINE",
+        "RAID_CLASS_COLORS",
+        "Settings",
+        "SettingsPanel",
+        "CLASS_ICON_TCOORDS",
+        "FindValueInTableIf",
+        "BIND_TRADE_TIME_REMAINING",
+        "RELIC_TOOLTIP_TYPE",
+        "ITEM_BNETACCOUNTBOUND",
+        "PLAYER_LIST_DELIMITER",
+        "ITEM_SOULBOUND",
+        "ITEM_ACCOUNTBOUND",
+        "LIST_DELIMITER",
+        "INT_SPELL_DURATION_SEC",
+        "INT_SPELL_DURATION_HOURS",
+        "TIME_UNIT_DELIMITER",
+        "INT_SPELL_DURATION_MIN"
     ]
 }
