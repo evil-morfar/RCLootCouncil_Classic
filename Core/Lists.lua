@@ -114,3 +114,31 @@ RCTokenTable[227759] = "HandsSlot" -- Scorched Core Gloves
 RCTokenTable[227764] = "HeadSlot" -- Scorched Core Helm
 RCTokenTable[227763] = "LegsSlot" -- Scorched Core Leggings
 RCTokenTable[227762] = "ShoulderSlot" -- Scorched Core Shoulderpads
+
+-- SoD Blackwing Lair
+RCTokenTable[231724] = "WristSlot" -- Ancient Bindings
+RCTokenTable[231725] = "WaistSlot" -- Ancient Belt
+RCTokenTable[231726] = "ShoulderSlot" -- Ancient Shoulderpads
+RCTokenTable[231727] = "LegsSlot" -- Ancient Leggings
+RCTokenTable[231728] = "HeadSlot" -- Ancient Helm
+RCTokenTable[231729] = "HandsSlot" -- Ancient Gloves
+RCTokenTable[231730] = "FeetSlot" -- Ancient Boots
+RCTokenTable[231731] = "ChestSlot" -- Ancient Chest
+
+RCTokenTable[231707] = "WristSlot" -- Draconian Bindings
+RCTokenTable[231708] = "WaistSlot" -- Draconian Belt
+RCTokenTable[231709] = "ShoulderSlot" -- Draconian Shoulderpads
+RCTokenTable[231710] = "LegsSlot" -- Draconian Leggings
+RCTokenTable[231711] = "HeadSlot" -- Draconian Hood
+RCTokenTable[231712] = "HandsSlot" -- Draconian Gloves
+RCTokenTable[231713] = "FeetSlot" -- Draconian Boots
+RCTokenTable[231714] = "ChestSlot" -- Draconian Robe
+
+RCTokenTable[231715] = "WristSlot" -- Primeval Bindings
+RCTokenTable[231716] = "WaistSlot" -- Primeval Belt
+RCTokenTable[231717] = "ShoulderSlot" -- Primeval Shoulderpads
+RCTokenTable[231718] = "LegsSlot" -- Primeval Leggings
+RCTokenTable[231719] = "HeadSlot" -- Primeval Helm
+RCTokenTable[231720] = "HandsSlot" -- Primeval Gloves
+RCTokenTable[231721] = "FeetSlot" -- Primeval Boots
+RCTokenTable[231723] = "ChestSlot" -- Primeval Chest
