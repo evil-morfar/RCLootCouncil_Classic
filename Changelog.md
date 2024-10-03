@@ -1,17 +1,13 @@
 ## Changes
 
-### Tier Tokens
+Updated for patch 1.15.4 - SoD Phase 5.
 
-Tier Tokens now again shows up in the history.
-
-Responses from the "Armor Token" button group are now shown seperately to the normal responses in more info tooltips.
-
-### Cataclysm Classic
-
-Warriors now pass on staves.
+More info frames are no longer clamped to screen.
 
 ### SoD
 
-Added tokens from Phase 4.
+Added token information from Blackwing Lair.
 
-Instance name and difficulties will now be properly parses for SoD instances.
+## Bugfixes
+
+- *Fixed error on `/rc c` command in SoD.*
