@@ -1,3 +1,19 @@
+# 0.23.1
+
+## Changes
+
+Updated for patch 1.15.4 - SoD Phase 5.
+
+More info frames are no longer clamped to screen.
+
+### SoD
+
+Added token information from Blackwing Lair.
+
+## Bugfixes
+
+- *Fixed error on `/rc c` command in SoD.*
+
 # 0.23.0
 
 ## Changes
@@ -16,7 +32,7 @@ Warriors now pass on staves.
 
 Added tokens from Phase 4.
 
-Instance name and difficulties will now be properly parses for SoD instances.
+Instance name and difficulties will now be properly parsed for SoD instances.
 
 # 0.22.7
 
