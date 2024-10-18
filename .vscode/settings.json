@@ -8,9 +8,8 @@
         "${3rd}/lfs/library",
         "${userHome}/AppData/Roaming/Code/User/globalStorage/sumneko.lua/addonManager/addons/busted/module/library",
         "${3rd}/luassert/library",
-        "~\\.vscode\\extensions\\ketho.wow-api-0.17.4\\Annotations"
+        "~\\.vscode\\extensions\\ketho.wow-api-0.17.6\\Annotations"
     ],
-    "Lua.workspace.checkThirdParty": false,
     "Lua.runtime.version": "Lua 5.1",
     "Lua.runtime.builtin": {
         "basic": "disable",
