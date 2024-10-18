@@ -57,3 +57,4 @@ API\OptionsUpdates.lua
 API\VotingFrameUpdates.lua
 API\SessionFrameUpdates.lua
 API\MLUpdates.lua
+API\LootHistory.lua

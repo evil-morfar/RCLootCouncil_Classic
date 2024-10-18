@@ -1,13 +1,7 @@
 ## Changes
 
-Updated for patch 1.15.4 - SoD Phase 5.
+### SoD & Classic Era
 
-More info frames are no longer clamped to screen.
-
-### SoD
-
-Added token information from Blackwing Lair.
+Added export for BisCouncil
 
 ## Bugfixes
-
-- *Fixed error on `/rc c` command in SoD.*
