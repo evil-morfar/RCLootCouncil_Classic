@@ -6,12 +6,9 @@ local History = addon:GetModule("RCLootHistory")
 local Classic = addon:GetModule("RCClassic")
 
 Classic:SecureHook(History, "OnInitialize", function(self)
-    -- BisCouncil is only available for SoD & Classic Era
-    if Classic:IsClassicEra() then
-        self.exports.biscouncil = {
-            func = self.ExportBisCouncil, name = "BisCouncil", tip = "BisCouncil formatted export."
-        }
-    end
+    self.exports.biscouncil = {
+        func = self.ExportBisCouncil, name = "BisCouncil", tip = "BisCouncil formatted export."
+    }
 end)
 
 ---Formats unix time as "YYYY-MM-DD"
