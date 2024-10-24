@@ -1,5 +1,7 @@
-local _, addon = ...
+--- @class RCLootCouncil
+local addon = select(2, ...)
 
+--- @class ClassicModule : AceModule, AceHook-3.0, AceEvent-3.0, AceTimer-3.0
 local ClassicModule = addon:NewModule("RCClassic", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
 local L = LibStub("AceLocale-3.0"):GetLocale("RCLootCouncil")
 
