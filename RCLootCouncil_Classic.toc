@@ -1,9 +1,9 @@
 ## Author: Potdisc
 ## Interface: 11504
 ## Interface-Cata: 40400
-## Notes: RCLootCouncil for WoW Classic and Cataclysm Classic v0.23.1
+## Notes: RCLootCouncil for WoW Classic and Cataclysm Classic v0.23.2
 ## Title: RCLootCouncil Classic
-## Version: 0.23.1
+## Version: 0.23.2
 ## X-Curse-Project-ID: 332955
 ## SavedVariables: RCLootCouncilDB, RCLootCouncilLootDB
 ## OptionalDeps: LibStub, CallbackHandler-1.0, Ace3, lib-st, LibWindow-1.1, LibDialog-1.0
