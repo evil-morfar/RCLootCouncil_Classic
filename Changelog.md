@@ -1,5 +1,7 @@
 ## Changes
 
+Updated for patch 4.4.1.
+
 ## Bugfixes
 
 - *Moving a frame the exact moment it's minimized will no longer make it stuck to the mouse.*
