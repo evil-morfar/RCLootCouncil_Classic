@@ -1,3 +1,9 @@
+# 0.23.4
+
+## Changes
+
+Updated for patch 1.15.5.
+
 # 0.23.3
 
 ## Changes
