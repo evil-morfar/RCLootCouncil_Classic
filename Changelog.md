@@ -1,3 +1,5 @@
 ## Changes
 
-Updated for patch 1.15.5.
+### Comms optimization
+
+Removed comms queuing in favor of relying on the Ace3 Comms implementation.
