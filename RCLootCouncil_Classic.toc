@@ -1,5 +1,5 @@
 ## Author: Potdisc
-## Interface: 11505, 40401
+## Interface: 11505, 40402
 ## Notes: RCLootCouncil for WoW Classic and Cataclysm Classic v0.23.4
 ## Title: RCLootCouncil Classic
 ## Version: 0.23.4
