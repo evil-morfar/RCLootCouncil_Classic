@@ -142,3 +142,31 @@ RCTokenTable[231719] = "HeadSlot" -- Primeval Helm
 RCTokenTable[231720] = "HandsSlot" -- Primeval Gloves
 RCTokenTable[231721] = "FeetSlot" -- Primeval Boots
 RCTokenTable[231723] = "ChestSlot" -- Primeval Chest
+
+-- SoD Naxxramas
+RCTokenTable[236244] = "WaistSlot"    -- Desecrated Belt
+RCTokenTable[236245] = "WristSlot"    -- Desecrated Bindings
+RCTokenTable[236240] = "ShoulderSlot" -- Desecrated Shoulderpads
+RCTokenTable[236246] = "LegsSlot"     -- Desecrated Leggings
+RCTokenTable[236241] = "HeadSlot"     -- Desecrated Circlet
+RCTokenTable[236243] = "HandsSlot"    -- Desecrated Gloves
+RCTokenTable[236239] = "FeetSlot"     -- Desecrated Sandals
+RCTokenTable[236242] = "ChestSlot"    -- Desecrated Robe
+
+RCTokenTable[236252] = "WaistSlot"    -- Desecrated Girdle
+RCTokenTable[236247] = "WristSlot"    -- Desecrated Wristguards
+RCTokenTable[236254] = "ShoulderSlot" -- Desecrated Spaulders
+RCTokenTable[236253] = "LegsSlot"     -- Desecrated Legguards
+RCTokenTable[236249] = "HeadSlot"     -- Desecrated Headpiece
+RCTokenTable[236250] = "HandsSlot"    -- Desecrated Handguards
+RCTokenTable[236248] = "FeetSlot"     -- Desecrated Boots
+RCTokenTable[236251] = "ChestSlot"    -- Desecrated Tunic
+
+RCTokenTable[236232] = "WaistSlot"    -- Desecrated Waistguard
+RCTokenTable[236235] = "WristSlot"    -- Desecrated Bracers
+RCTokenTable[236237] = "ShoulderSlot" -- Desecrated Pauldrons
+RCTokenTable[236238] = "LegsSlot"     -- Desecrated Legplates
+RCTokenTable[236236] = "HeadSlot"     -- Desecrated Helmet
+RCTokenTable[236233] = "HandsSlot"    -- Desecrated Gauntlets
+RCTokenTable[236234] = "FeetSlot"     -- Desecrated Sabatons
+RCTokenTable[236231] = "ChestSlot"    -- Desecrated Breastplate
