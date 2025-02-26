@@ -8,7 +8,7 @@
         "${3rd}/lfs/library",
         "${userHome}/AppData/Roaming/Code/User/globalStorage/sumneko.lua/addonManager/addons/busted/module/library",
         "${3rd}/luassert/library",
-        "~\\.vscode\\extensions\\ketho.wow-api-0.17.6\\Annotations"
+        "~\\.vscode\\extensions\\ketho.wow-api-0.18.2\\Annotations"
     ],
     "Lua.runtime.version": "Lua 5.1",
     "Lua.runtime.builtin": {
@@ -69,6 +69,21 @@
         "INT_SPELL_DURATION_SEC",
         "INT_SPELL_DURATION_HOURS",
         "TIME_UNIT_DELIMITER",
-        "INT_SPELL_DURATION_MIN"
+        "INT_SPELL_DURATION_MIN",
+        "ChatFrame1",
+        "CreateColor",
+        "HideUIPanel",
+        "ITEM_QUALITY_COLORS",
+        "Item",
+        "tIndexOf",
+        "CreateSimpleTextureMarkup",
+        "ITEM_ACCOUNTBOUND_UNTIL_EQUIP",
+        "Clamp",
+        "MergeTable",
+        "RANDOM_ROLL_RESULT",
+        "GetClassColorObj",
+        "CreateAtlasMarkup",
+        "ConvertSecondsToUnits",
+        "CLASS_SORT_ORDER"
     ]
 }
