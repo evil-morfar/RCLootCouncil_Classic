@@ -1,6 +1,7 @@
 ## Changes
 Updated for patch 1.15.6 and 4.4.2.
 
+Added SoD Naxxramas tier tokens.
 
 Added `servertime` field to JSON export.
 
