@@ -12,7 +12,6 @@ Classic.Compat = Compat
 --- Each compat can only be run once per login, so feel free to call it again.
 function Compat:Run()
     for k, v in ipairs(self.list) do
-        addon:Debug("CompatRun", v.name)
         if v.version == "always"
             or (addon:VersionCompare(addon.db.global.Classic_version, v.version) or not addon.db.global.Classic_version)
             and not v.executed then
