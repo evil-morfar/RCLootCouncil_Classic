@@ -70,7 +70,7 @@ Compat.list = {
     },
     {
         name = "Update history times to ISO",
-        version = "0.24.0",
+        version = "0.24.1",
         func = function()
             for _, factionrealm in pairs(addon.lootDB.sv.factionrealm) do
                 for _, data in pairs(factionrealm) do
