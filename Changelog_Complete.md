@@ -6,6 +6,7 @@
 
 - *Fixed history date selector not sorting properly.*
 - *Fixed date/time issue with certain history exports.*
+- *Fixed issue with expired sessions being sent on reloads.*
 
 # 0.24.0
 
