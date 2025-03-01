@@ -1,3 +1,14 @@
+# v0.24.1
+
+## Changes
+
+## Bugfixes
+
+- *Fixed history date selector not sorting properly.*
+- *Fixed date/time issue with certain history exports.*
+
+# v0.24.0
+
 ## Changes
 Updated for patch 1.15.6 and 4.4.2.
 

@@ -1,3 +1,12 @@
+# v0.24.1
+
+## Changes
+
+## Bugfixes
+
+- *Fixed history date selector not sorting properly.*
+- *Fixed date/time issue with certain history exports.*
+
 # 0.24.0
 
 ## Changes
