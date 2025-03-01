@@ -84,6 +84,9 @@
         "GetClassColorObj",
         "CreateAtlasMarkup",
         "ConvertSecondsToUnits",
-        "CLASS_SORT_ORDER"
+        "CLASS_SORT_ORDER",
+        "SECOND_ONELETTER_ABBR",
+        "LOCALE_enGB",
+        "SECONDS_ABBR"
     ]
 }

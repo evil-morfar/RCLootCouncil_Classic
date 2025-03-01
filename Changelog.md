@@ -1,3 +1,14 @@
+# v0.24.1
+
+## Bugfixes
+
+- *Fixed history date selector not sorting properly.*
+- *Fixed date/time issue with certain history exports.*
+- *Fixed issue with expired sessions being sent on reloads.*
+- *Fixed issue with updating the addon during a session potentially breaking the loot history.*
+
+# v0.24.0
+
 ## Changes
 Updated for patch 1.15.6 and 4.4.2.
 

@@ -12,7 +12,6 @@ Classic.Compat = Compat
 --- Each compat can only be run once per login, so feel free to call it again.
 function Compat:Run()
     for k, v in ipairs(self.list) do
-        addon:Debug("CompatRun", v.name)
         if v.version == "always"
             or (addon:VersionCompare(addon.db.global.Classic_version, v.version) or not addon.db.global.Classic_version)
             and not v.executed then
@@ -71,7 +70,7 @@ Compat.list = {
     },
     {
         name = "Update history times to ISO",
-        version = "0.24.0",
+        version = "0.24.1",
         func = function()
             for _, factionrealm in pairs(addon.lootDB.sv.factionrealm) do
                 for _, data in pairs(factionrealm) do
