@@ -1,3 +1,7 @@
+## Bugfixes
+
+- *Fixed issue with importing csv with '"'s in the notes.*
+
 # v0.24.1
 
 ## Bugfixes
