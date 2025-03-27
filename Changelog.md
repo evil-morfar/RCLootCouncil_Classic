@@ -1,6 +1,7 @@
 ## Bugfixes
 
 - *Fixed issue with importing csv with '"'s in the notes.*
+- *Loot history data is now again sorted properly by award time.*
 
 # v0.24.1
 
