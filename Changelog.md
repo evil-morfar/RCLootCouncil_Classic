@@ -2,6 +2,7 @@
 
 - *Fixed issue with importing csv with '"'s in the notes.*
 - *Loot history data is now again sorted properly by award time.*
+- *Clearing the loot history now only deletes entries from the current characters' faction-realm storage instead of everything recorded.*
 
 # v0.24.1
 
