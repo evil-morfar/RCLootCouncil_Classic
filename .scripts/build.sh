@@ -23,10 +23,10 @@ cp -R "$curDir/RCLootCouncil/Libs/" "$curDir/.tmp/RCLootCouncil_Classic/RCLootCo
 # Build Classic addon
 # -d: Skip Upload
 # -z: Skip zip
-"$release_script" -oS -r "$curDir/.tmp" -m ".pkgmeta-build"
+(bash "$release_script" -oS -r "$curDir/.tmp" -m ".pkgmeta-build")
 
 # Move the zip
-mv .tmp/*.zip "./.release/"
+# mv .tmp/*.zip "./.release/"
 
 # And delete .tmp
 rm -r "./.tmp"
