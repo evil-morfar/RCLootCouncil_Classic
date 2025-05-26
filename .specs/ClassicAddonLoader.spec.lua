@@ -13,7 +13,7 @@ insulate("RCLootCouncil_Classic", function()
 
 		-- dofile("RCLootCouncil/.specs/AddonLoader.lua").LoadToc("RCLootCouncil_Classic.toc")
 		Loader.LoadToc("../RCLootCouncil_Classic.toc")
-		dofile("../.specs/EmulatePlayerLogin.lua")
+		dofile("../.specs/EmulateClassicPlayerLogin.lua")
 		assert.spy(s).was_not.called()
 	end)
 end)

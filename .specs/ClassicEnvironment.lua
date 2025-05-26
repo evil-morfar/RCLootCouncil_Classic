@@ -1,6 +1,7 @@
 --- Sets up specific Classic data that's missing or otherwise different from retail.
 --- Should be included in all test files.
 require "wow_api"
+require "wow_item_api"
 --- WoW API
 
 LE_ITEM_CLASS_ARMOR = Enum.ItemClass.Armor
@@ -32,3 +33,4 @@ LE_ITEM_WEAPON_WARGLAIVE = Enum.ItemWeaponSubclass.Warglaive
 LE_ITEM_WEAPON_UNARMED = Enum.ItemWeaponSubclass.Unarmed
 LE_ITEM_WEAPON_THROWN = Enum.ItemWeaponSubclass.Thrown
 
+GetItemStats = C_Item.GetItemStats
