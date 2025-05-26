@@ -1,7 +1,7 @@
 ## Author: Potdisc
-## Interface: 11403
+## Interface: 11507
 ## Interface-Wrath: 30401
-## Notes: RCLootCouncil for WoW Classic and Wrath of the Lich King Classic v0.18.1
+## Notes: RCLootCouncil for WoW Classic and Cata Classic v0.18.1
 ## Title: RCLootCouncil Classic
 ## Version: 0.18.1
 ## X-Curse-Project-ID: 332955
@@ -21,6 +21,7 @@ RCLootCouncil\Core\Defaults.lua
 RCLootCouncil\Core\CoreEvents.lua
 
 RCLootCouncil\Classes\Core.lua
+RCLootCouncil\Classes\Utils\Item.lua
 RCLootCouncil\Classes\Lib\RxLua\embeds.xml
 RCLootCouncil\Classes\Utils\TempTable.lua
 RCLootCouncil\Classes\Utils\Log.lua

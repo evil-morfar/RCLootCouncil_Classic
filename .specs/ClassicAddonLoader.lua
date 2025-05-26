@@ -3,7 +3,7 @@ local debug = select(1, ...) or false
 local ADDON_NAME = select(2, ...) or "RCLootCouncil_Classic"
 local ADDON_OBJECT = select(3, ...) or {}
 
-local AL = loadfile(".specs/AddonLoader.lua")(debug, ADDON_NAME, ADDON_OBJECT)
+local AL = loadfile(".specs/AddonLoader.lua")(debug, ADDON_NAME, ADDON_OBJECT, WOW_PROJECT_CLASSIC)
 
 -- Tests are defined with "RCLootCouncil" as the root, but toc files with "RCLootCouncil_Classic".
 

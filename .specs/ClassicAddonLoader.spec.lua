@@ -5,9 +5,9 @@ insulate("RCLootCouncil_Classic", function()
 	
 	it("can perform login phase", function()
 		local s = spy.on(_G, "_errorhandler")
-		stub(_G, "UnitGUID", function(unit)
-			return "Player-1-00000002"
-		end)
+		-- stub(_G, "UnitGUID", function(unit)
+		-- 	return "Player-1-00000002"
+		-- end)
 
 		print(lfs.currentdir())
 
@@ -21,7 +21,7 @@ end)
 
 insulate("RCLootCouncil_Classic", function ()
 	it("can load Classic addon", function()
-		assert.has_no.errors(function()
+		assert.has_no_error(function()
 			Loader.LoadToc("RCLootCouncil_Classic.toc")
 		end)
 	end)

@@ -71,15 +71,19 @@
         "AccumulateOp",
         "Clamp",
         "CreateSimpleTextureMarkup",
-        "ITEM_ACCOUNTBOUND_UNTIL_EQUIP"
+        "ITEM_ACCOUNTBOUND_UNTIL_EQUIP",
+        "StaticPopup_HasDisplayedFrames",
+        "STATICPOPUP_NUMDIALOGS",
+        "StaticPopup_IsLastDisplayedFrame"
     ],
+    "Lua.workspace.checkThirdParty": false,
     "Lua.workspace.library": [
         "~\\.vscode\\extensions\\ketho.wow-api-0.20.6\\Annotations\\Core",
+        "~\\.vscode\\extensions\\ketho.wow-api-0.20.6\\Annotations\\FrameXML",
         "${addons}/busted/module/library",
         "${3rd}/luassert/library",
         "${addons}/lldebugger/module/library",
-        "${addons}/luassert/module/library",
         "${addons}/luafilesystem/module/library",
-    ],
-    "Lua.workspace.checkThirdParty": false
+        "${addons}/luassert/module/library"
+    ]
 }

@@ -173,13 +173,13 @@ function addon:OptionsTable ()
                     usage = L["ignore_input_usage"],
                     type = "input",
                     validate = function(_, val)
-                        return GetItemInfoInstant(val)
+					return C_Item.GetItemInfoInstant(val)
                     end,
                     get = function()
                         return "\"item ID, Name or Link\""
                     end,
                     set = function(_, val)
-                        local id = GetItemInfoInstant(val)
+					local id = C_Item.GetItemInfoInstant(val)
                         if id then
                             self.db.profile.alwaysAutoAwardItems[id] = true
                             self.blackListOverride[id] = true

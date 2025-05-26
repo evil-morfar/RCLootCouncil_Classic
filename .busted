@@ -8,9 +8,8 @@ return {
    default = {
       ["ROOT"] = { "../.specs", ".specs"},
       ["output"] = "utfTerminal",
-      ["exclude-pattern"] = {
-         "/.specs/AddonLoader.spec.lua",
-         "/.specs/EmulatePlayerLogin.lua",
+      ["filter-out"] = {
+         "AddonLoader"
       },
       Xoutput = "--color",
    },

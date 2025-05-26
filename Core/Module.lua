@@ -5,10 +5,9 @@ local addon = select(2, ...)
 local ClassicModule = addon:NewModule("RCClassic", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
 local L = LibStub("AceLocale-3.0"):GetLocale("RCLootCouncil")
 
-local Comms = addon.Require "Services.Comms"
 local Council = addon.Require "Data.Council"
 function ClassicModule:OnInitialize()
-   self.version = GetAddOnMetadata("RCLootCouncil_Classic", "Version")
+   self.version = C_AddOns.GetAddOnMetadata("RCLootCouncil_Classic", "Version")
    self.tVersion = nil
    self.debug = false
    self.nnp = false
@@ -37,14 +36,12 @@ function ClassicModule:OnEnable ()
    -- Bump logMaxEntries
    addon.db.global.logMaxEntries = 4000
 
-   self:RegisterAddonComms()
    self:DoHooks()
    addon:InitClassIDs()
 
    -- Remove "role" and corruption column
    local vf = addon:GetActiveModule("votingframe")
    vf:RemoveColumn("role")
-   vf:RemoveColumn("corruption")
 
    self:UpdateBlacklist()
 
@@ -55,13 +52,6 @@ function ClassicModule:OnEnable ()
    -- Not doing this would result in both `RCLootCouncil` and `module RCLootCouncil_Classic` is outdated prints.
    addon:GetActiveModule("version").moduleVerCheckDisplayed[self.baseName] = true
 end
-
-function ClassicModule:RegisterAddonComms ()
-	Comms:Register(addon.PREFIXES.MAIN)
-	Comms:Register(addon.PREFIXES.VERSION)
-end
-
-
 function ClassicModule:LootOpened (...)
    self.Log:D("LootOpened")
    addon.lootOpen = true

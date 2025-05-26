@@ -6,8 +6,9 @@ local Classic = addon:GetModule("RCClassic")
 local private = {}
 local L = LibStub("AceLocale-3.0"):GetLocale("RCLootCouncil")
 local LC = LibStub("AceLocale-3.0"):GetLocale("RCLootCouncil_Classic")
-local LibDialog = LibStub("LibDialog-1.0")
+local LibDialog = LibStub("LibDialog-1.1")
 
+local ItemUtils = addon.Require "Utils.Item"
 
 ----------------------------------------------
 -- Core
@@ -71,14 +72,6 @@ function addon:UpdatePlayersData()
 	self.playersData.ilvl = private.GetAverageItemLevel()
 
 	self:UpdatePlayersGears()
-end
-
-function addon:GetLootStatusData ()
-   -- Do nothing
-end
-
-function addon:RegisterComms ()
-   -- Handled in Core/Module.lua
 end
 
 --- Returns tests items either for Classic or WOTLK depending on current expansion.
@@ -145,30 +138,6 @@ function addon:Test(num, fullTest, trinketTest)
 	self:CallModule("masterlooter")
 	self:GetActiveModule("masterlooter"):NewML(self.masterLooter)
 	self:GetActiveModule("masterlooter"):Test(items)
-
-	self:ScheduleTimer(function()
-		self:SendCommand("group", "looted", 1234)
-	end, 5)
-end
-
-local enchanting_localized_name = nil
-function addon:GetPlayerInfo ()
-   local enchant, lvl = nil, 0
-   if not enchanting_localized_name then
-      enchanting_localized_name = GetSpellInfo(7411)
-   end
-   for i = 1, GetNumSkillLines() do
-      -- Cycle through all lines under "Skill" tab on char
-      local skillName, _, _, skillRank, _, _, _, _, _, _, _, _, _ = GetSkillLineInfo(i)
-      if skillName == enchanting_localized_name then
-         -- We know enchanting, thus are an enchanter. And will return your lvl.
-         enchant = true
-         lvl = skillRank
-      end
-   end
-   -- GetAverageItemLevel() isn't implemented
-   local ilvl = private.GetAverageItemLevel()
-   return self.playerName, self.playerClass, self.Utils:GetPlayerRole(), self.guildRank, enchant, lvl, ilvl, nil--self.playersData.specID
 end
 
 function addon:UpdateAndSendRecentTradableItem()
@@ -195,7 +164,7 @@ end
 -- AQ Tokens are quest items that fits multiple slots.
 -- We need to do a bit of a hack to handle these.
 function addon:GetGear(link, equipLoc)
-   local itemID = self.Utils:GetItemIDFromLink(link)
+   local itemID = ItemUtils:GetItemIDFromLink(link)
    if Classic.Lists.Specials[itemID] then
       return getGearForAQTokens(itemID)
    else
@@ -341,7 +310,7 @@ function addon:StartHandleLoot()
    self:Print(L["Now handles looting"])
 	Classic.Log:D("Start handle loot.")
    self.handleLoot = true
-   self:SendCommand("group", "StartHandleLoot")
+   self:Send("group", "StartHandleLoot")
    if #db.council == 0 then -- if there's no council
       self:Print(L["You haven't set a council! You can edit your council by typing '/rc council'"])
    end
@@ -371,7 +340,7 @@ function private.GetAverageItemLevel()
    for i=_G.INVSLOT_FIRST_EQUIPPED, _G.INVSLOT_LAST_EQUIPPED do
       local iLink = _G.GetInventoryItemLink("player", i)
       if iLink and iLink ~= "" and not skipInventorySlot(i) then
-         local ilvl = select(4, _G.GetItemInfo(iLink)) or 0
+         local ilvl = select(4, C_Item.GetItemInfo(iLink)) or 0
          sum = sum + ilvl
          count = count + 1
       end
