@@ -13,7 +13,8 @@ echo "Executing $0" >&2
 usage() {
 	echo "Usage: test.sh [-cbp]" >&2
 	echo "  -c               Pack to _classic_era_ WoW edition. (Classic)" >&2
-	echo "  -b               Pack to _classic_ WoW edition. (WotLK)" >&2
+	echo "  -b               Pack to _classic_ WoW edition. (Cataclysm)" >&2
+	echo "  -z               Pack to _classic_ptr_ WoW edition. (Cataclysm PTR)" >&2
 	echo "  -p               Pack to _ptr_ WoW edition." >&2
 }
 
@@ -22,12 +23,14 @@ ADDON="$(basename $ADDON_LOC)"
 WOWEDITION="_retail_"
 
 # Commandline inputs
-while getopts ":cbp" opt; do
+while getopts ":cbzp" opt; do
 	case $opt in
       c)
          WOWEDITION="_classic_era_";;
       b)
          WOWEDITION="_classic_";;
+      z)
+         WOWEDITION="_classic_ptr_";;
       p)
          WOWEDITION="_ptr_";;
       /?)

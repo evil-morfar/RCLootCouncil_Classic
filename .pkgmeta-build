@@ -1,7 +1,7 @@
 package-as: RCLootCouncil_Classic
 
 manual-changelog:
-    filename: Changelog.md
+    filename: Changes.md
     markup-type: markdown
 
 ignore:

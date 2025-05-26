@@ -31,7 +31,7 @@
                 "${file}"
             ],
             "env": {
-                "LUA_PATH": "${env:LUA_PATH};${workspaceFolder}/RCLootCouncil/__tests/?.lua",
+                "LUA_PATH": "${env:LUA_PATH};${workspaceFolder}/RCLootCouncil/RCLootCouncil/__tests/?.lua",
             }
         }
     ]

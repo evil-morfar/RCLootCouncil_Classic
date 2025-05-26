@@ -30,6 +30,11 @@ function ClassicModule:OnEnable ()
    addon.debug = self.debug
    addon.nnp = self.nnp
 
+   if addon.db.global.Classic_version then
+      addon:Debug("Running compat")
+      self.Compat:Run()
+   end
+
    addon.db.global.Classic_oldVersion = addon.db.global.Classic_version
    addon.db.global.Classic_version = self.version
    addon.db.global.Classic_game = WOW_PROJECT_ID
@@ -39,7 +44,7 @@ function ClassicModule:OnEnable ()
    self:DoHooks()
    addon:InitClassIDs()
 
-   -- Remove "role" and corruption column
+   -- Remove "role" column
    local vf = addon:GetActiveModule("votingframe")
    vf:RemoveColumn("role")
 
@@ -141,4 +146,8 @@ end
 ---@return boolean #True if running Classic Era game
 function ClassicModule:IsClassicEra()
    return WOW_PROJECT_CLASSIC == WOW_PROJECT_ID
+end
+
+function ClassicModule:IsSeasonOfDiscovery()
+   return self:IsClassicEra() and C_Seasons.GetActiveSeason() == Enum.SeasonID.SeasonOfDiscovery
 end

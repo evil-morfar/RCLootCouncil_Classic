@@ -4,27 +4,44 @@
     "version": "2.0.0",
     "tasks": [
         {
+            "label": "Deploy both",
+            "dependsOn": [
+                "Deploy Classic",
+                "Deploy Cataclysm"
+            ],
+            "dependsOrder": "parallel",
+            "problemMatcher": []
+        },
+        {
             "label": "Deploy Classic",
             "type": "shell",
             "command": "sh",
             "args": [
                 ".scripts/deploy.sh",
                 "-c"
-            ],
+            ]
         },
         {
-            "label": "Deploy TBC",
+            "label": "Deploy Cataclysm",
             "type": "shell",
             "command": "sh",
             "args": [
                 ".scripts/deploy.sh",
                 "-b"
-            ],
+            ]
+        }, {
+            "label": "Deploy Cata PTR",
+            "type": "shell",
+            "command": "sh",
+            "args": [
+                ".scripts/deploy.sh",
+                "-z"
+            ]
         },
         {
             "label": "Build and Release",
             "type": "shell",
-            "command": ".scripts\\build.sh",
+            "command": ".scripts\\build.sh"
         },
         {
             "label": "Busted All",

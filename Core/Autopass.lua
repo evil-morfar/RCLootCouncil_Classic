@@ -14,11 +14,11 @@ local autopassOverride = {
 -- @table autopassTable
 local autopassTable = {
 	[LE_ITEM_CLASS_ARMOR] = {
-		[LE_ITEM_ARMOR_CLOTH]		= { },
-		[LE_ITEM_ARMOR_LEATHER] 	= {"PRIEST", "MAGE",    "WARLOCK"}, -- "HUNTER", "SHAMAN", "WARRIOR",  "PALADIN", "DEATHKNIGHT",
-		[LE_ITEM_ARMOR_MAIL] 		= {"DRUID",  "ROGUE",   "PRIEST", "MAGE",  "WARLOCK", }, -- "WARRIOR",  "PALADIN", "DEATHKNIGHT",
-		[LE_ITEM_ARMOR_PLATE]		= {"DRUID",    "ROGUE",   "HUNTER", "SHAMAN",  "PRIEST", "MAGE",    "WARLOCK", },
-		[LE_ITEM_ARMOR_SHIELD] 		= { "DRUID",   "ROGUE",   "HUNTER", "PRIEST",  "MAGE",   "WARLOCK", "DEATHKNIGHT" },
+		[LE_ITEM_ARMOR_CLOTH]   = { "WARRIOR", "DEATHKNIGHT", "PALADIN", "DRUID",  "ROGUE", "HUNTER","SHAMAN", },
+		[LE_ITEM_ARMOR_LEATHER] = { "WARRIOR", "DEATHKNIGHT", "PALADIN", "HUNTER", "SHAMAN", "PRIEST", "MAGE","WARLOCK", },
+		[LE_ITEM_ARMOR_MAIL]    = { "WARRIOR", "DEATHKNIGHT", "PALADIN", "DRUID", "ROGUE", "PRIEST","MAGE", "WARLOCK" },
+		[LE_ITEM_ARMOR_PLATE]   = { "DRUID", "ROGUE", "HUNTER", "SHAMAN", "PRIEST", "MAGE", "WARLOCK", },
+		[LE_ITEM_ARMOR_SHIELD]  = { "DEATHKNIGHT", "DRUID", "ROGUE", "HUNTER", "PRIEST", "MAGE","WARLOCK", },
       -- "Relic" types seem to be coming in phase 5
       [LE_ITEM_ARMOR_LIBRAM]     = {"WARRIOR", "DRUID", "ROGUE", "PRIEST", "MAGE", "WARLOCK", "HUNTER", "SHAMAN", "DEATHKNIGHT"},	-- Paladin only
       [LE_ITEM_ARMOR_IDOL]       = {"WARRIOR",  "PALADIN", "ROGUE", "PRIEST", "MAGE", "WARLOCK", "HUNTER", "SHAMAN","DEATHKNIGHT"},-- Druid only
@@ -37,7 +37,7 @@ local autopassTable = {
 		[LE_ITEM_WEAPON_POLEARM] 	= {"ROGUE", "SHAMAN", "PRIEST", "MAGE", "WARLOCK"},
 		[LE_ITEM_WEAPON_SWORD1H] 	= {"DRUID", "SHAMAN", "PRIEST",},
 		[LE_ITEM_WEAPON_SWORD2H]	= {"DRUID",   "ROGUE", "SHAMAN", "PRIEST", "MAGE", "WARLOCK", },
-		[LE_ITEM_WEAPON_STAFF]		= {"DEATHKNIGHT", "PALADIN",  "ROGUE", },
+		[LE_ITEM_WEAPON_STAFF]		= {"DEATHKNIGHT", "PALADIN",  "ROGUE", "WARRIOR" },
 		[LE_ITEM_WEAPON_WAND]		= {"DEATHKNIGHT", "WARRIOR",  "PALADIN", "DRUID",   "ROGUE", "HUNTER", "SHAMAN", },
 		[LE_ITEM_WEAPON_WARGLAIVE]	= {"DEATHKNIGHT","WARRIOR",  "PALADIN", "DRUID",   "ROGUE", "PRIEST", "MAGE", "WARLOCK", "HUNTER", "SHAMAN",}, -- Retail only?
 		[LE_ITEM_WEAPON_UNARMED] 	= { "DEATHKNIGHT", "PALADIN",  "PRIEST", "MAGE", "WARLOCK"}, -- Fist weapons
@@ -46,8 +46,18 @@ local autopassTable = {
 }
 
 if Classic:IsClassicEra() then
-	-- Druids pass on polearms in Classic, but not WotLK
-	autopassTable[LE_ITEM_CLASS_WEAPON][LE_ITEM_WEAPON_POLEARM] = {"ROGUE", "SHAMAN", "PRIEST", "MAGE", "WARLOCK", "DRUID"}
+	-- Druids pass on polearms in Classic, but not WotLK (or SoD)
+	if Classic:IsSeasonOfDiscovery() then
+		autopassTable[LE_ITEM_CLASS_WEAPON][LE_ITEM_WEAPON_POLEARM] = { "ROGUE", "SHAMAN", "PRIEST", "MAGE", "WARLOCK" }
+	else
+		autopassTable[LE_ITEM_CLASS_WEAPON][LE_ITEM_WEAPON_POLEARM] = {"ROGUE", "SHAMAN", "PRIEST", "MAGE", "WARLOCK", "DRUID"}
+	end
+	-- From Cataclysm, all classes use their main gear type, which still may not be true in vanilla
+	autopassTable[LE_ITEM_CLASS_ARMOR][LE_ITEM_ARMOR_CLOTH]		= { }
+	autopassTable[LE_ITEM_CLASS_ARMOR][LE_ITEM_ARMOR_LEATHER] 	= {"PRIEST", "MAGE",    "WARLOCK"}
+	autopassTable[LE_ITEM_CLASS_ARMOR][LE_ITEM_ARMOR_MAIL] 		= {"DRUID",  "ROGUE",   "PRIEST", "MAGE",  "WARLOCK", }
+	autopassTable[LE_ITEM_CLASS_ARMOR][LE_ITEM_ARMOR_PLATE]		= {"DRUID",    "ROGUE",   "HUNTER", "SHAMAN",  "PRIEST", "MAGE",    "WARLOCK", }
+	autopassTable[LE_ITEM_CLASS_ARMOR][LE_ITEM_ARMOR_SHIELD] 	= { "DRUID",   "ROGUE",   "HUNTER", "PRIEST",  "MAGE",   "WARLOCK",}
 end
 
 --- Checks if the player should autopass on a given item.

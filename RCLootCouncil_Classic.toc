@@ -1,9 +1,8 @@
 ## Author: Potdisc
-## Interface: 11507
-## Interface-Wrath: 30401
-## Notes: RCLootCouncil for WoW Classic and Cata Classic v0.18.1
+## Interface: 11507, 40402
+## Notes: RCLootCouncil for WoW Classic and Cataclysm Classic v0.24.3
 ## Title: RCLootCouncil Classic
-## Version: 0.18.1
+## Version: 0.24.3
 ## X-Curse-Project-ID: 332955
 ## SavedVariables: RCLootCouncilDB, RCLootCouncilLootDB
 ## OptionalDeps: LibStub, CallbackHandler-1.0, Ace3, lib-st, LibWindow-1.1, LibDialog-1.0
@@ -15,7 +14,7 @@ RCLootCouncil\Patches\UiDropDownMenuTaintCommunities.lua
 RCLootCouncil\embeds.xml
 RCLootCouncil\Locale\Locales.xml
 
-API\GlobalUpdates.lua
+RCLootCouncil\Core\GlobalUpdates.lua
 RCLootCouncil\Core\Constants.lua
 RCLootCouncil\Core\Defaults.lua
 RCLootCouncil\Core\CoreEvents.lua
@@ -56,6 +55,7 @@ Core\Module.lua
 Core\Hooks.lua
 Core\Autopass.lua
 Core\Lists.lua
+Core\BackwardsCompatibility.lua
 
 ## Overrides
 API\RCLootCouncilUpdates.lua
@@ -64,3 +64,4 @@ API\OptionsUpdates.lua
 API\VotingFrameUpdates.lua
 API\SessionFrameUpdates.lua
 API\MLUpdates.lua
+API\LootHistory.lua

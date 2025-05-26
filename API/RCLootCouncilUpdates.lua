@@ -59,9 +59,10 @@ addon.LOGO_LOCATION = "Interface\\AddOns\\RCLootCouncil_Classic\\RCLootCouncil\\
 -- Ignored Items
 addon.defaults.profile.ignoredItems = {} -- Remove the retail ones
 addon.defaults.profile.ignoredItems[22726] = true -- Splinter of Atiesh
+addon.defaults.profile.ignoredItems[50274] = true -- Shadowfrost Shard
 
 function addon:IsCorrectVersion ()
-   return (WOW_PROJECT_CLASSIC == WOW_PROJECT_ID) or (WOW_PROJECT_WRATH_CLASSIC == WOW_PROJECT_ID)
+   return (WOW_PROJECT_CLASSIC == WOW_PROJECT_ID) or (WOW_PROJECT_CATACLYSM_CLASSIC == WOW_PROJECT_ID)
 end
 
 function addon:UpdatePlayersData()
@@ -144,7 +145,7 @@ function addon:UpdateAndSendRecentTradableItem()
    -- Intentionally left empty
 end
 
-local function getGearForAQTokens (itemID)
+local function getGearForTokens (itemID)
    local entry = Classic.Lists.Specials[itemID]
    if #entry > 1 then
       local items = {true, true}
@@ -160,13 +161,14 @@ local function getGearForAQTokens (itemID)
    end
 end
 
--- AQ Tokens handling
--- AQ Tokens are quest items that fits multiple slots.
+-- Tokens handling
+-- Handles "special" tokens that are not in the default token list, such as AQ quest items
+-- that fits multiple slots.
 -- We need to do a bit of a hack to handle these.
 function addon:GetGear(link, equipLoc)
    local itemID = ItemUtils:GetItemIDFromLink(link)
    if Classic.Lists.Specials[itemID] then
-      return getGearForAQTokens(itemID)
+      return getGearForTokens(itemID)
    else
 	   return self:GetPlayersGear(link, equipLoc, addon.playersData.gears) -- Use gear info we stored before
    end
