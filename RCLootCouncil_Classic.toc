@@ -55,8 +55,6 @@ Core\Module.lua
 Core\Hooks.lua
 Core\Autopass.lua
 Core\Lists.lua
-Core\Classes\Queue.lua
-Core\Classes\QueuedComms.lua
 
 ## Overrides
 API\RCLootCouncilUpdates.lua
