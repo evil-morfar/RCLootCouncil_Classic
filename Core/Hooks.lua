@@ -1,5 +1,6 @@
 local _, addon = ...
 
+---@class RCLootCouncil_ClassicModule
 local Classic = addon:GetModule("RCClassic")
 local VotingFrame = addon:GetModule("RCVotingFrame")
 local SessionFrame = addon:GetModule("RCSessionFrame")

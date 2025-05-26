@@ -1,5 +1,7 @@
 --- Fixed for retail RCLootCouncil function that doesn't function properly in Classic
-local _, addon = ...
+---@type RCLootCouncil
+local addon = select(2, ...)
+---@type RCLootCouncil_Classic
 local Classic = addon:GetModule("RCClassic")
 local private = {}
 local L = LibStub("AceLocale-3.0"):GetLocale("RCLootCouncil")
@@ -62,7 +64,7 @@ function addon:IsCorrectVersion ()
 end
 
 function addon:UpdatePlayersData()
-   self:DebugLog("UpdatePlayersData()")
+   Classic.Log:D("UpdatePlayersData()")
    -- GetSpecialization doesn't exist, and there's no real need for it in classic
 	--playersData.specID = GetSpecialization() and GetSpecializationInfo(GetSpecialization())
    self.playersData.specID = 0
@@ -105,7 +107,7 @@ end
 
 -- fullTest is used with Dungeon Journal, and thus is ignored
 function addon:Test(num, fullTest, trinketTest)
-   self:Debug("Test", num, fullTest, trinketTest)
+	Classic.Log:D("Test", num, fullTest, trinketTest)
    num = num or 3
    local testItems = getTestItems()
    local trinkets = getTestItems(true)
@@ -208,7 +210,7 @@ function addon:NewMLCheck()
    self.lootMethod = GetLootMethod()
    if self.masterLooter and self.masterLooter ~= "" and (self.masterLooter == "Unknown" or Ambiguate(self.masterLooter, "short"):lower() == _G.UNKNOWNOBJECT:lower()) then
       -- ML might be unknown for some reason
-      self:Debug("NewMLCheck", "Unknown ML")
+		Classic.Log:D("NewMLCheck", "Unknown ML")
       return self:ScheduleTimer("NewMLCheck", 1)
    end
    if self:UnitIsUnit(old_ml, "player") and not self.isMasterLooter then
@@ -216,19 +218,19 @@ function addon:NewMLCheck()
       self:StopHandleLoot()
    end
    if self:UnitIsUnit(old_ml, self.masterLooter) and old_lm == self.lootMethod then
-      return self:DebugLog("NewMLCheck", "No ML Change") -- no change
+		return Classic.Log:D("NewMLCheck", "No ML Change") -- no change
    end
 
    if self.masterLooter == nil then return end -- We're not using ML
    -- At this point we know the ML has changed, so we can wipe the council
-   self:Debug("NewMLCheck", "Resetting council as we have a new ML!")
+	Classic.Log:D("NewMLCheck", "Resetting council as we have a new ML!")
    self.council = {}
    -- Check to see if we have recieved mldb within 15 secs, otherwise request it
    self:ScheduleTimer("Timer", 15, "MLdb_check")
-   if not self.isMasterLooter and self.masterLooter then return self:Debug("Some else is ML") end -- Someone else has become ML
+   if not self.isMasterLooter and self.masterLooter then return Classic.Log:D("Some else is ML") end -- Someone else has become ML
 
    -- Don't do popups if we're already handling loot
-	if self.handleLoot then return self:Debug("Already handling loot") end
+	if self.handleLoot then return Classic.Log:D("Already handling loot") end
 
    local db = self:Getdb()
    -- We are ML and shouldn't ask the player for usage
@@ -260,9 +262,9 @@ function addon:OnRaidEnter()
 end
 
 function addon:GetML()
-   self:DebugLog("GetML()")
+	Classic.Log:D("GetML()")
    local lootMethod, mlPartyID, mlRaidID = GetLootMethod()
-   self:Debug("LootMethod = ", lootMethod)
+	Classic.Log:D("LootMethod = ", lootMethod)
 
    if GetNumGroupMembers() == 0 and (self.testMode or self.nnp) then -- always the player when testing alone
       self:ScheduleTimer("Timer", 5, "MLdb_check")
@@ -279,7 +281,7 @@ function addon:GetML()
       elseif mlPartyID then -- Someone in party
          name = self:UnitName("party"..mlPartyID)
       end
-      self:Debug("MasterLooter = ", name)
+		Classic.Log:D("MasterLooter = ", name)
       return IsMasterLooter() and self:IsPlayerML(), name
    else
       -- Set the Group leader as the ML
@@ -302,21 +304,21 @@ function addon:IsPlayerML()
    -- Can't be ML in pvp
    local _, type = IsInInstance()
    if type == "arena" or type == "pvp" then
-      self:Debug("PVP instance")
+      Classic.Log:D("PVP instance")
       return false
    end
    local db = self:Getdb()
    -- We shouldn't be ML if settings doesn't allow us to
    if db.usage.never then
-      self:DebugLog("GetML", "db.usage.never")
+      Classic.Log:D("GetML", "db.usage.never")
       return false
 
    elseif not IsInRaid() and db.onlyUseInRaids then
-      self:Debug("Not in raid group")
+      Classic.Log:D("Not in raid group")
       return false
    -- Are we even allowed to use group loot?
    elseif lootMethod == "group" and not db.useWithGroupLoot then
-      self:Debug("useWithGroupLoot == false")
+		Classic.Log:D("useWithGroupLoot == false")
       return false
    end
    return true
@@ -337,7 +339,7 @@ function addon:StartHandleLoot()
    end
 
    self:Print(L["Now handles looting"])
-   self:Debug("Start handle loot.")
+	Classic.Log:D("Start handle loot.")
    self.handleLoot = true
    self:SendCommand("group", "StartHandleLoot")
    if #db.council == 0 then -- if there's no council

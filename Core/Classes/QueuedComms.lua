@@ -108,5 +108,5 @@ function Object:Log (...)
    if debug then
       self:Print(...)
    end
-   addon:DebugLog(...)
+	addon.Log:D("QC", ...)
 end

@@ -21,10 +21,13 @@
             "program": {
                 "command": "busted",
             },
+            "cwd": "${workspaceFolder}\\RCLootCouncil",
             "args": [
                 "-e require('lldebugger').start()",
                 "--lpath=${workspaceFolder}\\RCLootCouncil\\__tests\\?.lua",
                 "--helper=${workspaceFolder}\\.specs\\ClassicEnvironment.lua",
+                "-C=${workspaceFolder}\\RCLootCouncil",
+                "-f=${workspaceFolder}\\.busted",
                 "${file}"
             ],
             "env": {

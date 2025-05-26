@@ -1,22 +1,29 @@
+-- Note all paths are relative to "./RCLootCouncil"
+
 return {
    _all = {
       ["pattern"] = ".spec",
-      ["coverage"] = true,
+      ["coverage"] = false,
    },
    default = {
-      ["ROOT"] = { ".specs"},
-      ["output"] = "utfTerminal"
+      ["ROOT"] = { "../.specs", ".specs"},
+      ["output"] = "utfTerminal",
+      ["exclude-pattern"] = {
+         "/.specs/AddonLoader.spec.lua",
+         "/.specs/EmulatePlayerLogin.lua",
+      },
+      Xoutput = "--color",
    },
 
    Classes = {
-      ["ROOT"] = {"RCLootCouncil/.specs/Classes"},
+      ["ROOT"] = {".specs/Classes"},
    },
 
    Classes_Utils = {
-      ["ROOT"] = {"RCLootCouncil/.specs/Classes/Utils"},
+      ["ROOT"] = {".specs/Classes/Utils"},
    },
 
    Classes_Services = {
-      ["ROOT"] = {"RCLootCouncil/.specs/Classes/Services"},
+      ["ROOT"] = {".specs/Classes/Services"},
    }
 }
