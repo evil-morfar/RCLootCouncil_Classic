@@ -31,7 +31,7 @@ function ClassicModule:OnEnable ()
    addon.nnp = self.nnp
 
    if addon.db.global.Classic_version then
-      addon:Debug("Running compat")
+      self.Log:D("Running compat")
       self.Compat:Run()
    end
 

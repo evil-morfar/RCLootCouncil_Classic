@@ -9,6 +9,7 @@ local LC = LibStub("AceLocale-3.0"):GetLocale("RCLootCouncil_Classic")
 local LibDialog = LibStub("LibDialog-1.1")
 
 local ItemUtils = addon.Require "Utils.Item"
+local Player = addon.Require "Data.Player"
 
 ----------------------------------------------
 -- Core
@@ -239,7 +240,7 @@ function addon:GetML()
 
    if GetNumGroupMembers() == 0 and (self.testMode or self.nnp) then -- always the player when testing alone
       self:ScheduleTimer("Timer", 5, "MLdb_check")
-      return true, self.playerName
+      return true, self.player
    end
 
    -- Otherwise figure it out based on loot method:
@@ -253,7 +254,7 @@ function addon:GetML()
          name = self:UnitName("party"..mlPartyID)
       end
 		Classic.Log:D("MasterLooter = ", name)
-      return IsMasterLooter() and self:IsPlayerML(), name
+      return IsMasterLooter() and self:IsPlayerML(), Player:Get(name)
    else
       -- Set the Group leader as the ML
 	   local name
@@ -266,7 +267,7 @@ function addon:GetML()
             name = self:UnitName(name2)
          end
       end
-      return UnitIsGroupLeader("player") and self:IsPlayerML(), name
+		return UnitIsGroupLeader("player") and self:IsPlayerML(), Player:Get(name)
    end
 end
 

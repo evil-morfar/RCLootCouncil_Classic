@@ -4,6 +4,8 @@
 local _,addon = ...
 local Classic = addon:GetModule("RCClassic")
 
+local ItemUtils = addon.Require "Utils.Item"
+
 --- Never autopass these armor types.
 -- @table autopassOverride
 local autopassOverride = {
@@ -70,7 +72,7 @@ function addon:AutoPassCheck(link, equipLoc, typeID, subTypeID, classesFlag, isT
 	if bit.band(classesFlag, bit.lshift(1, classID-1)) == 0 then -- The item tooltip writes the allowed clases, but our class is not in it.
 		return true
 	end
-	local id = type(link) == "number" and link or self:GetItemIDFromLink(link) -- Convert to id if needed
+	local id = type(link) == "number" and link or ItemUtils:GetItemIDFromLink(link) -- Convert to id if needed
 	if equipLoc == "INVTYPE_TRINKET" then
 		if self:Getdb().autoPassTrinket then
 			if _G.RCTrinketSpecs and _G.RCTrinketSpecs[id] and _G.RCTrinketSpecs[id]:sub(-classID, -classID)=="0" then

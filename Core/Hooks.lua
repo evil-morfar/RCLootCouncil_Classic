@@ -36,31 +36,6 @@ tinsert(hooks, {
    end
 })
 
-tinsert(hooks, {
-   object = SessionFrame,
-   ref = "GetFrame",
-   type = "raw",
-   func = function()
-      local frame = Classic.hooks[SessionFrame].GetFrame(SessionFrame)
-      if frame.lootStatus then
-         frame.lootStatus:Hide()
-         frame.lootStatus = nil
-      end
-      return frame
-   end,
-})
-
-tinsert(hooks, {
-   object = VotingFrame,
-   ref = "OnEnable",
-   type = "raw",
-   func = function()
-      -- Call original
-      Classic.hooks[VotingFrame].OnEnable(VotingFrame)
-      VotingFrame.frame.lootStatus:Hide()
-      VotingFrame.frame.lootStatus = nil
-   end,
-})
 
 tinsert(hooks, {
    object = addon,
