@@ -267,7 +267,11 @@ function addon:GetML()
             name = self:UnitName(name2)
          end
       end
+	  if name then
 		return UnitIsGroupLeader("player") and self:IsPlayerML(), Player:Get(name)
+	  else
+		return false, nil
+	  end
    end
 end
 

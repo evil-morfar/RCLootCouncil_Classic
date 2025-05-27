@@ -47,6 +47,11 @@ function ClassicModule:OnEnable ()
    -- Remove "role" column
    local vf = addon:GetActiveModule("votingframe")
    vf:RemoveColumn("role")
+   -- VF might already have been created
+   if vf.frame then
+		vf.frame = nil
+	  	vf.frame = vf:GetFrame()
+   end
 
    self:UpdateBlacklist()
 

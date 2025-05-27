@@ -15,6 +15,7 @@ usage() {
 	echo "  -c               Pack to _classic_era_ WoW edition. (Classic)" >&2
 	echo "  -b               Pack to _classic_ WoW edition. (Cataclysm)" >&2
 	echo "  -z               Pack to _classic_ptr_ WoW edition. (Cataclysm PTR)" >&2
+	echo "  -x               Pack to _classic_era_ptr_ WoW edition. (Classic PTR)" >&2
 	echo "  -p               Pack to _ptr_ WoW edition." >&2
 }
 
@@ -23,7 +24,7 @@ ADDON="$(basename $ADDON_LOC)"
 WOWEDITION="_retail_"
 
 # Commandline inputs
-while getopts ":cbzp" opt; do
+while getopts ":cbzpx" opt; do
 	case $opt in
       c)
          WOWEDITION="_classic_era_";;
@@ -31,6 +32,8 @@ while getopts ":cbzp" opt; do
          WOWEDITION="_classic_";;
       z)
          WOWEDITION="_classic_ptr_";;
+      x)
+         WOWEDITION="_classic_era_ptr_";;
       p)
          WOWEDITION="_ptr_";;
       /?)

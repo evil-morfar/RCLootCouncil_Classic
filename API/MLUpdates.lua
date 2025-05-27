@@ -6,6 +6,7 @@ local MLModule = addon:GetModule("RCLootCouncilML")
 ---@type RCLootCouncil_Classic
 local Classic = addon:GetModule("RCClassic")
 local L = LibStub("AceLocale-3.0"):GetLocale("RCLootCouncil")
+local ItemUtils = addon.Require "Utils.Item"
 
 function MLModule:HandleReceivedTradeable ()
    -- Do nothing
@@ -52,7 +53,7 @@ end
 
 function MLModule:ShouldAutoAward (item, quality)
    if not item then return false end
-   local itemid = addon:GetItemIDFromLink(item)
+   local itemid = ItemUtils:GetItemIDFromLink(item)
    local db = addon:Getdb()
 
    -- Check always list first

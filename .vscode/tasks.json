@@ -4,10 +4,21 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Deploy both",
+            "label": "Deploy All",
             "dependsOn": [
                 "Deploy Classic",
-                "Deploy Cataclysm"
+                "Deploy TBC",
+                "Deploy"
+            ],
+            "dependsOrder": "parallel",
+            "problemMatcher": []
+        },
+        {
+            "label": "Deploy All PTR",
+            "dependsOn": [
+                "Deploy PTR",
+                "Deploy Prog PTR",
+                "Deploy Classic PTR"
             ],
             "dependsOrder": "parallel",
             "problemMatcher": []
@@ -15,22 +26,35 @@
         {
             "label": "Deploy Classic",
             "type": "shell",
-            "command": "sh",
+            "command": "sh .scripts/deploy.sh",
             "args": [
-                ".scripts/deploy.sh",
                 "-c"
-            ]
+            ],
         },
         {
-            "label": "Deploy Cataclysm",
+            "label": "Deploy Prog",
             "type": "shell",
-            "command": "sh",
+            "command": "sh .scripts/deploy.sh",
             "args": [
-                ".scripts/deploy.sh",
                 "-b"
-            ]
-        }, {
-            "label": "Deploy Cata PTR",
+            ],
+        },
+        {
+            "label": "Deploy",
+            "type": "shell",
+            "command": "sh .scripts/deploy.sh",
+        },
+        {
+            "label": "Deploy PTR",
+            "type": "shell",
+            "command": "sh .scripts/deploy.sh",
+            "args": [
+                "-p"
+            ],
+            "group": "build"
+        },
+        {
+            "label": "Deploy Prog PTR",
             "type": "shell",
             "command": "sh",
             "args": [
@@ -39,9 +63,19 @@
             ]
         },
         {
+            "label": "Deploy Classic PTR",
+            "type": "shell",
+            "command": "sh",
+            "args": [
+                ".scripts/deploy.sh",
+                "-x"
+            ]
+        },
+        {
             "label": "Build and Release",
             "type": "shell",
-            "command": ".scripts\\build.sh"
+            "command": ".scripts\\build.sh",
+            "hide": true
         },
         {
             "label": "Busted All",
