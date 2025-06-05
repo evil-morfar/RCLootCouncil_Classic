@@ -30,5 +30,5 @@ addon:RawHook(AutoPass, "AutoPassCheck",
 function (link, equipLoc, typeID, subTypeID, classesFlag, class)
 	-- If player has enabled `db.autoPassSlot[equipLoc]` we should auto pass
 	if addon:Getdb().autoPassSlot[equipLoc] then return true end
-	return addon.hooks[AutoPass].AutoPassCheck(AutoPass, link, equipLoc, typeID, subTypeID, classesFlag, class)
+	return addon.hooks[AutoPass].AutoPassCheck(link, equipLoc, typeID, subTypeID, classesFlag, class)
 end)

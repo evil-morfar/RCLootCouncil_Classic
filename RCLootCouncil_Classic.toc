@@ -47,6 +47,7 @@ RCLootCouncil\Utils\Utils.lua
 RCLootCouncil\Utils\trinketData.lua
 RCLootCouncil\Utils\tokenData.lua
 RCLootCouncil\Utils\ItemStorage.lua
+RCLootCouncil\Utils\transmog.lua
 RCLootCouncil\Utils\autopass.lua
 RCLootCouncil\Utils\popups.lua
 
