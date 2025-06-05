@@ -21,7 +21,6 @@ addon.coreEvents["LOOT_CLOSED"] = nil -- We have our own
 -- -- Auto pass disabled:
 addon.defaults.profile.autoPassBoE = false
 -- -- Removed:
-addon.defaults.profile.printCompletedTrades = nil
 addon.defaults.profile.rejectTrade = nil
 -- -- Usage options:
 addon.defaults.profile.usage = {
@@ -175,56 +174,16 @@ function addon:GetGear(link, equipLoc)
    end
 end
 
-function addon:NewMLCheck()
-   local old_ml = self.masterLooter
-   local old_lm = self.lootMethod
-   self.isMasterLooter, self.masterLooter = self:GetML()
-   self.lootMethod = GetLootMethod()
-   if self.masterLooter and self.masterLooter ~= "" and (self.masterLooter == "Unknown" or Ambiguate(self.masterLooter, "short"):lower() == _G.UNKNOWNOBJECT:lower()) then
-      -- ML might be unknown for some reason
-		Classic.Log:D("NewMLCheck", "Unknown ML")
-      return self:ScheduleTimer("NewMLCheck", 1)
-   end
-   if self:UnitIsUnit(old_ml, "player") and not self.isMasterLooter then
-      -- We were ML, but no longer, so disable masterlooter module
-      self:StopHandleLoot()
-   end
-   if self:UnitIsUnit(old_ml, self.masterLooter) and old_lm == self.lootMethod then
-		return Classic.Log:D("NewMLCheck", "No ML Change") -- no change
-   end
-
-   if self.masterLooter == nil then return end -- We're not using ML
-   -- At this point we know the ML has changed, so we can wipe the council
-	Classic.Log:D("NewMLCheck", "Resetting council as we have a new ML!")
-   self.council = {}
-   -- Check to see if we have recieved mldb within 15 secs, otherwise request it
-   self:ScheduleTimer("Timer", 15, "MLdb_check")
-   if not self.isMasterLooter and self.masterLooter then return Classic.Log:D("Some else is ML") end -- Someone else has become ML
-
-   -- Don't do popups if we're already handling loot
-	if self.handleLoot then return Classic.Log:D("Already handling loot") end
-
-   local db = self:Getdb()
-   -- We are ML and shouldn't ask the player for usage
-   if self.isMasterLooter and db.usage.ml then -- addon should auto start
-      self:StartHandleLoot()
-
-      -- We're ML and must ask the player for usage
-   elseif self.isMasterLooter and db.usage.ask_ml then
-      return LibDialog:Spawn("RCLOOTCOUNCIL_CONFIRM_USAGE")
-   end
-end
-
 function addon:OnRaidEnter()
    local db = self:Getdb()
    -- NOTE: We shouldn't need to call GetML() as it's most likely called on "LOOT_METHOD_CHANGED"
    -- There's no ML, and lootmethod ~= ML, but we are the group leader
    -- Check if we can use in party
    if not IsInRaid() and db.onlyUseInRaids then return end
-   if not self.masterLooter and UnitIsGroupLeader("player") then
+   if UnitIsGroupLeader("player") then
       -- We don't need to ask the player for usage, so change loot method to master, and make the player ML
       if db.usage.leader then
-         self.isMasterLooter, self.masterLooter = true, self.playerName
+         self.isMasterLooter, self.masterLooter = true, self.player
          self:StartHandleLoot()
          -- We must ask the player for usage
       elseif db.usage.ask_leader then
@@ -323,6 +282,11 @@ function addon:StartHandleLoot()
    end
    self:CallModule("masterlooter")
    self:GetActiveModule("masterlooter"):NewML(self.masterLooter)
+end
+
+function addon:IsItemBoE(item)
+	if not item then return false end
+	return select(14, C_Item.GetItemInfo(item)) == Enum.ItemBind.OnEquip
 end
 ----------------------------------------------
 -- Utils
