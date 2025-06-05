@@ -49,9 +49,11 @@ addon.defaults.profile.alwaysAutoAwardItems = {}
 addon.defaults.profile.useWithGroupLoot = false
 
 -- Some Main Hand weapons are "Ranged" in Classic
-addon.INVTYPE_Slots.INVTYPE_RANGED = "RangedSlot"
-addon.INVTYPE_Slots.INVTYPE_RANGEDRIGHT = "RangedSlot"
-addon.INVTYPE_Slots.INVTYPE_THROWN = "RangedSlot"
+if Classic:IsClassicEra() or WOW_PROJECT_ID == WOW_PROJECT_CATACLYSM_CLASSIC then
+	addon.INVTYPE_Slots.INVTYPE_RANGED = "RangedSlot"
+	addon.INVTYPE_Slots.INVTYPE_RANGEDRIGHT = "RangedSlot"
+	addon.INVTYPE_Slots.INVTYPE_THROWN = "RangedSlot"
+end
 
 -- Update logo location
 addon.LOGO_LOCATION = "Interface\\AddOns\\RCLootCouncil_Classic\\RCLootCouncil\\Media\\rc_logo"

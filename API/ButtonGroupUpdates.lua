@@ -2,8 +2,7 @@
 local _, addon = ...
 local LC = LibStub("AceLocale-3.0"):GetLocale("RCLootCouncil_Classic")
 
--- Remove "Azerite Armor" as a category for more buttons
-addon.OPT_MORE_BUTTONS_VALUES.AZERITE = nil
+addon.OPT_MORE_BUTTONS_VALUES.CATALYST = nil
 
 -- Add "Set Pieces" as a group
 addon.OPT_MORE_BUTTONS_VALUES.SETS = LC["Set Pieces"]
