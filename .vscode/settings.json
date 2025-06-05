@@ -74,7 +74,18 @@
         "ITEM_ACCOUNTBOUND_UNTIL_EQUIP",
         "StaticPopup_HasDisplayedFrames",
         "STATICPOPUP_NUMDIALOGS",
-        "StaticPopup_IsLastDisplayedFrame"
+        "StaticPopup_IsLastDisplayedFrame",
+        "tFilter",
+        "SecondsToTime",
+        "WOW_PROJECT_MAINLINE",
+        "WOW_PROJECT_ID",
+        "CreateColor",
+        "WOW_PROJECT_CLASSIC",
+        "tIndexOf",
+        "tCompare",
+        "GetClassColorObj",
+        "CreateAtlasMarkup",
+        "class"
     ],
     "Lua.workspace.checkThirdParty": false,
     "Lua.workspace.library": [
@@ -84,6 +95,6 @@
         "${3rd}/luassert/library",
         "${addons}/lldebugger/module/library",
         "${addons}/luafilesystem/module/library",
-        "${addons}/luassert/module/library"
+        "${addons}/luassert/module/library",
     ]
 }

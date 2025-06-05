@@ -72,6 +72,15 @@
             ]
         },
         {
+            "label": "Deploy Classic Beta",
+            "type": "shell",
+            "command": "sh",
+            "args": [
+                ".scripts/deploy.sh",
+                "-d"
+            ]
+        },
+        {
             "label": "Build and Release",
             "type": "shell",
             "command": ".scripts\\build.sh",
