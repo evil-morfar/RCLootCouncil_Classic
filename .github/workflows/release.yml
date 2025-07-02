@@ -24,3 +24,7 @@ jobs:
 
       - name: Package and Release
         run: bash .scripts/build.sh
+  
+  discord-changelog:
+    needs: release
+    uses: ./.github/workflows/discordChangelog.yml
