@@ -1,18 +1,30 @@
 ## Author: Potdisc
-## Interface: 11506, 40402
-## Notes: RCLootCouncil for WoW Classic and Cataclysm Classic v0.24.3
+## Interface: 11507, 40402, 50500
+## Notes: RCLootCouncil for WoW Classic v1.0.0
 ## Title: RCLootCouncil Classic
-## Version: 0.24.3
+## Version: 1.0.0
+## AllowLoadGameType: classic
 ## X-Curse-Project-ID: 332955
+## X-Wago-ID: J96ExYNg
 ## SavedVariables: RCLootCouncilDB, RCLootCouncilLootDB
 ## OptionalDeps: LibStub, CallbackHandler-1.0, Ace3, lib-st, LibWindow-1.1, LibDialog-1.0
-
+## IconTexture: Interface\AddOns\RCLootCouncil\Media\logo
+## Category-enUS: Loot
+## Category-deDE: Beute
+## Category-esES: Botín
+## Category-esMX: Botín
+## Category-frFR: Butin 
+## Category-itIT: Bottino
+## Category-koKR: 전리품
+## Category-ptBR: Saque
+## Category-ruRU: Добыча
+## Category-zhCN: 战利品
+## Category-zhTW: 戰利品
 
 ## RCLootCouncil imports:
 RCLootCouncil\Patches\UiDropDownMenuTaintCommunities.lua
 
 RCLootCouncil\embeds.xml
-Libs\LibDeflate\LibDeflate.lua
 RCLootCouncil\Locale\Locales.xml
 
 RCLootCouncil\Core\GlobalUpdates.lua
@@ -20,8 +32,21 @@ RCLootCouncil\Core\Constants.lua
 RCLootCouncil\Core\Defaults.lua
 RCLootCouncil\Core\CoreEvents.lua
 
+RCLootCouncil\Classes\Core.lua
+RCLootCouncil\Classes\Utils\Item.lua
+RCLootCouncil\Classes\Lib\RxLua\embeds.xml
+RCLootCouncil\Classes\Utils\TempTable.lua
+RCLootCouncil\Classes\Utils\Log.lua
+RCLootCouncil\Classes\Services\ErrorHandler.lua
+RCLootCouncil\Classes\Utils\GroupLoot.lua
+
+RCLootCouncil\Classes\Data\Player.lua
+RCLootCouncil\Classes\Data\Council.lua
+
+RCLootCouncil\Classes\Services\Comms.lua
+RCLootCouncil\Classes\Data\MLDB.lua
+
 RCLootCouncil\core.lua
-RCLootCouncil\Core\ErrorHandler.lua
 RCLootCouncil\ml_core.lua
 
 RCLootCouncil\UI\UI.lua
@@ -34,8 +59,8 @@ RCLootCouncil\Utils\Utils.lua
 RCLootCouncil\Utils\trinketData.lua
 RCLootCouncil\Utils\tokenData.lua
 RCLootCouncil\Utils\ItemStorage.lua
+RCLootCouncil\Utils\transmog.lua
 RCLootCouncil\Utils\autopass.lua
-RCLootCouncil\Utils\sync.lua
 RCLootCouncil\Utils\popups.lua
 
 ## Classic Module
@@ -44,7 +69,6 @@ Core\Module.lua
 Core\Hooks.lua
 Core\Autopass.lua
 Core\Lists.lua
-Core\Comms.lua
 Core\BackwardsCompatibility.lua
 
 ## Overrides
@@ -55,3 +79,4 @@ API\VotingFrameUpdates.lua
 API\SessionFrameUpdates.lua
 API\MLUpdates.lua
 API\LootHistory.lua
+API\VersionCheckUpdates.lua

@@ -1,8 +1,12 @@
 --- Fixed for retail RCLootCouncilML functions that doesn't function properly in Classic or otherwise needs editing
-local _, addon = ...
+---@type RCLootCouncil
+local addon = select(2, ...)
+---@class RCLootCouncilML
 local MLModule = addon:GetModule("RCLootCouncilML")
+---@type RCLootCouncil_Classic
 local Classic = addon:GetModule("RCClassic")
 local L = LibStub("AceLocale-3.0"):GetLocale("RCLootCouncil")
+local ItemUtils = addon.Require "Utils.Item"
 
 function MLModule:HandleReceivedTradeable ()
    -- Do nothing
@@ -49,7 +53,7 @@ end
 
 function MLModule:ShouldAutoAward (item, quality)
    if not item then return false end
-   local itemid = addon:GetItemIDFromLink(item)
+   local itemid = ItemUtils:GetItemIDFromLink(item)
    local db = addon:Getdb()
 
    -- Check always list first
@@ -89,7 +93,7 @@ function MLModule:ShouldAutoAward (item, quality)
 end
 
 function MLModule:AutoAward (lootIndex, item, quality, name, mode, boss, owner)
-   addon:DebugLog("ML_Classic:AutoAward", lootIndex, item, quality, name, mode, boss, owner)
+   Classic.Log:D("AutoAward", lootIndex, item, quality, name, mode, boss, owner)
    local db = addon:Getdb()
    -- Special case for group loot:
    if addon.lootMethod == "group" then
@@ -191,7 +195,7 @@ function MLModule:HookLootButton(i)
 	end
 	local hooked = self:IsHooked(lootButton, "OnClick")
 	if lootButton and not hooked then
-		addon:DebugLog("ML:HookLootButton", i)
+		Classic.Log:D("ML:HookLootButton", i)
 		self:HookScript(lootButton, "OnClick", "LootOnClick")
 	end
 end
@@ -199,7 +203,7 @@ end
 function MLModule:LootOnClick(button)
    local db = addon:Getdb()
 	if not IsAltKeyDown() or not db.altClickLooting or IsShiftKeyDown() or IsControlKeyDown() then return; end
-	addon:DebugLog("LootAltClick()", button)
+	Classic.Log:D("LootAltClick()", button)
 
 	if getglobal("ElvLootFrame") then
 		button.slot = button:GetID() -- ElvUI hack

@@ -1,6 +1,8 @@
 --- Lists.lua Contains various lists used within the addon.
 
-local _, addon = ...
+---@type RCLootCouncil
+local addon = select(2, ...)
+---@class RCLootCouncil_Classic
 local Classic = addon:GetModule("RCClassic")
 
 local List = {}

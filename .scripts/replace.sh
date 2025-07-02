@@ -13,7 +13,7 @@ fi
 replace_version(){
    # Get RCLootCouncil version
    version=$( awk '/## Version/ {print $NF; exit}' ./RCLootCouncil/RCLootCouncil.toc )
-   sed -i "s/GetAddOnMetadata(\"RCLootCouncil\", \"Version\")/\"$version\"/" "$1/RCLootCouncil/core.lua"
+   sed -i "s/C_AddOns.GetAddOnMetadata(\"RCLootCouncil\", \"Version\")/\"$version\"/" "$1/RCLootCouncil/core.lua"
    echo "Version replacement done - added $version"
 }
 
