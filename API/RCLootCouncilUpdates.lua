@@ -56,7 +56,7 @@ if Classic:IsClassicEra() or WOW_PROJECT_ID == WOW_PROJECT_CATACLYSM_CLASSIC the
 end
 
 -- Update logo location
-addon.LOGO_LOCATION = "Interface\\AddOns\\RCLootCouncil_Classic\\RCLootCouncil\\Media\\rc_logo"
+addon.LOGO_LOCATION = "Interface/AddOns/RCLootCouncil_Classic/RCLootCouncil/Media/rc_banner"
 
 -- Ignored Items
 addon.defaults.profile.ignoredItems = {} -- Remove the retail ones

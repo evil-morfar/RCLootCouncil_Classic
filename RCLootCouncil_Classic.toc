@@ -5,9 +5,21 @@
 ## Version: 0.24.3
 ## AllowLoadGameType: classic
 ## X-Curse-Project-ID: 332955
+## X-Wago-ID: J96ExYNg
 ## SavedVariables: RCLootCouncilDB, RCLootCouncilLootDB
 ## OptionalDeps: LibStub, CallbackHandler-1.0, Ace3, lib-st, LibWindow-1.1, LibDialog-1.0
-
+## IconTexture: Interface\AddOns\RCLootCouncil\Media\logo
+## Category-enUS: Loot
+## Category-deDE: Beute
+## Category-esES: Botín
+## Category-esMX: Botín
+## Category-frFR: Butin 
+## Category-itIT: Bottino
+## Category-koKR: 전리품
+## Category-ptBR: Saque
+## Category-ruRU: Добыча
+## Category-zhCN: 战利品
+## Category-zhTW: 戰利品
 
 ## RCLootCouncil imports:
 RCLootCouncil\Patches\UiDropDownMenuTaintCommunities.lua
