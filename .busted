@@ -1,0 +1,28 @@
+-- Note all paths are relative to "./RCLootCouncil"
+
+return {
+   _all = {
+      ["pattern"] = ".spec",
+      ["coverage"] = false,
+   },
+   default = {
+      ["ROOT"] = { "../.specs", ".specs"},
+      ["output"] = "utfTerminal",
+      ["filter-out"] = {
+         "AddonLoader"
+      },
+      Xoutput = "--color",
+   },
+
+   Classes = {
+      ["ROOT"] = {".specs/Classes"},
+   },
+
+   Classes_Utils = {
+      ["ROOT"] = {".specs/Classes/Utils"},
+   },
+
+   Classes_Services = {
+      ["ROOT"] = {".specs/Classes/Services"},
+   }
+}

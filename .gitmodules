@@ -1,4 +1,4 @@
 [submodule "RCLootCouncil2"]
 	path = RCLootCouncil
 	url = https://github.com/evil-morfar/RCLootCouncil2
-	branch = v2.x
+	branch = develop

@@ -1,9 +1,11 @@
 local _, addon = ...
 
+---@class RCLootCouncil_ClassicModule
 local Classic = addon:GetModule("RCClassic")
 local VotingFrame = addon:GetModule("RCVotingFrame")
 local SessionFrame = addon:GetModule("RCSessionFrame")
 local HistoryFrame = addon:GetModule("RCLootHistory")
+local VersionFrame = addon:GetActiveModule("version")
 local hooks = {}
 
 function Classic:DoHooks ()
@@ -34,31 +36,6 @@ tinsert(hooks, {
    end
 })
 
-tinsert(hooks, {
-   object = SessionFrame,
-   ref = "GetFrame",
-   type = "raw",
-   func = function()
-      local frame = Classic.hooks[SessionFrame].GetFrame(SessionFrame)
-      if frame.lootStatus then
-         frame.lootStatus:Hide()
-         frame.lootStatus = nil
-      end
-      return frame
-   end,
-})
-
-tinsert(hooks, {
-   object = VotingFrame,
-   ref = "OnEnable",
-   type = "raw",
-   func = function()
-      -- Call original
-      Classic.hooks[VotingFrame].OnEnable(VotingFrame)
-      VotingFrame.frame.lootStatus:Hide()
-      VotingFrame.frame.lootStatus = nil
-   end,
-})
 
 tinsert(hooks, {
    object = addon,
@@ -90,16 +67,6 @@ tinsert(hooks, {
    end
 })
 
-tinsert(hooks, {
-   object = addon,
-   ref = "OnMLDBReceived",
-   type = "post",
-   func = function(self)
-      if self.mldb.observe and not self:GetActiveModule("votingframe"):IsEnabled() then
-         self:CallModule("votingframe")
-      end
-   end
-})
 
 local rclootcoucnilCoreVersionsToIgnore = {
    ["2.14.0"] = true,
@@ -110,7 +77,7 @@ local rclootcoucnilCoreVersionsToIgnore = {
 }
 
 tinsert(hooks, {
-   object = addon,
+   object = VersionFrame,
    ref = "PrintOutdatedVersionWarning",
    type = "raw",
    func = function(self, newVersion, ourVersion)
@@ -124,11 +91,12 @@ tinsert(hooks, {
 })
 
 -- Fix for Blizzard screwing up DropDowns when using ML.
-tinsert(hooks, {
-   type = "secure",
-   object = _G.MasterLooterFrame,
-   ref = "Hide",
-   func = function(self)
-      self:ClearAllPoints()
-   end
-})
+-- TODO : Check if this is still needed.
+-- tinsert(hooks, {
+--    type = "secure",
+--    object = _G.MasterLooterFrame,
+--    ref = "Hide",
+--    func = function(self)
+--       self:ClearAllPoints()
+--    end
+-- })

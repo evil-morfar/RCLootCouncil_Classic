@@ -12,7 +12,7 @@
                 "file": "${file}"
                 
             },
-            "env": { "LUA_PATH": "${env:LUA_PATH};${workspaceFolder}/__tests/?.lua",}
+            "env": { "LUA_PATH": "${env:LUA_PATH};${workspaceFolder}/RCLootCouncil/__tests/?.lua",}
         },
         {
             "name": "Busted file",
@@ -21,12 +21,17 @@
             "program": {
                 "command": "busted",
             },
+            "cwd": "${workspaceFolder}\\RCLootCouncil",
             "args": [
-                "---verbose",
+                "-e require('lldebugger').start()",
+                "--lpath=${workspaceFolder}\\RCLootCouncil\\__tests\\?.lua",
+                "--helper=${workspaceFolder}\\.specs\\ClassicEnvironment.lua",
+                "-C=${workspaceFolder}\\RCLootCouncil",
+                "-f=${workspaceFolder}\\.busted",
                 "${file}"
             ],
             "env": {
-                "LUA_PATH": "${env:LUA_PATH};${workspaceFolder}/RCLootCouncil/__tests/?.lua",
+                "LUA_PATH": "${env:LUA_PATH};${workspaceFolder}/RCLootCouncil/RCLootCouncil/__tests/?.lua",
             }
         }
     ]

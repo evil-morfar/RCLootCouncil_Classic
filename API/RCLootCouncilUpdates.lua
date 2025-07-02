@@ -1,11 +1,15 @@
 --- Fixed for retail RCLootCouncil function that doesn't function properly in Classic
-local _, addon = ...
+---@type RCLootCouncil
+local addon = select(2, ...)
+---@type RCLootCouncil_Classic
 local Classic = addon:GetModule("RCClassic")
 local private = {}
 local L = LibStub("AceLocale-3.0"):GetLocale("RCLootCouncil")
 local LC = LibStub("AceLocale-3.0"):GetLocale("RCLootCouncil_Classic")
 local LibDialog = LibStub("LibDialog-1.1")
 
+local ItemUtils = addon.Require "Utils.Item"
+local Player = addon.Require "Data.Player"
 
 ----------------------------------------------
 -- Core
@@ -17,7 +21,6 @@ addon.coreEvents["LOOT_CLOSED"] = nil -- We have our own
 -- -- Auto pass disabled:
 addon.defaults.profile.autoPassBoE = false
 -- -- Removed:
-addon.defaults.profile.printCompletedTrades = nil
 addon.defaults.profile.rejectTrade = nil
 -- -- Usage options:
 addon.defaults.profile.usage = {
@@ -46,12 +49,14 @@ addon.defaults.profile.alwaysAutoAwardItems = {}
 addon.defaults.profile.useWithGroupLoot = false
 
 -- Some Main Hand weapons are "Ranged" in Classic
-addon.INVTYPE_Slots.INVTYPE_RANGED = "RangedSlot"
-addon.INVTYPE_Slots.INVTYPE_RANGEDRIGHT = "RangedSlot"
-addon.INVTYPE_Slots.INVTYPE_THROWN = "RangedSlot"
+if Classic:IsClassicEra() or WOW_PROJECT_ID == WOW_PROJECT_CATACLYSM_CLASSIC then
+	addon.INVTYPE_Slots.INVTYPE_RANGED = "RangedSlot"
+	addon.INVTYPE_Slots.INVTYPE_RANGEDRIGHT = "RangedSlot"
+	addon.INVTYPE_Slots.INVTYPE_THROWN = "RangedSlot"
+end
 
 -- Update logo location
-addon.LOGO_LOCATION = "Interface\\AddOns\\RCLootCouncil_Classic\\RCLootCouncil\\Media\\rc_logo"
+addon.LOGO_LOCATION = "Interface/AddOns/RCLootCouncil_Classic/RCLootCouncil/Media/rc_banner"
 
 -- Ignored Items
 addon.defaults.profile.ignoredItems = {} -- Remove the retail ones
@@ -59,25 +64,17 @@ addon.defaults.profile.ignoredItems[22726] = true -- Splinter of Atiesh
 addon.defaults.profile.ignoredItems[50274] = true -- Shadowfrost Shard
 
 function addon:IsCorrectVersion ()
-   return (WOW_PROJECT_CLASSIC == WOW_PROJECT_ID) or (WOW_PROJECT_CATACLYSM_CLASSIC == WOW_PROJECT_ID)
+   return (WOW_PROJECT_CLASSIC == WOW_PROJECT_ID) or (WOW_PROJECT_CATACLYSM_CLASSIC == WOW_PROJECT_ID) or (WOW_PROJECT_MISTS_CLASSIC == WOW_PROJECT_ID)
 end
 
 function addon:UpdatePlayersData()
-   self:DebugLog("UpdatePlayersData()")
+   Classic.Log:D("UpdatePlayersData()")
    -- GetSpecialization doesn't exist, and there's no real need for it in classic
 	--playersData.specID = GetSpecialization() and GetSpecializationInfo(GetSpecialization())
    self.playersData.specID = 0
 	self.playersData.ilvl = private.GetAverageItemLevel()
 
 	self:UpdatePlayersGears()
-end
-
-function addon:GetLootStatusData ()
-   -- Do nothing
-end
-
-function addon:RegisterComms ()
-   -- Handled in Core/Module.lua
 end
 
 --- Returns tests items either for Classic or WOTLK depending on current expansion.
@@ -106,7 +103,7 @@ end
 
 -- fullTest is used with Dungeon Journal, and thus is ignored
 function addon:Test(num, fullTest, trinketTest)
-   self:Debug("Test", num, fullTest, trinketTest)
+	Classic.Log:D("Test", num, fullTest, trinketTest)
    num = num or 3
    local testItems = getTestItems()
    local trinkets = getTestItems(true)
@@ -144,30 +141,6 @@ function addon:Test(num, fullTest, trinketTest)
 	self:CallModule("masterlooter")
 	self:GetActiveModule("masterlooter"):NewML(self.masterLooter)
 	self:GetActiveModule("masterlooter"):Test(items)
-
-	self:ScheduleTimer(function()
-		self:SendCommand("group", "looted", 1234)
-	end, 5)
-end
-
-local enchanting_localized_name = nil
-function addon:GetPlayerInfo ()
-   local enchant, lvl = nil, 0
-   if not enchanting_localized_name then
-      enchanting_localized_name = GetSpellInfo(7411)
-   end
-   for i = 1, GetNumSkillLines() do
-      -- Cycle through all lines under "Skill" tab on char
-      local skillName, _, _, skillRank, _, _, _, _, _, _, _, _, _ = GetSkillLineInfo(i)
-      if skillName == enchanting_localized_name then
-         -- We know enchanting, thus are an enchanter. And will return your lvl.
-         enchant = true
-         lvl = skillRank
-      end
-   end
-   -- GetAverageItemLevel() isn't implemented
-   local ilvl = private.GetAverageItemLevel()
-   return self.playerName, self.playerClass, self.Utils:GetPlayerRole(), self.guildRank, enchant, lvl, ilvl, nil--self.playersData.specID
 end
 
 function addon:UpdateAndSendRecentTradableItem()
@@ -195,51 +168,11 @@ end
 -- that fits multiple slots.
 -- We need to do a bit of a hack to handle these.
 function addon:GetGear(link, equipLoc)
-   local itemID = self.Utils:GetItemIDFromLink(link)
+   local itemID = ItemUtils:GetItemIDFromLink(link)
    if Classic.Lists.Specials[itemID] then
       return getGearForTokens(itemID)
    else
 	   return self:GetPlayersGear(link, equipLoc, addon.playersData.gears) -- Use gear info we stored before
-   end
-end
-
-function addon:NewMLCheck()
-   local old_ml = self.masterLooter
-   local old_lm = self.lootMethod
-   self.isMasterLooter, self.masterLooter = self:GetML()
-   self.lootMethod = GetLootMethod()
-   if self.masterLooter and self.masterLooter ~= "" and (self.masterLooter == "Unknown" or Ambiguate(self.masterLooter, "short"):lower() == _G.UNKNOWNOBJECT:lower()) then
-      -- ML might be unknown for some reason
-      self:Debug("NewMLCheck", "Unknown ML")
-      return self:ScheduleTimer("NewMLCheck", 1)
-   end
-   if self:UnitIsUnit(old_ml, "player") and not self.isMasterLooter then
-      -- We were ML, but no longer, so disable masterlooter module
-      self:StopHandleLoot()
-   end
-   if self:UnitIsUnit(old_ml, self.masterLooter) and old_lm == self.lootMethod then
-      return self:DebugLog("NewMLCheck", "No ML Change") -- no change
-   end
-
-   if self.masterLooter == nil then return end -- We're not using ML
-   -- At this point we know the ML has changed, so we can wipe the council
-   self:Debug("NewMLCheck", "Resetting council as we have a new ML!")
-   self.council = {}
-   -- Check to see if we have recieved mldb within 15 secs, otherwise request it
-   self:ScheduleTimer("Timer", 15, "MLdb_check")
-   if not self.isMasterLooter and self.masterLooter then return self:Debug("Some else is ML") end -- Someone else has become ML
-
-   -- Don't do popups if we're already handling loot
-	if self.handleLoot then return self:Debug("Already handling loot") end
-
-   local db = self:Getdb()
-   -- We are ML and shouldn't ask the player for usage
-   if self.isMasterLooter and db.usage.ml then -- addon should auto start
-      self:StartHandleLoot()
-
-      -- We're ML and must ask the player for usage
-   elseif self.isMasterLooter and db.usage.ask_ml then
-      return LibDialog:Spawn("RCLOOTCOUNCIL_CONFIRM_USAGE")
    end
 end
 
@@ -249,10 +182,10 @@ function addon:OnRaidEnter()
    -- There's no ML, and lootmethod ~= ML, but we are the group leader
    -- Check if we can use in party
    if not IsInRaid() and db.onlyUseInRaids then return end
-   if not self.masterLooter and UnitIsGroupLeader("player") then
+   if UnitIsGroupLeader("player") then
       -- We don't need to ask the player for usage, so change loot method to master, and make the player ML
       if db.usage.leader then
-         self.isMasterLooter, self.masterLooter = true, self.playerName
+         self.isMasterLooter, self.masterLooter = true, self.player
          self:StartHandleLoot()
          -- We must ask the player for usage
       elseif db.usage.ask_leader then
@@ -262,13 +195,13 @@ function addon:OnRaidEnter()
 end
 
 function addon:GetML()
-   self:DebugLog("GetML()")
+	Classic.Log:D("GetML()")
    local lootMethod, mlPartyID, mlRaidID = GetLootMethod()
-   self:Debug("LootMethod = ", lootMethod)
+	Classic.Log:D("LootMethod = ", lootMethod)
 
    if GetNumGroupMembers() == 0 and (self.testMode or self.nnp) then -- always the player when testing alone
       self:ScheduleTimer("Timer", 5, "MLdb_check")
-      return true, self.playerName
+      return true, self.player
    end
 
    -- Otherwise figure it out based on loot method:
@@ -281,8 +214,8 @@ function addon:GetML()
       elseif mlPartyID then -- Someone in party
          name = self:UnitName("party"..mlPartyID)
       end
-      self:Debug("MasterLooter = ", name)
-      return IsMasterLooter() and self:IsPlayerML(), name
+		Classic.Log:D("MasterLooter = ", name)
+      return IsMasterLooter() and self:IsPlayerML(), Player:Get(name)
    else
       -- Set the Group leader as the ML
 	   local name
@@ -295,7 +228,11 @@ function addon:GetML()
             name = self:UnitName(name2)
          end
       end
-      return UnitIsGroupLeader("player") and self:IsPlayerML(), name
+	  if name then
+		return UnitIsGroupLeader("player") and self:IsPlayerML(), Player:Get(name)
+	  else
+		return false, nil
+	  end
    end
 end
 
@@ -304,21 +241,21 @@ function addon:IsPlayerML()
    -- Can't be ML in pvp
    local _, type = IsInInstance()
    if type == "arena" or type == "pvp" then
-      self:Debug("PVP instance")
+      Classic.Log:D("PVP instance")
       return false
    end
    local db = self:Getdb()
    -- We shouldn't be ML if settings doesn't allow us to
    if db.usage.never then
-      self:DebugLog("GetML", "db.usage.never")
+      Classic.Log:D("GetML", "db.usage.never")
       return false
 
    elseif not IsInRaid() and db.onlyUseInRaids then
-      self:Debug("Not in raid group")
+      Classic.Log:D("Not in raid group")
       return false
    -- Are we even allowed to use group loot?
    elseif lootMethod == "group" and not db.useWithGroupLoot then
-      self:Debug("useWithGroupLoot == false")
+		Classic.Log:D("useWithGroupLoot == false")
       return false
    end
    return true
@@ -339,14 +276,19 @@ function addon:StartHandleLoot()
    end
 
    self:Print(L["Now handles looting"])
-   self:Debug("Start handle loot.")
+	Classic.Log:D("Start handle loot.")
    self.handleLoot = true
-   self:SendCommand("group", "StartHandleLoot")
+   self:Send("group", "StartHandleLoot")
    if #db.council == 0 then -- if there's no council
       self:Print(L["You haven't set a council! You can edit your council by typing '/rc council'"])
    end
    self:CallModule("masterlooter")
    self:GetActiveModule("masterlooter"):NewML(self.masterLooter)
+end
+
+function addon:IsItemBoE(item)
+	if not item then return false end
+	return select(14, C_Item.GetItemInfo(item)) == Enum.ItemBind.OnEquip
 end
 ----------------------------------------------
 -- Utils
@@ -371,7 +313,7 @@ function private.GetAverageItemLevel()
    for i=_G.INVSLOT_FIRST_EQUIPPED, _G.INVSLOT_LAST_EQUIPPED do
       local iLink = _G.GetInventoryItemLink("player", i)
       if iLink and iLink ~= "" and not skipInventorySlot(i) then
-         local ilvl = select(4, _G.GetItemInfo(iLink)) or 0
+         local ilvl = select(4, C_Item.GetItemInfo(iLink)) or 0
          sum = sum + ilvl
          count = count + 1
       end

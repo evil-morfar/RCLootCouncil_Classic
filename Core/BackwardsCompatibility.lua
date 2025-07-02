@@ -2,9 +2,12 @@
 
 --- @type RCLootCouncil
 local addon = select(2, ...)
+---@class RCLootCouncil_Classic
 local Classic = addon:GetModule("RCClassic")
 local Compat = {}
 Classic.Compat = Compat
+
+local ItemUtils = addon.Require "Utils.Item"
 
 --- Runs all compability changes registered.
 --- Initially called in `Classic:OnEnable()`
@@ -15,12 +18,12 @@ function Compat:Run()
         if v.version == "always"
             or (addon:VersionCompare(addon.db.global.Classic_version, v.version) or not addon.db.global.Classic_version)
             and not v.executed then
-            addon:Debug("<ClassicCompat>", "Executing:", k, v.name or "no_name")
+            Classic.Log:D("<ClassicCompat>", "Executing:", k, v.name or "no_name")
             local check, err = pcall(v.func, addon, Classic.version, addon.db.global.Classic_version,
                 addon.db.global.Classic_oldVersion)
             v.executed = true
             if not check then
-                addon:Debug("<ClassicCompat>", "<ERROR>", err)
+				Classic.Log:D("<ClassicCompat>", "<ERROR>", err)
             end
         end
     end
@@ -52,7 +55,7 @@ Compat.list = {
                     end
                 end
             end
-            addon:Debug("Fixed", count, "history colors")
+			Classic.Log:D("Fixed", count, "history colors")
         end
     },
     {
@@ -62,7 +65,7 @@ Compat.list = {
             for _, factionrealm in pairs(addon.lootDB.sv.factionrealm) do
                 for _, data in pairs(factionrealm) do
                     for _, v in ipairs(data) do
-                        v.tierToken = RCTokenTable[addon.Utils:GetItemIDFromLink(v.lootWon)] and true
+                        v.tierToken = RCTokenTable[ItemUtils:GetItemIDFromLink(v.lootWon)] and true
                     end
                 end
             end

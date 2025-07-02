@@ -1,3 +1,13 @@
+# v1.0.0
+
+Updated for Mists of Pandaria Classic.
+
+## Updated to v3.x Core addon
+
+This version (finally) brings the Classic version inline with the latest retail version and all it's features. There's too many changes to list here, but most of them are purely visual.
+
+One big change is further optimizations of addon comms, which should prove hugely benefitial for the Classic version - this does however make this version non-backwards compatible.
+
 # v0.24.3
 
 ## Bugfixes

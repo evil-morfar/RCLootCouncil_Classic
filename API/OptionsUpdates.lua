@@ -51,18 +51,11 @@ function addon:OptionsTable ()
    options.args.mlSettings.args.generalTab.args.lootingOptions.args.printCompletedTrades = nil
    options.args.mlSettings.args.generalTab.args.lootingOptions.args.rejectTrade = nil
 
-   -- Remove "Spec Icon" as there's no clear definition of a spec
-   options.args.settings.args.generalSettingsTab.args.frameOptions.args.showSpecIcon = nil
+   -- Remove "Spec Icon" as there's no clear definition of a spec (Pre Cata)
+   	if RCClassic:IsClassicEra() or WOW_PROJECT_ID == WOW_PROJECT_CATACLYSM_CLASSIC then
+		options.args.settings.args.generalSettingsTab.args.frameOptions.args.showSpecIcon = nil
+   	end
 
-   -- Update "Patch" values in delete history
-   options.args.settings.args.generalSettingsTab.args.lootHistoryOptions.args.deletePatch.values =
-   {
-      [1566900000] = "Phase 1 (Classic Launch)",
-      [1571097600] = "Diremaul Release",
-      [1576029600] = "Patch 1.13.3",
-      [1583798400] = "Patch 1.13.4",
-      [1606953600] = "Patch 1.13.6"
-   }
    -- "_G.INSTANCE" isn't available for localization - use our own
    options.args.settings.args.generalSettingsTab.args.lootHistoryOptions.args.deleteRaid.name = LC["Instance"]
 
@@ -173,13 +166,13 @@ function addon:OptionsTable ()
                     usage = L["ignore_input_usage"],
                     type = "input",
                     validate = function(_, val)
-                        return GetItemInfoInstant(val)
+					return C_Item.GetItemInfoInstant(val)
                     end,
                     get = function()
                         return "\"item ID, Name or Link\""
                     end,
                     set = function(_, val)
-                        local id = GetItemInfoInstant(val)
+					local id = C_Item.GetItemInfoInstant(val)
                         if id then
                             self.db.profile.alwaysAutoAwardItems[id] = true
                             self.blackListOverride[id] = true
