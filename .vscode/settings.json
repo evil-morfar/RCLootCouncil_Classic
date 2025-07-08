@@ -12,14 +12,15 @@
     ],
     "Lua.runtime.version": "Lua 5.1",
     "Lua.runtime.builtin": {
-        "basic": "enable",
-        "io": "enable",
-        "math": "enable",
-        "os": "enable",
-        "package": "enable",
-        "string": "enable",
-        "table": "enable",
-        "utf8": "enable"
+        "basic": "disable",
+        "debug": "disable",
+        "io": "disable",
+        "math": "disable",
+        "os": "disable",
+        "package": "disable",
+        "string": "disable",
+        "table": "disable",
+        "utf8": "disable"
     },
     "Lua.diagnostics.globals": [
         "lfs",

@@ -1,3 +1,10 @@
+# v1.0.1
+
+## Bugfixes
+
+- *Fixed wowhead links in history exports for mists.*
+- *Fixed issue with usage pop-up when entering instance.*
+
 # v1.0.0
 
 Updated for Mists of Pandaria Classic.
