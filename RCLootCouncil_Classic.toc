@@ -1,8 +1,8 @@
 ## Author: Potdisc
 ## Interface: 11507, 40402, 50500
-## Notes: RCLootCouncil for WoW Classic v1.0.0
+## Notes: RCLootCouncil for WoW Classic v1.0.1
 ## Title: RCLootCouncil Classic
-## Version: 1.0.0
+## Version: 1.0.1
 ## AllowLoadGameType: classic
 ## X-Curse-Project-ID: 332955
 ## X-Wago-ID: J96ExYNg
