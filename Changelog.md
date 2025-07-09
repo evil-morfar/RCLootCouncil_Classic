@@ -1,3 +1,7 @@
+## Bugfixes
+
+- *BisCouncil export didn't survive the update to v3.*
+
 # v1.0.1
 
 ## Bugfixes
