@@ -76,7 +76,6 @@ API\RCLootCouncilUpdates.lua
 API\ButtonGroupUpdates.lua
 API\OptionsUpdates.lua
 API\VotingFrameUpdates.lua
-API\SessionFrameUpdates.lua
 API\MLUpdates.lua
 API\LootHistory.lua
 API\VersionCheckUpdates.lua
