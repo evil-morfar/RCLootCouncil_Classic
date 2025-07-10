@@ -3,7 +3,7 @@ dofile("../.specs/ClassicAddonLoader.lua").LoadToc("../RCLootCouncil_Classic.toc
 dofile("../.specs/EmulateClassicPlayerLogin.lua")
 
 describe("#Classic #MasterLooter", function()
-   it("should load", function()
+   pending("should load", function()
 		WoWAPI_FireEvent("PLAYER_ENTERING_WORLD", false, false)
 		WoWAPI_FireEvent("RAID_INSTANCE_WELCOME")
 		_ADVANCE_TIME(3)

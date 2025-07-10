@@ -2,7 +2,7 @@
 local addon = select(2, ...)
 ---@class RCLootHistory
 local History = addon:GetModule("RCLootHistory")
----@type ClassicModule
+---@type RCLootCouncil_Classic
 local Classic = addon:GetModule("RCClassic")
 
 local ItemUtils  = addon.Require "Utils.Item"

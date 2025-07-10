@@ -122,10 +122,11 @@ end
 function ClassicModule:OnLootOpen()
    if addon.handleLoot then
       local db = addon:Getdb()
+	  ---@type RCLootCouncilML
 	  local ML = addon:GetActiveModule("masterlooter")
       wipe(ML.lootQueue)
       -- Only proceed if we're not in combat, or our settings means we won't be creating any frames.
-      if not InCombatLockdown() or (db.autoStart and db.awardLater and Council.Contains(addon.player) and Council.GetNum() > 0) or db.skipCombatLockdown then
+      if not InCombatLockdown() or (db.autoStart and db.awardLater and Council:Contains(addon.player) and Council.GetNum() > 0) or db.skipCombatLockdown then
          ML:LootOpened()
       else
          addon:Print(L["You can't start a loot session while in combat."])
