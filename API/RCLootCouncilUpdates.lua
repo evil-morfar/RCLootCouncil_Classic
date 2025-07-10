@@ -1,5 +1,6 @@
+---@diagnostic disable: duplicate-set-field
 --- Fixed for retail RCLootCouncil function that doesn't function properly in Classic
----@type RCLootCouncil
+---@class RCLootCouncil
 local addon = select(2, ...)
 ---@type RCLootCouncil_Classic
 local Classic = addon:GetModule("RCClassic")
@@ -83,7 +84,7 @@ end
 
 --- Returns tests items either for Classic or WOTLK depending on current expansion.
 --- @param trinkets? boolean Trinket items?
---- @return int[] items Array of item ids
+--- @return integer[] items Array of item ids
 local function getTestItems(trinkets)
 	if Classic:IsClassicEra() then
 		-- Classic
@@ -134,7 +135,7 @@ function addon:Test(num, fullTest, trinketTest)
 		-- We might not be marked as ML due to certain settings - we ignore those when testing.
 		if UnitIsGroupLeader("player") then
 			self.isMasterLooter = true
-			self.masterLooter = self.playerName
+			self.masterLooter = self.player
 		else
 			self:Print(L.error_test_as_non_leader)
 			self.testMode = false
@@ -215,7 +216,7 @@ function addon:GetML()
 		if mlRaidID then         -- Someone in raid
 			name = self:UnitName("raid" .. mlRaidID)
 		elseif mlPartyID == 0 then -- Player in party
-			name = self.playerName
+			name = self.player
 		elseif mlPartyID then    -- Someone in party
 			name = self:UnitName("party" .. mlPartyID)
 		end
@@ -293,7 +294,7 @@ function addon:StartHandleLoot()
 		-- Do nothing.
 	elseif lootMethod ~= "master" and GetNumGroupMembers() > 0 then
 		self:Print(L["Changing LootMethod to Master Looting"])
-		SetLootMethod("master", self.Ambiguate(self.playerName)) -- activate ML
+		SetLootMethod("master", self.Ambiguate(self.player:GetName()), Enum.ItemQuality.Common)
 	end
 	if db.autoAward and GetLootThreshold() ~= 2 and GetLootThreshold() > db.autoAwardLowerThreshold then
 		self:Print(L["Changing loot threshold to enable Auto Awarding"])
@@ -327,7 +328,7 @@ end
 -- Private helper functions
 ----------------------------------------------
 
---- @param id? int InvSlotId
+--- @param id? integer InvSlotId
 --- @returns True if inventory slot is tabard or shirt
 local function skipInventorySlot(id)
 	return not id or id == INVSLOT_TABARD or id == INVSLOT_BODY

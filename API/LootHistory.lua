@@ -2,8 +2,10 @@
 local addon = select(2, ...)
 ---@class RCLootHistory
 local History = addon:GetModule("RCLootHistory")
----@type ClassicModule
+---@type RCLootCouncil_Classic
 local Classic = addon:GetModule("RCClassic")
+
+local ItemUtils  = addon.Require "Utils.Item"
 
 Classic:SecureHook(History, "OnInitialize", function(self)
     self.exports.biscouncil = {
@@ -26,7 +28,7 @@ function History:ExportBisCouncil()
         for _, d in pairs(v) do
             tinsert(export, tostring(player))
             tinsert(export, GetISODate(strsplit("-", d.id, 2)))
-            tinsert(export, addon:GetItemIDFromLink(d.lootWon))
+            tinsert(export, ItemUtils:GetItemIDFromLink(d.lootWon))
             tinsert(export, tostring(d.response))
             tinsert(export, tostring(d.class))
             tinsert(export, tostring(d.id))

@@ -1,8 +1,8 @@
 ## Author: Potdisc
 ## Interface: 11507, 40402, 50500
-## Notes: RCLootCouncil for WoW Classic v1.0.1
+## Notes: RCLootCouncil for WoW Classic v1.0.2
 ## Title: RCLootCouncil Classic
-## Version: 1.0.1
+## Version: 1.0.2
 ## AllowLoadGameType: classic
 ## X-Curse-Project-ID: 332955
 ## X-Wago-ID: J96ExYNg
@@ -76,7 +76,6 @@ API\RCLootCouncilUpdates.lua
 API\ButtonGroupUpdates.lua
 API\OptionsUpdates.lua
 API\VotingFrameUpdates.lua
-API\SessionFrameUpdates.lua
 API\MLUpdates.lua
 API\LootHistory.lua
 API\VersionCheckUpdates.lua

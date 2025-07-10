@@ -1,3 +1,10 @@
+# v1.0.2
+
+## Bugfixes
+
+- *BisCouncil export didn't survive the update to v3.*
+- *Fixed issue with auto awards bricking the addon.*
+
 # v1.0.1
 
 ## Bugfixes

@@ -25,6 +25,8 @@ jobs:
       - name: Package and Release
         run: bash .scripts/build.sh
   
-  discord-changelog:
-    needs: release
-    uses: ./.github/workflows/discordChangelog.yml
+  # discord-changelog:
+  #   needs: release
+  #   uses: ./.github/workflows/discordChangelog.yml
+  #   secrets: 
+  #     WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}

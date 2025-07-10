@@ -34,3 +34,5 @@ LE_ITEM_WEAPON_UNARMED = Enum.ItemWeaponSubclass.Unarmed
 LE_ITEM_WEAPON_THROWN = Enum.ItemWeaponSubclass.Thrown
 
 GetItemStats = C_Item.GetItemStats
+GetMasterLootCandidate = function() return "Player1-Realm1" end
+GiveMasterLoot = function(slot, i) end

@@ -1,5 +1,5 @@
 -- require "busted.runner" ()
-local Loader = dofile("../.specs/ClassicAddonLoader.lua")
+local Loader = loadfile("../.specs/ClassicAddonLoader.lua")()
 local lfs = require "lfs"
 insulate("RCLootCouncil_Classic", function()
 	
@@ -9,7 +9,7 @@ insulate("RCLootCouncil_Classic", function()
 		-- 	return "Player-1-00000002"
 		-- end)
 
-		print(lfs.currentdir())
+		-- print(lfs.currentdir())
 
 		-- dofile("RCLootCouncil/.specs/AddonLoader.lua").LoadToc("RCLootCouncil_Classic.toc")
 		Loader.LoadToc("../RCLootCouncil_Classic.toc")
