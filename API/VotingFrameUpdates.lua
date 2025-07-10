@@ -1,11 +1,6 @@
 local _, addon = ...
 local VotingFrame = addon:GetModule("RCVotingFrame")
 
-
-function VotingFrame:UpdateLootStatus ()
-   -- Do nothing
-end
-
 -- We don't handle spec icons in classic
 function VotingFrame.SetCellClass(rowFrame, frame, data, cols, row, realrow, column, fShow, table, ...)
    local name = data[realrow].name
