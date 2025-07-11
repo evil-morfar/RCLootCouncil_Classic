@@ -1,3 +1,9 @@
+# v1.0.3
+
+## Bugfixes
+
+- *Reduced voting frame row jumping.*
+
 # v1.0.2
 
 ## Bugfixes
