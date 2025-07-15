@@ -1,3 +1,12 @@
+# v1.0.3
+
+## Bugfixes
+
+- *Reduced voting frame row jumping.*
+- *Switching characters will no longer apply cached state.*
+- *Fixed disenchanter's list not being populated in vanilla versions.*
+- *Removing an item from the session frame mid session now actually removes it, i.e. the voting frame no longer thinks there's still items to award.*
+
 # v1.0.2
 
 ## Bugfixes

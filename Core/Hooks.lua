@@ -2,10 +2,7 @@ local _, addon = ...
 
 ---@class RCLootCouncil_ClassicModule
 local Classic = addon:GetModule("RCClassic")
-local VotingFrame = addon:GetModule("RCVotingFrame")
-local SessionFrame = addon:GetModule("RCSessionFrame")
 local HistoryFrame = addon:GetModule("RCLootHistory")
-local VersionFrame = addon:GetActiveModule("version")
 local hooks = {}
 
 function Classic:DoHooks()
@@ -68,37 +65,3 @@ tinsert(hooks, {
 		addon.classIDToFileName = tInvert(addon.classTagNameToID)
 	end,
 })
-
-
-local rclootcoucnilCoreVersionsToIgnore = {
-	["2.14.0"] = true,
-	["2.15.0"] = true,
-	["2.15.1"] = true,
-	["2.18.1"] = true,
-	["2.18.2"] = true,
-}
-
-tinsert(hooks, {
-	object = VersionFrame,
-	ref = "PrintOutdatedVersionWarning",
-	type = "raw",
-	func = function(self, newVersion, ourVersion)
-		-- Fix issue with pre 0.3.0 that reported it's RCLootCouncil version.
-		-- v0.4.1: Core version was also sent from RCLootCouncil:OnEnable to guild members.
-		if newVersion and not rclootcoucnilCoreVersionsToIgnore[newVersion] then
-			-- Call original
-			Classic.hooks[addon].PrintOutdatedVersionWarning(addon, newVersion, ourVersion)
-		end
-	end,
-})
-
--- Fix for Blizzard screwing up DropDowns when using ML.
--- TODO : Check if this is still needed.
--- tinsert(hooks, {
---    type = "secure",
---    object = _G.MasterLooterFrame,
---    ref = "Hide",
---    func = function(self)
---       self:ClearAllPoints()
---    end
--- })
