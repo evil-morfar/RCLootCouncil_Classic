@@ -216,7 +216,7 @@ function addon:GetML()
 		if mlRaidID then         -- Someone in raid
 			name = self:UnitName("raid" .. mlRaidID)
 		elseif mlPartyID == 0 then -- Player in party
-			name = self.player
+			name = self.player:GetName()
 		elseif mlPartyID then    -- Someone in party
 			name = self:UnitName("party" .. mlPartyID)
 		end
