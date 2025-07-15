@@ -3,6 +3,8 @@
 ## Bugfixes
 
 - *Reduced voting frame row jumping.*
+- *Switching characters will no longer apply cached state.*
+- *Fixed disenchanter's list not being populated in vanilla versions.*
 
 # v1.0.2
 
