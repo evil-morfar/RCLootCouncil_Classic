@@ -317,11 +317,26 @@ function addon:IsItemBoE(item)
 	return select(14, C_Item.GetItemInfo(item)) == Enum.ItemBind.OnEquip
 end
 
-----------------------------------------------
--- Utils
-----------------------------------------------
-function addon.Utils:GetPlayerRole()
-	return "NONE" -- GetRaidRosterInfo returns "NONE"
+if Classic:IsClassicEra() then -- Vanilla has old way of getting professions
+	local enchanting_localized_name = nil
+	function addon:GetPlayerInfo()
+		local enchant, lvl = nil, 0
+		if not enchanting_localized_name then
+			enchanting_localized_name = GetSpellInfo(7411)
+		end
+		for i = 1, GetNumSkillLines() do
+			-- Cycle through all lines under "Skill" tab on char
+			local skillName, _, _, skillRank, _, _, _, _, _, _, _, _, _ = GetSkillLineInfo(i)
+			if skillName == enchanting_localized_name then
+				-- We know enchanting, thus are an enchanter. And will return your lvl.
+				enchant = true
+				lvl = skillRank
+			end
+		end
+		-- GetAverageItemLevel() isn't implemented
+		local ilvl = private.GetAverageItemLevel()
+		return self.Utils:GetPlayerRole(), self.guildRank, enchant, lvl, ilvl, nil                                                                                                      --self.playersData.specID
+	end
 end
 
 ----------------------------------------------
