@@ -1,3 +1,9 @@
+## Changes
+
+### Vanilla
+
+* Weapon auto pass disabled by default.
+
 # v1.0.3
 
 ## Bugfixes

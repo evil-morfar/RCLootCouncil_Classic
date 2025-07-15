@@ -18,6 +18,7 @@ local Player = addon.Require "Data.Player"
 addon.coreEvents["ENCOUNTER_LOOT_RECEIVED"] = nil -- Doens't exist in Classic
 addon.coreEvents["BONUS_ROLL_RESULT"] = nil       -- Doens't exist in Classic
 addon.coreEvents["LOOT_CLOSED"] = nil             -- We have our own
+
 -- Defaults updates:
 -- -- Auto pass disabled:
 addon.defaults.profile.autoPassBoE = false
@@ -33,7 +34,9 @@ addon.defaults.profile.usage = {
 	state = "ask_ml",
 
 }
-
+if Classic:IsClassicEra() then
+	addon.defaults.profile.autoPassWeapons = false
+end
 addon.defaults.profile.autoPassSlot = {
 	["*"] = false,
 }
