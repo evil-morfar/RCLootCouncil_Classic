@@ -1,8 +1,10 @@
+# v1.0.4
+
 ## Changes
 
 ### Vanilla
 
-* Weapon auto pass disabled by default.
+- *Weapon auto pass disabled by default.*
 
 # v1.0.3
 
