@@ -1,3 +1,9 @@
+## Changes
+
+## Bugfixes
+
+- *Warriors no longer autopasses on Bows & Guns in Classic Era versions.*
+
 # v1.0.4
 
 ## Changes
