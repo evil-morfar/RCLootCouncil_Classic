@@ -1,5 +1,9 @@
 ## Changes
 
+### MoP Classic
+
+Re-added option to record bonus loot to the history (enabled by default).
+
 ## Bugfixes
 
 - *Warriors no longer autopasses on Bows & Guns in Classic Era versions.*

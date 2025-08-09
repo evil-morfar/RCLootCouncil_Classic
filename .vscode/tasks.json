@@ -7,7 +7,7 @@
             "label": "Deploy All",
             "dependsOn": [
                 "Deploy Classic",
-                "Deploy TBC",
+                "Deploy Prog",
                 "Deploy"
             ],
             "dependsOrder": "parallel",

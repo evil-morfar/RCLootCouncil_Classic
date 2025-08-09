@@ -1,5 +1,7 @@
 --- Includes all changes to the options menu for Classic
-local _, addon = ...
+--- @type RCLootCouncil
+local addon = select(2, ...)
+---@type RCLootCouncil_Classic
 local RCClassic = addon:GetModule("RCClassic")
 local L = LibStub("AceLocale-3.0"):GetLocale("RCLootCouncil")
 local LC = LibStub("AceLocale-3.0"):GetLocale("RCLootCouncil_Classic")
@@ -59,8 +61,15 @@ function addon:OptionsTable ()
    -- "_G.INSTANCE" isn't available for localization - use our own
    options.args.settings.args.generalSettingsTab.args.lootHistoryOptions.args.deleteRaid.name = LC["Instance"]
 
-   -- Remove "Bonus Rolls" option
-   options.args.mlSettings.args.generalTab.args.lootingOptions.args.saveBonusRolls = nil
+   -- Remove "Bonus Rolls" option (Vanilla only)
+   options.args.mlSettings.args.generalTab.args.lootingOptions.args.saveBonusRolls =
+	RCClassic:IsClassicEra() and nil
+or {
+			-- order = 12,
+			name = LC["opt_saveBonusRolls_Name"],
+			desc = LC["opt_saveBonusRolls_Desc"],
+			type = "toggle"
+		}
 
    -- Custom getter/setter for autoPassSlotOptions.
    -- Will keep the options grouped in `db.autoPassSlot` whilst allowing them to be 
