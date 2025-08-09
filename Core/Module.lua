@@ -65,10 +65,10 @@ end
    addon:GetActiveModule("version").moduleVerCheckDisplayed[self.baseName] = true
 end
 function ClassicModule:LootOpened (...)
-   self.Log:D("LootOpened")
-   addon.lootOpen = true
-
-   if addon.isMasterLooter then
+	addon.lootOpen = true
+	
+	if addon.isMasterLooter then
+		self.Log:D("LootOpened")
       -- Rebuild the items that wasn't registered in "LOOT_READY"
       for i = 1, GetNumLootItems() do
          if (not addon.lootSlotInfo[i] and LootSlotHasItem(i))
@@ -113,8 +113,10 @@ function ClassicModule:LootOpened (...)
 end
 
 function ClassicModule:LootClosed ()
-	self.Log:D("LootClosed")
-   addon.lootOpen = false
+	addon.lootOpen = false
+	if addon.isMasterLooter then
+		self.Log:D("LootClosed")
+	end
 end
 
 -- Retail has a check for 'lootMethod' which isn't feasible.
