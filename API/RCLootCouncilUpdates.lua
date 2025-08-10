@@ -15,11 +15,11 @@ local Player = addon.Require "Data.Player"
 ----------------------------------------------
 -- Core
 ----------------------------------------------
-addon.coreEvents["ENCOUNTER_LOOT_RECEIVED"] = nil -- Doens't exist in Classic
+addon.coreEvents["ENCOUNTER_LOOT_RECEIVED"] = nil -- Doesn't exist in Classic
 addon.coreEvents["LOOT_CLOSED"] = nil             -- We have our own
 
 if not Classic:IsClassicEra() then
-	-- Doens't exist in Classic
+	-- Doesn't exist in Classic
 	-- Was added again in MoP-Classic
 	addon.coreEvents["BONUS_ROLL_RESULT"] = nil
 	addon.defaults.profile.saveBonusRolls = true
@@ -275,9 +275,27 @@ function addon:IsPlayerML()
 end
 
 local orig_NewMLCheck = addon.NewMLCheck
+local mlBugCount = 0
 function addon:NewMLCheck()
 	orig_NewMLCheck(self)
-	if self.handleLoot or not self.isMasterLooter then return end -- Nothing to do
+	if self.handleLoot or not self.isMasterLooter then
+		-- v1.0.4: Apparently this can happen....
+		if self.isMasterLooter and self.masterLooter ~= self.player then
+			Classic.Log:D("NewMLCheck: isMasterLooter but not masterLooter, ML = ", self.masterLooter)
+			mlBugCount = mlBugCount + 1
+			if mlBugCount > 5 then
+				-- For now, just set the ML to the player
+				Classic.Log:W("NewMLCheck: isMasterLooter but not masterLooter, ML = ", self.masterLooter, " - resetting to player")
+				self.masterLooter = self.player
+				return
+			else
+				return addon:ScheduleTimer("NewMLCheck", 1)
+			end
+		end
+		mlBugCount = 0
+		return
+	end
+	mlBugCount = 0
 	local db = self:Getdb()
 	-- Check if we can use in party
 	if not IsInRaid() and db.onlyUseInRaids then return end
