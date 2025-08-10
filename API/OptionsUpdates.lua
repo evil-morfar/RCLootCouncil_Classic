@@ -64,13 +64,14 @@ function addon:OptionsTable()
 
 	-- Remove "Bonus Rolls" option (Vanilla only)
 	options.args.mlSettings.args.generalTab.args.lootingOptions.args.saveBonusRolls =
-	RCClassic:IsClassicEra() and nil
-	or {
+	not RCClassic:IsClassicEra()
+	and {
 			-- order = 12,
 			name = LC["opt_saveBonusRolls_Name"],
 			desc = LC["opt_saveBonusRolls_Desc"],
 			type = "toggle"
 		}
+	or nil
 
 	-- Custom getter/setter for autoPassSlotOptions.
 	-- Will keep the options grouped in `db.autoPassSlot` whilst allowing them to be

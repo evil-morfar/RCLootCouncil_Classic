@@ -18,10 +18,11 @@ local Player = addon.Require "Data.Player"
 addon.coreEvents["ENCOUNTER_LOOT_RECEIVED"] = nil -- Doesn't exist in Classic
 addon.coreEvents["LOOT_CLOSED"] = nil             -- We have our own
 
-if not Classic:IsClassicEra() then
+if Classic:IsClassicEra() then
 	-- Doesn't exist in Classic
-	-- Was added again in MoP-Classic
 	addon.coreEvents["BONUS_ROLL_RESULT"] = nil
+else
+	-- Was added again in MoP-Classic
 	addon.defaults.profile.saveBonusRolls = true
 end
 -- Defaults updates:
