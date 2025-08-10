@@ -6,7 +6,7 @@ Re-added option to record bonus loot to the history (enabled by default).
 
 ## Bugfixes
 
-- *Warriors no longer autopasses on Bows & Guns in Classic Era versions.*
+- *Warriors no longer autopasses on Crossbows, Bows & Guns in Classic Era versions.*
 
 # v1.0.4
 

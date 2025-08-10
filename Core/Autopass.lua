@@ -25,6 +25,7 @@ if Classic:IsClassicEra() then
 		"WARLOCK", }
 	AutoPass.autopassTable[Enum.ItemClass.Weapon][Enum.ItemWeaponSubclass.Guns] = { "DEATHKNIGHT", "PALADIN", "DRUID", "MONK", "SHAMAN", "PRIEST",	"MAGE", "WARLOCK", }
 	AutoPass.autopassTable[Enum.ItemClass.Weapon][Enum.ItemWeaponSubclass.Bows] = { "DEATHKNIGHT", "PALADIN", "DRUID", "MONK", "SHAMAN", "PRIEST",	"MAGE", "WARLOCK", }
+	AutoPass.autopassTable[Enum.ItemClass.Weapon][Enum.ItemWeaponSubclass.Crossbow] = { "DEATHKNIGHT", "PALADIN", "DRUID", "MONK", "SHAMAN", "PRIEST",	"MAGE", "WARLOCK", }
 end
 
 addon:RawHook(AutoPass, "AutoPassCheck",
