@@ -48,11 +48,6 @@ function ClassicModule:OnEnable ()
    if self:IsClassicEra() or WOW_PROJECT_ID == WOW_PROJECT_CATACLYSM_CLASSIC then
 	local vf = addon:GetActiveModule("votingframe")
 	vf:RemoveColumn("role")
-	-- VF might already have been created
-	if vf.frame then
-		vf.frame = nil
-		vf.frame = vf:GetFrame()
-	end
 end
 
    self:UpdateBlacklist()
