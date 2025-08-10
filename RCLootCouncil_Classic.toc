@@ -56,7 +56,8 @@ RCLootCouncil\Modules\Modules.xml
 
 RCLootCouncil\Utils\BackwardsCompat.lua
 RCLootCouncil\Utils\Utils.lua
-RCLootCouncil\Utils\trinketData.lua
+RCLootCouncil\Utils\Dump.lua
+RCLootCouncil\Utils\EncounterJournalData.lua
 RCLootCouncil\Utils\tokenData.lua
 RCLootCouncil\Utils\ItemStorage.lua
 RCLootCouncil\Utils\transmog.lua
