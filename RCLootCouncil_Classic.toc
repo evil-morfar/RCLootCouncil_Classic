@@ -1,8 +1,8 @@
 ## Author: Potdisc
 ## Interface: 11507, 40402, 50500
-## Notes: RCLootCouncil for WoW Classic v1.0.4
+## Notes: RCLootCouncil for WoW Classic v1.1.0
 ## Title: RCLootCouncil Classic
-## Version: 1.0.4
+## Version: 1.1.0
 ## AllowLoadGameType: classic
 ## X-Curse-Project-ID: 332955
 ## X-Wago-ID: J96ExYNg
@@ -56,7 +56,8 @@ RCLootCouncil\Modules\Modules.xml
 
 RCLootCouncil\Utils\BackwardsCompat.lua
 RCLootCouncil\Utils\Utils.lua
-RCLootCouncil\Utils\trinketData.lua
+RCLootCouncil\Utils\Dump.lua
+RCLootCouncil\Utils\EncounterJournalData.lua
 RCLootCouncil\Utils\tokenData.lua
 RCLootCouncil\Utils\ItemStorage.lua
 RCLootCouncil\Utils\transmog.lua

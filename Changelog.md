@@ -1,3 +1,32 @@
+# v1.1.0
+
+## Changes
+
+### RCLootCouncil Updates
+
+#### Announce awards
+
+Added option to whisper the winner when announcing awards.
+
+#### Chat Commands
+
+Added `/rc sv` for exporting the addons raw saved variables ingame.
+
+- `sv` can be replaced with `saved`/`savedvariables`.
+- `/rc sv history` (or `his`) to also add the loot history to the export.
+- `/rc sv history only` to only export the history. *Note: this format cannot be reimported!* .
+
+### MoP Classic
+
+Re-added option to record bonus loot to the history (enabled by default).
+
+## Bugfixes
+
+- *Warriors no longer autopasses on Crossbows, Bows & Guns in Classic Era versions.*
+- *Most specific button group is now again chosen.*
+- *Added warning when enabling AutoLoot without setting recipients.*
+- *Fixed issue with the addon not always disabling properly when leaving a group.*
+
 # v1.0.4
 
 ## Changes
