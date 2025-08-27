@@ -10,7 +10,7 @@ local MLModule = addon:GetActiveModule("masterlooter")
 insulate("#Classic #MasterLooter #AutoAward", function()
 	addon.isMasterLooter = true
 	addon.handleLoot = true
-	addon.lootMethod = "master"
+	addon.lootMethod = Enum.LootMethod.Masterlooter
 	_G.IsInGroupVal = true
 	_G.BACKPACK_CONTAINER = 1
 	_G.GetLootThreshold = function() return 2 end
