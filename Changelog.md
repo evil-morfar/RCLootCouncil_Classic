@@ -1,3 +1,12 @@
+# 1.1.1
+
+## Bugfixes
+
+- *Fixed issue with the usage pop-up not working when changing group leaders.*
+- *Fixed caching issue that deleted things such as guild ranks causing them to show up inconsistently.*
+- *Trade time remaining show now be more accurate.*
+
+
 # v1.1.0
 
 ## Changes
