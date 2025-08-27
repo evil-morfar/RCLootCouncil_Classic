@@ -100,7 +100,7 @@ function MLModule:AutoAward(lootIndex, item, quality, name, mode, boss, owner)
 	Classic.Log:D("AutoAward", lootIndex, item, quality, name, mode, boss, owner)
 	local db = addon:Getdb()
 	-- Special case for group loot:
-	if addon.lootMethod == "group" then
+	if addon.lootMethod == Enum.LootMethod.Group then
 		local reason = mode == "boe" and db.autoAwardBoEReason
 			or mode == "rep_item" and db.autoAwardRepItemsReason
 			or db.autoAwardReason
@@ -159,7 +159,7 @@ function MLModule:LootOpened()
 					if autoAward and quantity > 0 then
 						self:AutoAward(i, item, quality, winner, mode, addon.bossName)
 					elseif item and self:CanWeLootItem(item, quality) and quantity > 0 then -- check if our options allows us to loot it
-						if addon.lootMethod == "master" then
+						if addon.lootMethod == Enum.LootMethod.Masterlooter then
 							self:AddItem(item, nil, i)
 						else
 							self:AddUserItem(item) -- No owner, not in bags
@@ -219,7 +219,7 @@ function MLModule:LootOnClick(button)
 			return
 		end
 	end
-	if addon.lootMethod == "master" then
+	if addon.lootMethod == Enum.LootMethod.Masterlooter then
 		self:AddItem(GetLootSlotLink(button.slot), nil, button.slot)
 		addon:CallModule("sessionframe")
 		addon:GetActiveModule("sessionframe"):Show(self.lootTable)

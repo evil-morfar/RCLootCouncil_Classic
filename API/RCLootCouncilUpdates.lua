@@ -210,7 +210,7 @@ end
 
 function addon:GetML()
 	Classic.Log:D("GetML()")
-	local lootMethod, mlPartyID, mlRaidID = GetLootMethod()
+	local lootMethod, mlPartyID, mlRaidID = self:GetLootMethod()
 	Classic.Log:D("LootMethod = ", lootMethod)
 
 	if GetNumGroupMembers() == 0 and (self.testMode or self.nnp) then -- always the player when testing alone
@@ -219,7 +219,7 @@ function addon:GetML()
 	end
 
 	-- Otherwise figure it out based on loot method:
-	if lootMethod == "master" then
+	if lootMethod == Enum.LootMethod.Masterlooter then
 		local name;
 		if mlRaidID then         -- Someone in raid
 			name = self:UnitName("raid" .. mlRaidID)
@@ -251,7 +251,7 @@ function addon:GetML()
 end
 
 function addon:IsPlayerML()
-	local lootMethod = GetLootMethod()
+	local lootMethod = self:GetLootMethod()
 	-- Can't be ML in pvp
 	local _, type = IsInInstance()
 	if type == "arena" or type == "pvp" then
@@ -267,7 +267,7 @@ function addon:IsPlayerML()
 		Classic.Log:D("Not in raid group")
 		return false
 		-- Are we even allowed to use group loot?
-	elseif lootMethod == "group" and not db.useWithGroupLoot then
+	elseif lootMethod == Enum.LootMethod.Masterlooter and not db.useWithGroupLoot then
 		Classic.Log:D("useWithGroupLoot == false")
 		return false
 	end
@@ -304,7 +304,7 @@ function addon:NewMLCheck()
 	if type == "arena" or type == "pvp" then return end
 
 	-- We're the ML and not handling loot, check for the loot methods handled in classic
-	if self.lootMethod == "group" and db.useWithGroupLoot or self.lootMethod == "master" then
+	if self.lootMethod == Enum.LootMethod.Group and db.useWithGroupLoot or self.lootMethod == Enum.LootMethod.Masterlooter then
 		if db.usage.ask_leader or db.usage.ask_ml then
 			LibDialog:Spawn("RCLOOTCOUNCIL_CONFIRM_USAGE")
 		elseif db.usage.ml or db.usage.leader then
@@ -315,10 +315,10 @@ end
 
 function addon:StartHandleLoot()
 	local db = self:Getdb()
-	local lootMethod = GetLootMethod()
-	if lootMethod == "group" and db.useWithGroupLoot then -- luacheck: ignore
+	local lootMethod = self:GetLootMethod()
+	if lootMethod == Enum.LootMethod.Group and db.useWithGroupLoot then -- luacheck: ignore
 		-- Do nothing.
-	elseif lootMethod ~= "master" and GetNumGroupMembers() > 0 then
+	elseif lootMethod ~= Enum.LootMethod.Masterlooter and GetNumGroupMembers() > 0 then
 		self:Print(L["Changing LootMethod to Master Looting"])
 		SetLootMethod("master", self.Ambiguate(self.player:GetName()), Enum.ItemQuality.Common)
 	end
