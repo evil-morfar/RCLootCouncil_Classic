@@ -1,3 +1,9 @@
+# 1.1.2
+
+## Bugfixes
+
+- *Fixed issue from v1.1.1 preventing the ML to enable the addon.*
+
 # 1.1.1
 
 ## Bugfixes
