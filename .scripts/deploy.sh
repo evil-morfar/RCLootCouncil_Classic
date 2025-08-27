@@ -62,7 +62,7 @@ DEST="$WOW_LOCATION$WOWEDITION/Interface/AddOns/$ADDON"
 
 # Deploy:
 # cp "$ADDON_LOC" "$DEST" -ruv
-robocopy "$ADDON_LOC" "$DEST" //s //purge //XD .* __*  //XF ?.* __*
+robocopy "$ADDON_LOC" "$DEST" //s //purge //XD .* __*  //XF ?.* __* //NFL //NDL //NJH
 
 # Do file replacements
 . "./.scripts/replace.sh" "$DEST"

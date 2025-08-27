@@ -26,18 +26,12 @@
         {
             "label": "Deploy Classic",
             "type": "shell",
-            "command": "sh .scripts/deploy.sh",
-            "args": [
-                "-c"
-            ],
+            "command": "sh .scripts/deploy.sh -c",
         },
         {
             "label": "Deploy Prog",
             "type": "shell",
-            "command": "sh .scripts/deploy.sh",
-            "args": [
-                "-b"
-            ],
+            "command": "sh .scripts/deploy.sh -b",
         },
         {
             "label": "Deploy",
@@ -47,10 +41,7 @@
         {
             "label": "Deploy PTR",
             "type": "shell",
-            "command": "sh .scripts/deploy.sh",
-            "args": [
-                "-p"
-            ],
+            "command": "sh .scripts/deploy.sh -p",
             "group": "build"
         },
         {
