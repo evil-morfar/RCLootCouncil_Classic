@@ -267,7 +267,7 @@ function addon:IsPlayerML()
 		Classic.Log:D("Not in raid group")
 		return false
 		-- Are we even allowed to use group loot?
-	elseif lootMethod == Enum.LootMethod.Masterlooter and not db.useWithGroupLoot then
+	elseif lootMethod == Enum.LootMethod.Group and not db.useWithGroupLoot then
 		Classic.Log:D("useWithGroupLoot == false")
 		return false
 	end
