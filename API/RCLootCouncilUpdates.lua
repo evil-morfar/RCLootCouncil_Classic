@@ -229,7 +229,12 @@ function addon:GetML()
 			name = self:UnitName("party" .. mlPartyID)
 		end
 		Classic.Log:D("MasterLooter = ", name)
-		return IsMasterLooter() and self:IsPlayerML(), Player:Get(name)
+		local isML = IsMasterLooter() and self:IsPlayerML()
+		if isML and not self:UnitIsUnit("player", name) then
+			Classic.Log:W("GetML: isMasterLooter but not masterLooter, ML = ", name)
+			name = self.player.name
+		end
+		return isML, Player:Get(name)
 	else
 		-- Set the Group leader as the ML
 		local name
@@ -304,7 +309,8 @@ function addon:NewMLCheck()
 	if type == "arena" or type == "pvp" then return end
 
 	-- We're the ML and not handling loot, check for the loot methods handled in classic
-	if self.lootMethod == Enum.LootMethod.Group and db.useWithGroupLoot or self.lootMethod == Enum.LootMethod.Masterlooter then
+	if (self.lootMethod == Enum.LootMethod.Group and db.useWithGroupLoot and UnitIsGroupLeader("player"))
+	or (self.lootMethod == Enum.LootMethod.Masterlooter and self.isMasterLooter) then
 		if db.usage.ask_leader or db.usage.ask_ml then
 			LibDialog:Spawn("RCLOOTCOUNCIL_CONFIRM_USAGE")
 		elseif db.usage.ml or db.usage.leader then
