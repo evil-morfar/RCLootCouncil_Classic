@@ -1,3 +1,7 @@
+## Bugfixes
+
+- *Hopefully fixed changing group leader invalidading the registered ML.*
+
 # 1.1.3
 
 ## Bugfixes

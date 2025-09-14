@@ -229,7 +229,12 @@ function addon:GetML()
 			name = self:UnitName("party" .. mlPartyID)
 		end
 		Classic.Log:D("MasterLooter = ", name)
-		return IsMasterLooter() and self:IsPlayerML(), Player:Get(name)
+		local isML = IsMasterLooter() and self:IsPlayerML()
+		if isML and not self:UnitIsUnit("player", name) then
+			Classic.Log:W("GetML: isMasterLooter but not masterLooter, ML = ", name)
+			name = self.player.name
+		end
+		return isML, Player:Get(name)
 	else
 		-- Set the Group leader as the ML
 		local name
