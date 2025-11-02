@@ -158,7 +158,8 @@
         "CALENDAR_STATUS_SIGNEDUP",
         "CALENDAR_STATUS_NOT_SIGNEDUP",
         "CALENDAR_STATUS_TENTATIVE",
-        "CLOSE"
+        "CLOSE",
+        "ADDONS"
     ],
     "Lua.diagnostics.disable": [
         "assign-type-mismatch"
