@@ -1,3 +1,15 @@
+# 1.2.0
+
+## TBC Anniversary
+
+Now shows up correctly for the new TBC version.
+
+## Changes
+
+### Loot History Export
+
+The selected export option now defaults to the last selected option.
+
 # 1.1.5
 
 ## Bugfixes
