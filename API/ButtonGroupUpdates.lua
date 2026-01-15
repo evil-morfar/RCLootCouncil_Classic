@@ -5,6 +5,7 @@ local LC = LibStub("AceLocale-3.0"):GetLocale("RCLootCouncil_Classic")
 addon.OPT_MORE_BUTTONS_VALUES.CATALYST = nil
 addon.OPT_MORE_BUTTONS_VALUES.SPECIAL = nil
 addon.OPT_MORE_BUTTONS_VALUES.RARE = nil
+addon.OPT_MORE_BUTTONS_VALUES.DECOR = nil
 
 -- Add "Set Pieces" as a group
 addon.OPT_MORE_BUTTONS_VALUES.SETS = LC["Set Pieces"]

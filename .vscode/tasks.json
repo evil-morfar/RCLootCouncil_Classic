@@ -8,7 +8,8 @@
             "dependsOn": [
                 "Deploy Classic",
                 "Deploy Prog",
-                "Deploy"
+                "Deploy",
+                "Deploy Anniversary"
             ],
             "dependsOrder": "parallel",
             "problemMatcher": []
@@ -27,6 +28,11 @@
             "label": "Deploy Classic",
             "type": "shell",
             "command": "sh .scripts/deploy.sh -c",
+        },
+        {
+            "label": "Deploy Anniversary",
+            "type": "shell",
+            "command": "sh .scripts/deploy.sh -a",
         },
         {
             "label": "Deploy Prog",
