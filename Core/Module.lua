@@ -22,9 +22,10 @@ function ClassicModule:OnEnable ()
    self.Log:D("ClassicModule enabled", self.version, self.tVersion)
 
    -- Store RCLootCouncil Variables
-   self.RCLootCouncil = {}
-   self.RCLootCouncil.version = addon.version
-   self.RCLootCouncil.tVersion = addon.tVersion
+   self.RCLootCouncil = {
+	  version = addon.version,
+	  tVersion = addon.tVersion,
+   }
    addon.version = self.version
    addon.tVersion = self.tVersion or addon.tVersion -- Use our test version to benefit from test code
    addon.debug = self.debug
