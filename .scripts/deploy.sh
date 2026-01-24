@@ -11,12 +11,12 @@ echo "Executing $0" >&2
 
 # Process command-line options
 usage() {
-	echo "Usage: test.sh [-cbdzxp]" >&2
+	echo "Usage: test.sh [-abcdzxp]" >&2
 	echo "  -a               Pack to _anniversary_ WoW edition. (TBC)" >&2
-	echo "  -b               Pack to _classic_ WoW edition. (Cataclysm)" >&2
-	echo "  -c               Pack to _claassic_era_ WoW edition. (Classic)" >&2
+	echo "  -b               Pack to _classic_ WoW edition. (Prog)" >&2
+	echo "  -c               Pack to _classic_era_ WoW edition. (Classic)" >&2
 	echo "  -d               Pack to _classic_beta_ WoW edition." >&2
-	echo "  -z               Pack to _classic_ptr_ WoW edition. (Cataclysm PTR)" >&2
+	echo "  -z               Pack to _classic_ptr_ WoW edition. (Prog PTR)" >&2
 	echo "  -x               Pack to _classic_era_ptr_ WoW edition. (Classic PTR)" >&2
 	echo "  -p               Pack to _ptr_ WoW edition." >&2
 }

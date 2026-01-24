@@ -45,7 +45,7 @@ function ClassicModule:OnEnable ()
    addon:InitClassIDs()
 
    -- Remove "role" column (Pre Mists and Classic only)
-   if self:IsPreMists()() then
+   if self:IsPreMists() then
 	local vf = addon:GetActiveModule("votingframe")
 	vf:RemoveColumn("role")
 end

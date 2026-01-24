@@ -43,6 +43,7 @@ RCLootCouncil\Classes\Utils\GroupLoot.lua
 RCLootCouncil\Classes\Data\Player.lua
 RCLootCouncil\Classes\Data\Council.lua
 
+API\CommsRestrictions.lua
 RCLootCouncil\Classes\Services\Comms.lua
 RCLootCouncil\Classes\Data\MLDB.lua
 
