@@ -57,6 +57,9 @@ function addon:OptionsTable()
 	-- Remove "Spec Icon" as there's no clear definition of a spec (Pre Cata)
 	if RCClassic:IsPreCata() then
 		options.args.settings.args.generalSettingsTab.args.frameOptions.args.showSpecIcon = nil
+		-- and transmog options (added in Cata)
+		options.args.settings.args.generalSettingsTab.args.responseOptions.args.autoPassTransmog = nil
+		options.args.settings.args.generalSettingsTab.args.responseOptions.args.autoPassTransmogSource = nil
 	end
 
 	-- "_G.INSTANCE" isn't available for localization - use our own

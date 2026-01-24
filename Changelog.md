@@ -1,5 +1,11 @@
 # 1.2.1
 
+## Changes
+
+### Classic Era and TBC
+
+Removed transmog options for these versions as transmog doesn't exist.
+
 ## Bugfixes
 
 - *Fixed Auto Passing in TBC Anniversary - now uses the same rules as in Classic.*

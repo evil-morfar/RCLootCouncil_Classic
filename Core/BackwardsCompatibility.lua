@@ -38,6 +38,16 @@ end
 --    func:    The function to execute if the version predicate is met. Called with the following parameters:
 --             (addon, addon.version, addon.db.global.version, addon.db.global.oldVersion)
 Compat.list = {
+	{
+		name = "Remove transmog options pre Cata",
+		version = "1.2.1",
+		func = function()
+			if Classic:IsPreCata() then
+				addon.db.profile.autoPassTransmog = addon.defaults.profile.autoPassTransmog
+				addon.db.profile.autoPassTransmogSource = addon.defaults.profile.autoPassTransmogSource
+			end
+		end,
+	},
     {
         name = "History Color fix",
         version = "0.22.4",
