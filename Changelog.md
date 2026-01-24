@@ -6,9 +6,9 @@
 
 Clarified Auto Pass option description.
 
-### Classic Era and TBC
+### Classic Era and TBC Anniversary
 
-Added new option for "Classic Auto Pass" - a special version that only auto passes on items you *cannot* equip as opposed to the normal *cannot or should not* rule.
+Added new option for "Classic Auto Pass" - a special version that only auto passes on items you *cannot* equip as opposed to the default *cannot or should not*.
 
 Removed transmog options for these versions as transmog doesn't exist.
 
