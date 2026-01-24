@@ -1,3 +1,10 @@
+# 1.2.1
+
+## Bugfixes
+
+- *Fixed Auto Passing in TBC Anniversary - now uses the same rules as in Classic.*
+- *Fixed various other Classic only problems that wasn't effective in TBC Anniversary.*
+
 # 1.2.0
 
 ## TBC Anniversary

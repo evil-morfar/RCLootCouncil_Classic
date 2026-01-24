@@ -18,7 +18,7 @@ local Player = addon.Require "Data.Player"
 addon.coreEvents["ENCOUNTER_LOOT_RECEIVED"] = nil -- Doesn't exist in Classic
 addon.coreEvents["LOOT_CLOSED"] = nil             -- We have our own
 
-if Classic:IsClassicEra() then
+if Classic:IsPreMists() then
 	-- Doesn't exist in Classic
 	addon.coreEvents["BONUS_ROLL_RESULT"] = nil
 else
@@ -40,7 +40,7 @@ addon.defaults.profile.usage = {
 	state = "ask_ml",
 
 }
-if Classic:IsClassicEra() then
+if Classic:IsPreWrath() then
 	addon.defaults.profile.autoPassWeapons = false
 end
 addon.defaults.profile.autoPassSlot = {
@@ -61,8 +61,8 @@ addon.defaults.profile.alwaysAutoAwardItems = {}
 
 addon.defaults.profile.useWithGroupLoot = false
 
--- Some Main Hand weapons are "Ranged" in Classic
-if Classic:IsClassicEra() or WOW_PROJECT_ID == WOW_PROJECT_CATACLYSM_CLASSIC then
+-- Some Main Hand weapons are "Ranged" in Classic-Mists
+if Classic:IsPreMists() then
 	addon.INVTYPE_Slots.INVTYPE_RANGED = "RangedSlot"
 	addon.INVTYPE_Slots.INVTYPE_RANGEDRIGHT = "RangedSlot"
 	addon.INVTYPE_Slots.INVTYPE_THROWN = "RangedSlot"
@@ -94,7 +94,7 @@ end
 --- @param trinkets? boolean Trinket items?
 --- @return integer[] items Array of item ids
 local function getTestItems(trinkets)
-	if Classic:IsClassicEra() then
+	if Classic:IsPreWrath() then
 		-- Classic
 		return trinkets
 			and { 19406, 17064, 18820, 19395, 19289, }

@@ -45,7 +45,7 @@ function ClassicModule:OnEnable ()
    addon:InitClassIDs()
 
    -- Remove "role" column (Pre Mists and Classic only)
-   if self:IsClassicEra() or WOW_PROJECT_ID == WOW_PROJECT_CATACLYSM_CLASSIC then
+   if self:IsPreMists()() then
 	local vf = addon:GetActiveModule("votingframe")
 	vf:RemoveColumn("role")
 end
@@ -154,5 +154,17 @@ function ClassicModule:IsClassicEra()
 end
 
 function ClassicModule:IsSeasonOfDiscovery()
-   return self:IsClassicEra() and C_Seasons.GetActiveSeason() == Enum.SeasonID.SeasonOfDiscovery
+	return self:IsPreWrath() and C_Seasons.GetActiveSeason() == Enum.SeasonID.SeasonOfDiscovery
+end
+
+function ClassicModule:IsPreWrath()
+	return LE_EXPANSION_LEVEL_CURRENT < LE_EXPANSION_WRATH_OF_THE_LICH_KING
+end
+
+function ClassicModule:IsPreCata()
+	return LE_EXPANSION_LEVEL_CURRENT < LE_EXPANSION_CATACLYSM
+end
+
+function ClassicModule:IsPreMists()
+	return LE_EXPANSION_LEVEL_CURRENT < LE_EXPANSION_MISTS_OF_PANDARIA
 end

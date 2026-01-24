@@ -55,23 +55,23 @@ function addon:OptionsTable()
 	options.args.mlSettings.args.generalTab.args.lootingOptions.args.rejectTrade = nil
 
 	-- Remove "Spec Icon" as there's no clear definition of a spec (Pre Cata)
-	if RCClassic:IsClassicEra() or WOW_PROJECT_ID == WOW_PROJECT_CATACLYSM_CLASSIC then
+	if RCClassic:IsPreCata() then
 		options.args.settings.args.generalSettingsTab.args.frameOptions.args.showSpecIcon = nil
 	end
 
 	-- "_G.INSTANCE" isn't available for localization - use our own
 	options.args.settings.args.generalSettingsTab.args.lootHistoryOptions.args.deleteRaid.name = LC["Instance"]
 
-	-- Remove "Bonus Rolls" option (Vanilla only)
+	-- Add bonus rolls (Mists - BFA)
 	options.args.mlSettings.args.generalTab.args.lootingOptions.args.saveBonusRolls =
-	not RCClassic:IsClassicEra()
-	and {
+	RCClassic:IsPreMists()
+	and nil
+	or {
 			-- order = 12,
 			name = LC["opt_saveBonusRolls_Name"],
 			desc = LC["opt_saveBonusRolls_Desc"],
 			type = "toggle"
 		}
-	or nil
 
 	-- Custom getter/setter for autoPassSlotOptions.
 	-- Will keep the options grouped in `db.autoPassSlot` whilst allowing them to be

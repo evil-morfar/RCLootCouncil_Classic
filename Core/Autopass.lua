@@ -5,7 +5,7 @@ local _,addon = ...
 local Classic = addon:GetModule("RCClassic")
 local AutoPass = addon.AutoPass
 
-if Classic:IsClassicEra() then
+if Classic:IsPreWrath() then
 	-- Druids pass on polearms in Classic, but not WotLK (or SoD)
 	if Classic:IsSeasonOfDiscovery() then
 		AutoPass.autopassTable[Enum.ItemClass.Weapon][Enum.ItemWeaponSubclass.Polearm] = { "ROGUE", "SHAMAN", "PRIEST", "MAGE",
