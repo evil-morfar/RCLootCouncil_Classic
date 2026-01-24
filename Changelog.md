@@ -6,6 +6,10 @@
 
 Removed transmog options for these versions as transmog doesn't exist.
 
+### Mists Classic
+
+Removed "Auto Award Reputation Items" options as it has no effect.
+
 ## Bugfixes
 
 - *Fixed Auto Passing in TBC Anniversary - now uses the same rules as in Classic.*
