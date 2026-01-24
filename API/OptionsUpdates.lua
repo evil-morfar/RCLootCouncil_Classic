@@ -60,6 +60,14 @@ function addon:OptionsTable()
 		-- and transmog options (added in Cata)
 		options.args.settings.args.generalSettingsTab.args.responseOptions.args.autoPassTransmog = nil
 		options.args.settings.args.generalSettingsTab.args.responseOptions.args.autoPassTransmogSource = nil
+
+		-- "Classic" auto pass options for auto passing items your class cannot use only (Vanilla/TBC)
+		options.args.settings.args.generalSettingsTab.args.responseOptions.args.classicAutoPass = {
+			order = 1.5,
+			name = LC.opt_classicAutoPass_name,
+			desc = LC.opt_classicAutoPass_desc,
+			type = "toggle",
+		}
 	end
 
 	-- "_G.INSTANCE" isn't available for localization - use our own

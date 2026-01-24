@@ -20,6 +20,8 @@ L["opt_autoAwardRepItemsMode_roundrobin"] = "Round Robin"
 
 L["opt_autoAwardRepItems_desc"] = "Enables auto awarding of rep items such as Coins and Bijous in Zul'Gurub."
 L["opt_autoAwardRepItemsMode_desc"] = "Choose the mode to award rep items. Personal works like normal auto awards, and round robin evenly distributes items to all players."
+L.opt_classicAutoPass_name = "Classic Auto Pass"
+L.opt_classicAutoPass_desc = "Check to enable autopassing of items your class cannot use, as opposed to *should not* use."
 L["opt_groupLoot_desc"] = "Enable this to have RCLootCouncil work with group loot when you're the group leader."
 L["opt_groupLoot_name"] = "Use with Group Loot"
 L["opt_saveBonusRolls_Desc"] = "Check to save all bonus rolls from candidates to the Loot History."
@@ -35,3 +37,4 @@ L.ALWAYS_AUTO_AWARD_OPTION_INPUT_DESC = "Enter the link, name or id of the item 
 L.ALWAYS_AUTO_AWARD_OPTION_LIST = "Always auto award list"
 L.ALWAYS_AUTO_AWARD_OPTION_LIST_DESC = "Items that are always auto awarded. Click to remove an item."
 L.ALWAYS_AUTO_AWARD_OPTION_LIST_NONE = "No items in list."
+
