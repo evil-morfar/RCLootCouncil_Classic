@@ -16,7 +16,13 @@ local ItemUtils = addon.Require "Utils.Item"
 function Compat:Run()
     for k, v in ipairs(self.list) do
         if v.version == "always"
-            or (addon:VersionCompare(addon.db.global.Classic_version, v.version) or not addon.db.global.Classic_version)
+			or ((v.tVersion
+					and addon.Utils:CheckOutdatedVersion(addon.db.global.Classic_version, v.version,
+						addon.db.global.tVersion, v.tVersion)
+					== addon.VER_CHECK_CODES[3])
+				or (addon.Utils:CheckOutdatedVersion(addon.db.global.Classic_version, v.version,
+						addon.db.global.tVersion, v.tVersion)
+					== addon.VER_CHECK_CODES[2] or not addon.db.global.Classic_version))
             and not v.executed then
             Classic.Log:D("<ClassicCompat>", "Executing:", k, v.name or "no_name")
             local check, err = pcall(v.func, addon, Classic.version, addon.db.global.Classic_version,
