@@ -1,3 +1,13 @@
+# 1.2.2
+
+## Changes
+
+Other Auto Pass options are now disabled when auto passing is.
+
+## Bugfixes
+
+- *Fixed issue with `Classic Auto Pass` breaking all auto passing.*
+
 # 1.2.1
 
 ## Changes
