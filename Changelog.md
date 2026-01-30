@@ -1,3 +1,9 @@
+# 1.2.3
+
+## Bugfixes
+
+- *Fixed error introduced in last update.*
+
 # 1.2.2
 
 ## Changes
