@@ -44,7 +44,7 @@ addon:RawHook(AutoPass, "AutoPassCheck",
 		if db.autoPassSlot[equipLoc] then return true end
 
 		-- Use special "Classic" autopass that only autopasses items your class cannot use (Vanilla/TBC)
-		if db.classicAutoPass then
+		if db.classicAutoPass and (typeID == Enum.ItemClass.Weapon or typeID == Enum.ItemClass.Armor) then
 			local typeName = C_Item.GetItemSubClassInfo(typeID, subTypeID)
 			if not C_Item.IsEquippedItemType(typeName) then
 				return true

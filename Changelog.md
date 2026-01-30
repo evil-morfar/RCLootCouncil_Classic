@@ -1,3 +1,9 @@
+# 1.2.2
+
+## Bugfixes
+
+- *Fixed issue with `Classic Auto Pass` breaking all auto passing.*
+
 # 1.2.1
 
 ## Changes
