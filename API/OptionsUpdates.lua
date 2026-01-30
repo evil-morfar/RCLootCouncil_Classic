@@ -67,6 +67,7 @@ function addon:OptionsTable()
 			name = LC.opt_classicAutoPass_name,
 			desc = LC.opt_classicAutoPass_desc,
 			type = "toggle",
+			disabled = function () return not addon.db.profile.autoPass end,
 		}
 	end
 
