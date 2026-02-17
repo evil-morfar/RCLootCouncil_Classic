@@ -1,3 +1,7 @@
+### Bugfixes
+
+- *Fixed spec icon not showing properly when enabled (Mists+).*
+
 # 1.2.3
 
 ## Bugfixes

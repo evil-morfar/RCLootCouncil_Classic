@@ -82,9 +82,9 @@ end
 
 function addon:UpdatePlayersData()
 	Classic.Log:D("UpdatePlayersData()")
-	-- GetSpecialization doesn't exist, and there's no real need for it in classic
-	--playersData.specID = GetSpecialization() and GetSpecializationInfo(GetSpecialization())
-	self.playersData.specID = 0
+	-- GetSpecialization doesn't exist pre mists
+	self.playersData.specID = C_SpecializationInfo.GetSpecialization and (C_SpecializationInfo.GetSpecializationInfo(
+	C_SpecializationInfo.GetSpecialization())) or 0
 	self.playersData.ilvl = private.GetAverageItemLevel()
 
 	self:UpdatePlayersGears()
