@@ -1,0 +1,21 @@
+name: Discord Release Notification
+
+on:
+  workflow_run:
+    workflows: ["Release"]
+    types:
+      - completed
+  workflow_dispatch:
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone project
+        uses: actions/checkout@v3
+
+      - name: Send Discord notification
+        run: |
+          REPO=${{ github.repository }} \
+          DISCORD_WEBHOOK=${{ secrets.DISCORD_CHANGELOG_WEBHOOK_URL }} \
+          bash ./.scripts/send_discord_release.sh Changelog.md
