@@ -1,3 +1,5 @@
+# 1.3.0
+
 ### Bugfixes
 
 - *Fixed spec icon not showing properly when enabled (Mists+).*
@@ -5,6 +7,7 @@
 - *Fixed automatically changing to Master Loot being broken.*
 - *Fixed issue in version checker causing guild members to show up multiple times.*
 - *Fixed issues storing instance data for the history.*
+- *Fixed Session Frame item sorting.*
 
 # 1.2.3
 
