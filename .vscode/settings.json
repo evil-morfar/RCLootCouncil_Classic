@@ -210,7 +210,12 @@
         "MenuVariants",
         "GameFontDisableSmall",
         "GameFontNormalSmall",
-        "SetDesaturation"
+        "SetDesaturation",
+        "BN_TOAST_NEW_INVITE",
+        "BN_TOAST_PENDING_INVITES",
+        "BN_TOAST_OFFLINE",
+        "BN_TOAST_ONLINE",
+        "BN_TOAST_NEW_CLUB_INVITATION"
     ],
     "Lua.diagnostics.disable": [
         "assign-type-mismatch"

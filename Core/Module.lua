@@ -152,7 +152,7 @@ end
 
 ---@return boolean #True if running Classic Era game
 function ClassicModule:IsClassicEra()
-	return WOW_PROJECT_CLASSIC == WOW_PROJECT_ID
+	return WOW_PROJECT_MAINLINE ~= WOW_PROJECT_ID
 end
 
 function ClassicModule:IsSeasonOfDiscovery()

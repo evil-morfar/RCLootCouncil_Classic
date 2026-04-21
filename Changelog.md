@@ -1,6 +1,7 @@
 ### Bugfixes
 
 - *Fixed spec icon not showing properly when enabled (Mists+).*
+- *Fixed enchant detection not working in pre mists versions.*
 
 # 1.2.3
 
