@@ -326,7 +326,11 @@ function addon:StartHandleLoot()
 		-- Do nothing.
 	elseif lootMethod ~= Enum.LootMethod.Masterlooter and GetNumGroupMembers() > 0 then
 		self:Print(L["Changing LootMethod to Master Looting"])
-		SetLootMethod("master", self.Ambiguate(self.player:GetName()), Enum.ItemQuality.Common)
+		if SetLootMethod then
+			SetLootMethod("master", self.Ambiguate(self.player:GetName()), Enum.ItemQuality.Common)
+		else
+			C_PartyInfo.SetLootMethod(Enum.LootMethod.Masterlooter, self.Ambiguate(self.player:GetName()))
+		end 
 	end
 	if db.autoAward and GetLootThreshold() ~= 2 and GetLootThreshold() > db.autoAwardLowerThreshold then
 		self:Print(L["Changing loot threshold to enable Auto Awarding"])
