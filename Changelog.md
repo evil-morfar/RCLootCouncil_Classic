@@ -1,3 +1,9 @@
+# 1.3.1
+
+## Bugfixes
+
+- *Fixed issues related to API not available in certain Classic versions.*
+
 # 1.3.0
 
 ### Bugfixes
