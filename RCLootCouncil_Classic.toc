@@ -80,3 +80,4 @@ API\OptionsUpdates.lua
 API\MLUpdates.lua
 API\LootHistory.lua
 API\VersionCheckUpdates.lua
+API\GroupLootUpdates.lua

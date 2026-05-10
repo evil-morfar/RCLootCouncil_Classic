@@ -1,3 +1,9 @@
+### Status
+
+Version Check status indicators now works with Master Loot.
+
+*Note: Individual status items can still be colored red, which is to be ignored if the overall status is green - it just indicates a non-required setting has been enabled, e.g. `autoGroupLoot`, or a non-required condition is set, e.g. `Guild group settings` ('Guild Group Only' setting not allowing auto Group Loot rolls) for Master Loot.*
+
 # 1.3.1
 
 ## Bugfixes
