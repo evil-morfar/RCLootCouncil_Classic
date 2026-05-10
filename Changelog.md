@@ -1,8 +1,14 @@
+## Changes
+
 ### Status
 
 Version Check status indicators now works with Master Loot.
 
 *Note: Individual status items can still be colored red, which is to be ignored if the overall status is green - it just indicates a non-required setting has been enabled, e.g. `autoGroupLoot`, or a non-required condition is set, e.g. `Guild group settings` ('Guild Group Only' setting not allowing auto Group Loot rolls) for Master Loot.*
+
+## Bugfixes
+
+- *Promoting a player to ML while still in a party with default settings (addon only usage in raids), and then converting to raid would not always activate the addon.*
 
 # 1.3.1
 

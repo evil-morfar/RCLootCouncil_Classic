@@ -76,6 +76,15 @@ addon.defaults.profile.ignoredItems = {}          -- Remove the retail ones
 addon.defaults.profile.ignoredItems[22726] = true -- Splinter of Atiesh
 addon.defaults.profile.ignoredItems[50274] = true -- Shadowfrost Shard
 
+addon:SecureHook(addon, "OnEnable", function(self)
+	-- Inject our CHAT_MSG_SYSTEM to detect party/raid conversions
+	self:RegisterEvent("CHAT_MSG_SYSTEM", function(_, text)
+		if text == _G.ERR_PARTY_CONVERTED_TO_RAID or text == _G.ERR_RAID_CONVERTED_TO_PARTY  then
+			self:NewMLCheck()
+		end
+	end)
+end)
+
 function addon:IsCorrectVersion()
 	return WOW_PROJECT_ID ~= WOW_PROJECT_MAINLINE
 end
