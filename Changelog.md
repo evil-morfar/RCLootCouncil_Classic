@@ -1,3 +1,9 @@
+## Changes
+
+### Group Loot
+
+Nether Vortex and Spinter of Atiesh are now ignored by the group loot system.
+
 # 1.3.2
 
 ## Changes

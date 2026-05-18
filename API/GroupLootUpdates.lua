@@ -9,6 +9,9 @@ local targetStatusGL   = GroupLoot:GetTargetedStatus()
 local targetStatusML   = tonumber("100111101", 2)
 local targetStatus     = tonumber("100101101", 2)
 
+-- BCC
+GroupLoot.IgnoreList[30183] = true -- Nether Vortex
+GroupLoot.IgnoreList[22726] = true -- Splinter of Atiesh
 
 function GroupLoot:GetTargetedStatus()
 	local lootMethod = addon:GetLootMethod()

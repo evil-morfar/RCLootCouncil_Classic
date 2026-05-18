@@ -74,6 +74,7 @@ addon.LOGO_LOCATION = "Interface/AddOns/RCLootCouncil_Classic/RCLootCouncil/Medi
 -- Ignored Items
 addon.defaults.profile.ignoredItems = {}          -- Remove the retail ones
 addon.defaults.profile.ignoredItems[22726] = true -- Splinter of Atiesh
+addon.defaults.profile.ignoredItems[30183] = true -- Nether Vortex
 addon.defaults.profile.ignoredItems[50274] = true -- Shadowfrost Shard
 
 addon:SecureHook(addon, "OnEnable", function(self)
