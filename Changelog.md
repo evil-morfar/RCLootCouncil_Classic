@@ -4,6 +4,16 @@
 
 Nether Vortex and Spinter of Atiesh are now ignored by the group loot system.
 
+### History
+
+Added option for toggling the recording of bonus rolls.
+
+## Bugfixes
+
+- *Fixed guid related error.*
+- *Fixed issue with award later trade timer warning.*
+- *Awards sent to guild wouldn't be properly recorded for non-raid members.*
+
 # 1.3.2
 
 ## Changes
