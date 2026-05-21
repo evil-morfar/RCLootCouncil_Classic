@@ -1,7 +1,3 @@
-## Bugfixes
-
-- *Fixed issue that could cause addon to reply with retail version number instead of Classic if timed correctly.*
-
 # 1.3.3
 
 ## Changes

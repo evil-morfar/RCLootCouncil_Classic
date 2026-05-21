@@ -13,6 +13,14 @@ function ClassicModule:OnInitialize()
 	self.nnp = false
 	addon.isClassic = true
 
+	self.Log = addon.Require "Utils.Log":New("Classic")
+
+	self:ScheduleTimer("Enable", 0) -- Enable just after RCLootCouncil has had the chance to be enabled
+end
+
+function ClassicModule:OnEnable()
+	self.Log:D("ClassicModule enabled", self.version, self.tVersion)
+
 	-- Store RCLootCouncil Variables
 	self.RCLootCouncil = {
 		version = addon.version,
@@ -22,14 +30,6 @@ function ClassicModule:OnInitialize()
 	addon.tVersion = self.tVersion or addon.tVersion -- Use our test version to benefit from test code
 	addon.debug = self.debug
 	addon.nnp = self.nnp
-
-	self.Log = addon.Require "Utils.Log":New("Classic")
-
-	self:ScheduleTimer("Enable", 0) -- Enable just after RCLootCouncil has had the chance to be enabled
-end
-
-function ClassicModule:OnEnable()
-	self.Log:D("ClassicModule enabled", self.version, self.tVersion)
 
 	if addon.db.global.Classic_version then
 		self.Log:D("Running compat")
