@@ -13,14 +13,6 @@ function ClassicModule:OnInitialize()
 	self.nnp = false
 	addon.isClassic = true
 
-	self.Log = addon.Require "Utils.Log":New("Classic")
-
-	self:ScheduleTimer("Enable", 0) -- Enable just after RCLootCouncil has had the chance to be enabled
-end
-
-function ClassicModule:OnEnable()
-	self.Log:D("ClassicModule enabled", self.version, self.tVersion)
-
 	-- Store RCLootCouncil Variables
 	self.RCLootCouncil = {
 		version = addon.version,
@@ -30,6 +22,14 @@ function ClassicModule:OnEnable()
 	addon.tVersion = self.tVersion or addon.tVersion -- Use our test version to benefit from test code
 	addon.debug = self.debug
 	addon.nnp = self.nnp
+
+	self.Log = addon.Require "Utils.Log":New("Classic")
+
+	self:ScheduleTimer("Enable", 0) -- Enable just after RCLootCouncil has had the chance to be enabled
+end
+
+function ClassicModule:OnEnable()
+	self.Log:D("ClassicModule enabled", self.version, self.tVersion)
 
 	if addon.db.global.Classic_version then
 		self.Log:D("Running compat")
@@ -125,7 +125,7 @@ function ClassicModule:OnLootOpen()
 		local ML = addon:GetActiveModule("masterlooter")
 		wipe(ML.lootQueue)
 		-- Only proceed if we're not in combat, or our settings means we won't be creating any frames.
-		if not InCombatLockdown() or (db.autoStart and db.awardLater and Council:Contains(addon.player) and Council.GetNum() > 0) or db.skipCombatLockdown then
+		if not InCombatLockdown() or (db.autoStart and db.awardLater and Council:Contains(addon.player) and Council:GetNum() > 0) or db.skipCombatLockdown then
 			ML:LootOpened()
 		else
 			addon:Print(L["You can't start a loot session while in combat."])
