@@ -8,7 +8,7 @@ local L = LibStub("AceLocale-3.0"):GetLocale("RCLootCouncil")
 local Council = addon.Require "Data.Council"
 function ClassicModule:OnInitialize()
 	self.version = C_AddOns.GetAddOnMetadata("RCLootCouncil_Classic", "Version")
-	self.tVersion = nil
+	self.tVersion = "Beta.1"
 	self.debug = false
 	self.nnp = false
 	addon.isClassic = true
