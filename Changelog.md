@@ -1,3 +1,9 @@
+## Changes
+
+### Group Loot
+
+Changed Group Loot code that should make it fully Classic compatible.
+
 ## Bugfixes
 
 - *Fixed issue that could cause addon to reply with retail version number instead of Classic if timed correctly.*

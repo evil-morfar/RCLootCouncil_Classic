@@ -10,14 +10,6 @@ local L = LibStub("AceLocale-3.0"):GetLocale("RCLootCouncil")
 local ItemUtils = addon.Require "Utils.Item"
 local Council = addon.Require "Data.Council"
 
-function MLModule:HandleReceivedTradeable()
-	-- Do nothing
-end
-
-function MLModule:HandleNonTradeable()
-	-- Do nothing
-end
-
 -----------------------------------------
 -- Rep Items auto award
 -----------------------------------------
@@ -161,8 +153,6 @@ function MLModule:LootOpened()
 					elseif item and self:CanWeLootItem(item, quality) and quantity > 0 then -- check if our options allows us to loot it
 						if addon.lootMethod == Enum.LootMethod.Masterlooter then
 							self:AddItem(item, nil, i)
-						else
-							self:AddUserItem(item) -- No owner, not in bags
 						end
 					elseif quantity == 0 then -- it's coin, just loot it
 						LootSlot(i)
