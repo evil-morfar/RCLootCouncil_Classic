@@ -1,3 +1,8 @@
+
+## Bugfixes
+
+- *Award Later now works with group loot*
+
 # 1.4.0
 
 ## Changes

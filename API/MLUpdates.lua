@@ -168,8 +168,7 @@ function MLModule:LootOpened()
 					self:StartSession()
 				end
 			else
-				addon:CallModule("sessionframe")
-				sessionframe:Show(self.lootTable)
+				self:ShowSessionFrame(self.lootTable)
 			end
 		end
 	end
