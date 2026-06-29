@@ -9,7 +9,7 @@ local LC = LibStub("AceLocale-3.0"):GetLocale("RCLootCouncil_Classic")
 local L  = LibStub("AceLocale-3.0"):GetLocale("RCLootCouncil")
 
 local ROW_HEIGHT    = 20
-local DATE_ROWS     = 10
+local DATE_ROWS     = 18   -- tall enough to span both item + response lists
 local ITEM_ROWS     = 8
 local RESPONSE_ROWS = 8
 
@@ -20,9 +20,9 @@ local sessionDB, selectedDate, selectedEntry
 local ITEM_COLS = {
 	{name = "",                 width = ROW_HEIGHT},          -- item icon
 	{name = L["Item"],          width = 190, defaultsort = 1},
-	{name = L["Boss"],          width = 110, defaultsort = 1},
+	{name = LC["session_audit_boss"], width = 110, defaultsort = 1},
 	{name = LC["session_audit_winner"], width = 90, defaultsort = 1},
-	{name = LC["session_audit_responses"], width = 35, defaultsort = 2},
+	{name = LC["session_audit_responses"], width = 80, defaultsort = 2},
 }
 
 -- Column widths for response list
@@ -30,7 +30,7 @@ local RESPONSE_COLS = {
 	{name = "",          width = ROW_HEIGHT},
 	{name = _G.NAME,     width = 110, sort = 1, defaultsort = 1},
 	{name = L["Reason"], width = 130, defaultsort = 1},
-	{name = L["Notes"],  width = ROW_HEIGHT},
+	{name = L["Notes"],  width = 40},
 	{name = "iLvl",      width = 40,  defaultsort = 2},
 	{name = LC["session_audit_roll"], width = 35, defaultsort = 2},
 	{name = L["Votes"],  width = 35,  defaultsort = 2},
@@ -64,24 +64,24 @@ end
 function SessionAudit:GetFrame()
 	if self.frame then return self.frame end
 
-	-- Overall frame: wide enough for date sidebar + item list
+	-- Frame: width driven by column totals, height to fit both tables + control strip
 	local f = addon.UI:NewNamed("RCFrame", UIParent, "RCSessionAuditFrame",
 		LC["Session Audit"], 300, 500)
 	addon.UI:RegisterForEscapeClose(f, function()
 		if self:IsEnabled() then self:Disable() end
 	end)
 
-	-- Close button
+	-- Close button in the control strip below the title bar
 	local closeBtn = addon:CreateButton(_G.CLOSE, f.content)
-	closeBtn:SetPoint("TOPRIGHT", f, "TOPRIGHT", -10, -110)
+	closeBtn:SetPoint("TOPRIGHT", f, "TOPRIGHT", -10, -28)
 	closeBtn:SetScript("OnClick", function() self:Disable() end)
 
-	-- Date sidebar
+	-- Date sidebar: starts well below the control strip (button ~22px tall + 20px gap = y-70)
 	f.dateList = LibStub("ScrollingTable"):CreateST(
 		{{name = L["Date"], width = 90, sort = 2, defaultsort = 2}},
 		DATE_ROWS, ROW_HEIGHT, HIGHLIGHT, f.content
 	)
-	f.dateList.frame:SetPoint("TOPLEFT", f, "TOPLEFT", 10, -30)
+	f.dateList.frame:SetPoint("TOPLEFT", f, "TOPLEFT", 10, -70)
 	f.dateList:EnableSelection(true)
 	f.dateList:RegisterEvents({
 		["OnClick"] = function(rowFrame, cellFrame, data, cols, row, realrow, column, table, button) --luacheck: no unused
@@ -116,7 +116,10 @@ function SessionAudit:GetFrame()
 	f.responseList = LibStub("ScrollingTable"):CreateST(
 		RESPONSE_COLS, RESPONSE_ROWS, ROW_HEIGHT, HIGHLIGHT, f.content
 	)
-	f.responseList.frame:SetPoint("TOPLEFT", f.itemList.frame, "BOTTOMLEFT", 0, -10)
+	f.responseList.frame:SetPoint("TOPLEFT", f.itemList.frame, "BOTTOMLEFT", 0, -20)
+
+	-- Resize frame to fit date sidebar + item list + margins
+	f:SetWidth(f.dateList.frame:GetWidth() + f.itemList.frame:GetWidth() + 30)
 
 	self.frame = f
 	return f

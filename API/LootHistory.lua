@@ -8,23 +8,6 @@ local LC = LibStub("AceLocale-3.0"):GetLocale("RCLootCouncil_Classic")
 
 local ItemUtils  = addon.Require "Utils.Item"
 
--- Add "Session Audit" toggle button once when the LootHistory frame is first built.
--- Hook GetFrame rather than OnEnable to avoid conflicting with the OnEnable hook in Core/Hooks.lua.
-Classic:SecureHook(History, "GetFrame", function(self)
-	if self.frame and not self.frame.sessionAuditBtn then
-		local btn = addon:CreateButton(LC["Session Audit"], self.frame.content)
-		btn:SetPoint("TOPLEFT", self.frame, "TOPLEFT", 10, -110)
-		btn:SetScript("OnClick", function()
-			local audit = addon:GetModule("RCSessionAudit")
-			if audit:IsEnabled() then
-				audit:Disable()
-			else
-				audit:Enable()
-			end
-		end)
-		self.frame.sessionAuditBtn = btn
-	end
-end)
 
 Classic:SecureHook(History, "OnInitialize", function(self)
     self.exports.biscouncil = {

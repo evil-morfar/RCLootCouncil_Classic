@@ -86,6 +86,30 @@ addon:SecureHook(addon, "OnEnable", function(self)
 	end)
 end)
 
+-- Add /rc audit slash command
+local orig_ChatCommand = addon.ChatCommand
+function addon:ChatCommand(input)
+	if input == "audit" then
+		local audit = addon:GetModule("RCSessionAudit")
+		if audit:IsEnabled() then audit:Disable() else audit:Enable() end
+		return
+	end
+	return orig_ChatCommand(self, input)
+end
+
+-- Register "audit" in the help command list
+do
+	local cmds = addon.chatCommands
+	if cmds then
+		for _, group in ipairs(cmds) do
+			if type(group) == "table" and group[1] and group[1].cmd == "config" then
+				tinsert(group, 1, {cmd = "audit", desc = LC["session_audit_cmd_desc"]})
+				break
+			end
+		end
+	end
+end
+
 function addon:IsCorrectVersion()
 	return WOW_PROJECT_ID ~= WOW_PROJECT_MAINLINE
 end
