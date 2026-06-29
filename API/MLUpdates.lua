@@ -144,6 +144,7 @@ function MLModule:TrackAndLogLoot(winner, link, responseID, boss, reason, sessio
 		local equipLoc = sessionData.equipLoc or "default"
 		candidates = {}
 		for name, data in pairs(sessionData.candidates) do
+			if data.response ~= "PASS" and data.response ~= "AUTOPASS" and data.response ~= "STATUS" then
 			local r = addon:GetResponse(typeCode or equipLoc, data.response)
 			candidates[name] = {
 				response      = r.text,
@@ -156,6 +157,7 @@ function MLModule:TrackAndLogLoot(winner, link, responseID, boss, reason, sessio
 				class         = data.class,
 				roll          = data.roll,
 			}
+			end
 		end
 	end
 	local result = orig_TrackAndLogLoot(self, winner, link, responseID, boss, reason, session, candData, owner)
