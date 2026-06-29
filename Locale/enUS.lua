@@ -31,6 +31,12 @@ L["opt_usage_leader_always"] = "Always use when leader"
 L["opt_usage_leader_ask"] = "Ask me when leader"
 L["opt_usage_ml"] = "Always use RCLootCouncil when I'm Master Looter"
 
+L["Session Audit"] = true
+L["session_audit_no_data"] = "No session data recorded yet. Session data is captured when you award items as Master Looter."
+L["session_audit_winner"] = "Winner"
+L["session_audit_responses"] = "Responses"
+L["session_audit_roll"] = "Roll"
+
 L.ALWAYS_AUTO_AWARD_OPTION = "Always Auto Award"
 L.ALWAYS_AUTO_AWARD_OPTION_DESC = "List of items that should always be auto awarded, regardless of other settings."
 L.ALWAYS_AUTO_AWARD_OPTION_INPUT_DESC = "Enter the link, name or id of the item you want to add to the always auto award list."

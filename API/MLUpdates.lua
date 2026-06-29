@@ -131,6 +131,40 @@ function MLModule:AutoAward(lootIndex, item, quality, name, mode, boss, owner)
 	end
 end
 
+-----------------------------------------
+-- Session Audit: capture all candidate responses on award
+-----------------------------------------
+local orig_TrackAndLogLoot = MLModule.TrackAndLogLoot
+function MLModule:TrackAndLogLoot(winner, link, responseID, boss, reason, session, candData, owner)
+	-- Snapshot all candidates' data before calling original (original doesn't modify them, but be safe).
+	local candidates
+	local sessionData = session and self.lootTable[session]
+	if sessionData and sessionData.candidates then
+		local typeCode = sessionData.typeCode
+		local equipLoc = sessionData.equipLoc or "default"
+		candidates = {}
+		for name, data in pairs(sessionData.candidates) do
+			local r = addon:GetResponse(typeCode or equipLoc, data.response)
+			candidates[name] = {
+				response      = r.text,
+				responseColor = {r.color[1], r.color[2], r.color[3], r.color[4] or 1},
+				note          = data.note,
+				ilvl          = data.ilvl,
+				gear1         = data.gear1,
+				gear2         = data.gear2,
+				votes         = data.votes,
+				class         = data.class,
+				roll          = data.roll,
+			}
+		end
+	end
+	local result = orig_TrackAndLogLoot(self, winner, link, responseID, boss, reason, session, candData, owner)
+	if result and candidates and next(candidates) then
+		Classic:ArchiveSessionEntry(result, winner, candidates)
+	end
+	return result
+end
+
 function MLModule:LootOpened()
 	local db = addon:Getdb()
 	---@type RCSessionFrame

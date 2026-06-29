@@ -6,7 +6,7 @@
 ## AllowLoadGameType: classic
 ## X-Curse-Project-ID: 332955
 ## X-Wago-ID: J96ExYNg
-## SavedVariables: RCLootCouncilDB, RCLootCouncilLootDB
+## SavedVariables: RCLootCouncilDB, RCLootCouncilLootDB, RCLootCouncilSessionDB
 ## OptionalDeps: LibStub, CallbackHandler-1.0, Ace3, lib-st, LibWindow-1.1, LibDialog-1.0
 ## IconTexture: Interface\AddOns\RCLootCouncil\Media\logo
 ## Category-enUS: Loot
@@ -72,6 +72,9 @@ Core\Hooks.lua
 Core\Autopass.lua
 Core\Lists.lua
 Core\BackwardsCompatibility.lua
+
+## Session Audit
+Modules\SessionAudit.lua
 
 ## Overrides
 API\RCLootCouncilUpdates.lua

@@ -6,6 +6,8 @@ local ClassicModule = addon:NewModule("RCClassic", "AceHook-3.0", "AceEvent-3.0"
 local L = LibStub("AceLocale-3.0"):GetLocale("RCLootCouncil")
 
 local Council = addon.Require "Data.Council"
+local ItemUtils = addon.Require "Utils.Item"
+
 function ClassicModule:OnInitialize()
 	self.version = C_AddOns.GetAddOnMetadata("RCLootCouncil_Classic", "Version")
 	self.tVersion = "Beta.1"
@@ -25,7 +27,30 @@ function ClassicModule:OnInitialize()
 
 	self.Log = addon.Require "Utils.Log":New("Classic")
 
+	addon.sessionDB = LibStub("AceDB-3.0"):New("RCLootCouncilSessionDB")
+
 	self:ScheduleTimer("Enable", 0) -- Enable just after RCLootCouncil has had the chance to be enabled
+end
+
+--- Archive a full session's candidate data when an item is awarded.
+-- Called from the MLUpdates TrackAndLogLoot wrapper.
+-- @param histEntry table  The history entry returned by TrackAndLogLoot
+-- @param winner string    The winning player's name
+-- @param candidates table Snapshot of all candidates keyed by name
+function ClassicModule:ArchiveSessionEntry(histEntry, winner, candidates)
+	if not addon.sessionDB then return end
+	local db = addon.sessionDB.factionrealm
+	local date = histEntry.date
+	if not db[date] then db[date] = {} end
+	tinsert(db[date], {
+		item      = histEntry.lootWon,
+		boss      = histEntry.boss,
+		instance  = histEntry.instance,
+		winner    = winner,
+		id        = histEntry.id,
+		time      = histEntry.time,
+		responses = candidates,
+	})
 end
 
 function ClassicModule:OnEnable()
