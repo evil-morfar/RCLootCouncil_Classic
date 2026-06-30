@@ -7,6 +7,9 @@ local addon = select(2, ...)
 local SessionAudit = addon:NewModule("RCSessionAudit")
 local LC = LibStub("AceLocale-3.0"):GetLocale("RCLootCouncil_Classic")
 local L  = LibStub("AceLocale-3.0"):GetLocale("RCLootCouncil")
+---@type RCLootCouncil_Classic
+local Classic = addon:GetModule("RCClassic")
+local AceSerializer = LibStub("AceSerializer-3.0")
 
 local ROW_HEIGHT    = 20
 local DATE_ROWS     = 18   -- tall enough to span both item + response lists
@@ -75,6 +78,16 @@ function SessionAudit:GetFrame()
 	local closeBtn = addon:CreateButton(_G.CLOSE, f.content)
 	closeBtn:SetPoint("TOPRIGHT", f, "TOPRIGHT", -10, -28)
 	closeBtn:SetScript("OnClick", function() self:Disable() end)
+
+	-- Export: serializes the full session db so it can be shared/pasted to another council member
+	local exportBtn = addon:CreateButton(L["Export"], f.content)
+	exportBtn:SetPoint("RIGHT", closeBtn, "LEFT", -10, 0)
+	exportBtn:SetScript("OnClick", function() self:ExportData() end)
+
+	-- Import: accepts a string produced by Export and merges it in, deduplicated by entry id
+	local importBtn = addon:CreateButton("Import", f.content)
+	importBtn:SetPoint("RIGHT", exportBtn, "LEFT", -10, 0)
+	importBtn:SetScript("OnClick", function() self:ImportData() end)
 
 	-- Date sidebar: starts well below the control strip (button ~22px tall + 20px gap = y-70)
 	f.dateList = LibStub("ScrollingTable"):CreateST(
@@ -251,4 +264,42 @@ function SessionAudit.SetCellNote(rowFrame, frame, data, cols, row, realrow, col
 		f:SetScript("OnLeave", nil)
 	end
 	f:Show()
+end
+
+------------------------------------------------------------
+-- Export / Import
+------------------------------------------------------------
+
+function SessionAudit:ExportData()
+	if not (sessionDB and next(sessionDB)) then
+		addon:Print(LC["session_audit_no_data"])
+		return
+	end
+	local export = AceSerializer:Serialize(sessionDB)
+	local exportFrame = addon.UI:New("RCExportFrame")
+	exportFrame:Show()
+	exportFrame.edit:SetCallback("OnTextChanged", function(editbox) editbox:SetText(export) end)
+	exportFrame.edit:SetText(export)
+	exportFrame.edit:SetFocus()
+	exportFrame.edit:HighlightText()
+end
+
+function SessionAudit:ImportData()
+	local importFrame = addon.UI:New("RCImportFrame")
+	importFrame.label:SetText(LC["Session Audit"])
+	importFrame.edit:SetCallback("OnEnterPressed", function(editbox)
+		local ok, data = AceSerializer:Deserialize(editbox.data)
+		if not ok or type(data) ~= "table" then
+			addon:Print(L["import_malformed"])
+			importFrame:Hide()
+			return
+		end
+		local merged = Classic:MergeSessionData(data)
+		addon:Print(format("%d %s", merged, LC["Session Audit"]))
+		sessionDB = addon.sessionDB and addon.sessionDB.factionrealm
+		self:BuildDateList()
+		importFrame:Hide()
+	end)
+	importFrame:Show()
+	importFrame.edit:SetFocus()
 end

@@ -53,6 +53,32 @@ function ClassicModule:ArchiveSessionEntry(histEntry, winner, candidates)
 	})
 end
 
+--- Merges externally received session audit data (e.g. from sync or import) into the
+--- local RCLootCouncilSessionDB, deduplicating by date + entry id.
+---@param data table Map of date -> list of session entries, same shape as addon.sessionDB.factionrealm
+function ClassicModule:MergeSessionData(data)
+	if not addon.sessionDB or type(data) ~= "table" then return 0 end
+	local db = addon.sessionDB.factionrealm
+	local merged = 0
+	for d, entries in pairs(data) do
+		db[d] = db[d] or {}
+		for _, incoming in ipairs(entries) do
+			local exists = false
+			for _, existing in ipairs(db[d]) do
+				if existing.id == incoming.id then
+					exists = true
+					break
+				end
+			end
+			if not exists then
+				tinsert(db[d], incoming)
+				merged = merged + 1
+			end
+		end
+	end
+	return merged
+end
+
 function ClassicModule:OnEnable()
 	self.Log:D("ClassicModule enabled", self.version, self.tVersion)
 

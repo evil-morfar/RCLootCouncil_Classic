@@ -134,17 +134,15 @@ end
 -----------------------------------------
 -- Session Audit: capture all candidate responses on award
 -----------------------------------------
-local orig_TrackAndLogLoot = MLModule.TrackAndLogLoot
-function MLModule:TrackAndLogLoot(winner, link, responseID, boss, reason, session, candData, owner)
-	-- Snapshot all candidates' data before calling original (original doesn't modify them, but be safe).
-	local candidates
-	local sessionData = session and self.lootTable[session]
-	if sessionData and sessionData.candidates then
-		local typeCode = sessionData.typeCode
-		local equipLoc = sessionData.equipLoc or "default"
-		candidates = {}
-		for name, data in pairs(sessionData.candidates) do
-			if data.response ~= "PASS" and data.response ~= "AUTOPASS" and data.response ~= "STATUS" then
+
+-- Shared helper: snapshot candidates from a VotingFrame session entry.
+local function SnapshotCandidates(sessionData)
+	if not (sessionData and sessionData.candidates) then return nil end
+	local typeCode = sessionData.typeCode
+	local equipLoc = sessionData.equipLoc or "default"
+	local candidates = {}
+	for name, data in pairs(sessionData.candidates) do
+		if data.response ~= "PASS" and data.response ~= "AUTOPASS" and data.response ~= "STATUS" then
 			local r = addon:GetResponse(typeCode or equipLoc, data.response)
 			candidates[name] = {
 				response      = r.text,
@@ -157,14 +155,50 @@ function MLModule:TrackAndLogLoot(winner, link, responseID, boss, reason, sessio
 				class         = data.class,
 				roll          = data.roll,
 			}
-			end
 		end
 	end
+	return next(candidates) and candidates or nil
+end
+
+-- ML path: wrap TrackAndLogLoot so we have the full history entry to pass to ArchiveSessionEntry.
+local orig_TrackAndLogLoot = MLModule.TrackAndLogLoot
+function MLModule:TrackAndLogLoot(winner, link, responseID, boss, reason, session, candData, owner)
+	local candidates
+	if session then
+		local vf = addon:GetActiveModule("votingframe")
+		local vfLootTable = vf and vf:GetLootTable()
+		candidates = SnapshotCandidates(vfLootTable and vfLootTable[session])
+	end
 	local result = orig_TrackAndLogLoot(self, winner, link, responseID, boss, reason, session, candData, owner)
-	if result and candidates and next(candidates) then
+	if result and candidates then
 		Classic:ArchiveSessionEntry(result, winner, candidates)
 	end
 	return result
+end
+
+-- Council (non-ML) path: hook OnAwardedReceived, which fires before the winner's response is
+-- mutated to "AWARDED", so candidates still hold their real responses.
+local VFModule = addon:GetModule("RCVotingFrame")
+local orig_OnAwardedReceived = VFModule.OnAwardedReceived
+function VFModule:OnAwardedReceived(s, winner)
+	if not addon.isMasterLooter then
+		local vfLootTable = self:GetLootTable()
+		local sessionData = vfLootTable and vfLootTable[s]
+		local candidates = SnapshotCandidates(sessionData)
+		if candidates and sessionData then
+			local serverTime = C_DateAndTime.GetServerTimeLocal()
+			local histEntry = {
+				lootWon  = sessionData.link,
+				boss     = sessionData.boss or _G.UNKNOWN,
+				instance = addon:GetInstanceData().instanceName .. "-" .. addon:GetInstanceData().difficultyName,
+				date     = date("!%Y/%m/%d", serverTime),
+				time     = date("!%H:%M:%S", serverTime),
+				id       = GetServerTime() .. "-" .. s,
+			}
+			Classic:ArchiveSessionEntry(histEntry, winner, candidates)
+		end
+	end
+	return orig_OnAwardedReceived(self, s, winner)
 end
 
 function MLModule:LootOpened()

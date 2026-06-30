@@ -110,6 +110,22 @@ do
 	end
 end
 
+-- Add Session Audit as a /rc sync option, alongside "settings" and "history".
+-- Merges incoming entries into the local db rather than overwriting, keyed by date + id,
+-- so syncing with multiple council members accumulates everyone's records.
+do
+	local Sync = addon:GetModule("Sync")
+	Sync.syncHandlers.audit = {
+		text = LC["Session Audit"],
+		receive = function(data)
+			Classic:MergeSessionData(data)
+		end,
+		send = function()
+			return addon.sessionDB and addon.sessionDB.factionrealm or {}
+		end
+	}
+end
+
 function addon:IsCorrectVersion()
 	return WOW_PROJECT_ID ~= WOW_PROJECT_MAINLINE
 end
