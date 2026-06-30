@@ -42,14 +42,23 @@ function ClassicModule:ArchiveSessionEntry(histEntry, winner, candidates)
 	local db = addon.sessionDB.factionrealm
 	local date = histEntry.date
 	if not db[date] then db[date] = {} end
+	-- Derive winner's class: candidates table is keyed by full "Name-Realm", try direct then
+	-- ambiguated key, then fall back to the class the ML history entry already recorded.
+	local winnerClass = histEntry.class
+	if not winnerClass and candidates then
+		local cand = candidates[winner] or candidates[addon.Ambiguate(winner)]
+		winnerClass = cand and cand.class
+	end
+
 	tinsert(db[date], {
-		item      = histEntry.lootWon,
-		boss      = histEntry.boss,
-		instance  = histEntry.instance,
-		winner    = winner,
-		id        = histEntry.id,
-		time      = histEntry.time,
-		responses = candidates,
+		item        = histEntry.lootWon,
+		boss        = histEntry.boss,
+		instance    = histEntry.instance,
+		winner      = winner,
+		winnerClass = winnerClass,
+		id          = histEntry.id,
+		time        = histEntry.time,
+		responses   = candidates,
 	})
 end
 

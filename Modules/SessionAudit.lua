@@ -21,16 +21,17 @@ local sessionDB, selectedDate, selectedEntry
 
 -- Column widths for item list
 local ITEM_COLS = {
-	{name = "",                 width = ROW_HEIGHT},          -- item icon
-	{name = L["Item"],          width = 190, defaultsort = 1},
-	{name = LC["session_audit_boss"], width = 110, defaultsort = 1},
-	{name = LC["session_audit_winner"], width = 90, defaultsort = 1},
-	{name = LC["session_audit_responses"], width = 80, defaultsort = 2},
+	{name = "",                             width = ROW_HEIGHT},  -- item icon
+	{name = L["Item"],                      width = 190, defaultsort = 1},
+	{name = LC["session_audit_boss"],       width = 110, defaultsort = 1},
+	{name = LC["session_audit_winner"],     width = 90,  defaultsort = 1},
+	{name = LC["session_audit_responses"],  width = 80,  defaultsort = 2},
 }
 
 -- Column widths for response list
 local RESPONSE_COLS = {
-	{name = "",          width = ROW_HEIGHT},
+	{name = "",          width = ROW_HEIGHT},  -- class icon
+	{name = "",          width = ROW_HEIGHT},  -- awarded indicator
 	{name = _G.NAME,     width = 110, sort = 1, defaultsort = 1},
 	{name = L["Reason"], width = 130, defaultsort = 1},
 	{name = L["Notes"],  width = 40},
@@ -184,11 +185,14 @@ function SessionAudit:BuildResponseList()
 	if not self.frame then return end
 	local rows = {}
 	if selectedEntry and selectedEntry.responses then
+		local winner = addon.Ambiguate(selectedEntry.winner or "")
 		for name, resp in pairs(selectedEntry.responses) do
 			local hasNote = resp.note and resp.note ~= ""
+			local isWinner = addon.Ambiguate(name) == winner
 			tinsert(rows, {
 				cols = {
 					{DoCellUpdate = addon.SetCellClassIcon, args = {resp.class}, value = resp.class or ""},
+					{DoCellUpdate = SessionAudit.SetCellWinner, args = {isWinner = isWinner}, value = isWinner and 1 or 0},
 					{value = addon.Ambiguate(name), color = addon:GetClassColor(resp.class)},
 					{DoCellUpdate = SessionAudit.SetCellResponse,
 					 args = {text = resp.response, color = resp.responseColor},
@@ -202,14 +206,11 @@ function SessionAudit:BuildResponseList()
 				},
 			})
 		end
-		-- Sort: winner first, then by votes descending
-		local winner = selectedEntry.winner
+		-- Sort: winner first (col 2 is the awarded indicator), then by votes descending (col 8)
 		table.sort(rows, function(a, b)
-			local an = a.cols[2].value
-			local bn = b.cols[2].value
-			if an == addon.Ambiguate(winner or "") then return true end
-			if bn == addon.Ambiguate(winner or "") then return false end
-			return (a.cols[7].value or 0) > (b.cols[7].value or 0)
+			local aw, bw = a.cols[2].value, b.cols[2].value
+			if aw ~= bw then return aw > bw end
+			return (a.cols[8].value or 0) > (b.cols[8].value or 0)
 		end)
 	end
 	self.frame.responseList:SetData(rows)
@@ -246,6 +247,20 @@ function SessionAudit.SetCellResponse(rowFrame, frame, data, cols, row, realrow,
 	else
 		frame.text:SetTextColor(1, 1, 1, 1)
 	end
+end
+
+function SessionAudit.SetCellWinner(rowFrame, frame, data, cols, row, realrow, column, fShow, table, ...) --luacheck: no unused
+	local isWinner = data[realrow].cols[column].args.isWinner
+	local f = frame.winnerIcon or CreateFrame("Frame", nil, frame)
+	f:SetSize(ROW_HEIGHT - 4, ROW_HEIGHT - 4)
+	f:SetPoint("CENTER", frame, "CENTER")
+	frame.winnerIcon = f
+	if not f.tex then
+		f.tex = f:CreateTexture(nil, "OVERLAY")
+		f.tex:SetAllPoints(f)
+		f.tex:SetTexture("Interface/RAIDFRAME/ReadyCheck-Ready")
+	end
+	f.tex:SetShown(isWinner)
 end
 
 function SessionAudit.SetCellNote(rowFrame, frame, data, cols, row, realrow, column, fShow, table, ...) --luacheck: no unused
