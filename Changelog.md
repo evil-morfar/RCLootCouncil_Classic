@@ -1,3 +1,9 @@
+# 1.4.2
+
+## Bugfixes
+
+- *Added better recovery from desync issues.*
+
 # 1.4.1
 
 ## Bugfixes
