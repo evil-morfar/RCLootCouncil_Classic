@@ -12,7 +12,8 @@
                 "file": "${file}"
                 
             },
-            "env": { "LUA_PATH": "${env:LUA_PATH};${workspaceFolder}/RCLootCouncil/__tests/?.lua",}
+            "cwd": "${workspaceFolder}\\RCLootCouncil",
+            "env": { "LUA_PATH": "${env:LUA_PATH};${workspaceFolder}/RCLootCouncil/__tests/?.lua;${workspaceFolder}/RCLootCouncil/__tests/wow_api/?.lua;",}
         },
         {
             "name": "Busted file",
@@ -24,7 +25,7 @@
             "cwd": "${workspaceFolder}\\RCLootCouncil",
             "args": [
                 "-e require('lldebugger').start()",
-                "--lpath=${workspaceFolder}\\RCLootCouncil\\__tests\\?.lua",
+                "--lpath=${workspaceFolder}\\RCLootCouncil\\__tests\\?.lua;${workspaceFolder}\\RCLootCouncil\\__tests\\?\\?.lua;${workspaceFolder}/RCLootCouncil/__tests/wow_api/?.lua;",
                 "--helper=${workspaceFolder}\\.specs\\ClassicEnvironment.lua",
                 "-C=${workspaceFolder}\\RCLootCouncil",
                 "-f=${workspaceFolder}\\.busted",
