@@ -1,3 +1,9 @@
+# 1.4.3
+
+## Bugfixes
+
+- *Fixed issue in v1.4.2 causing gear and other comms not to be received.*
+
 # 1.4.2
 
 ## Bugfixes
