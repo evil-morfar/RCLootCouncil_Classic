@@ -1,3 +1,11 @@
+# 1.4.4
+
+Updated interface versions.
+
+## Bugfixes
+
+- *Fixed issue with histories sent to guild - again..*
+
 # 1.4.3
 
 ## Bugfixes

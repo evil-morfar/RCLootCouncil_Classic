@@ -1,8 +1,8 @@
 ## Author: Potdisc
-## Interface: 11508, 20506, 50504
-## Notes: RCLootCouncil for WoW Classic v1.4.3
+## Interface: 11509, 20506, 50504
+## Notes: RCLootCouncil for WoW Classic v1.4.4
 ## Title: RCLootCouncil Classic
-## Version: 1.4.3
+## Version: 1.4.4
 ## AllowLoadGameType: classic
 ## X-Curse-Project-ID: 332955
 ## X-Wago-ID: J96ExYNg
