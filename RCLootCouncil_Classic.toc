@@ -1,5 +1,5 @@
 ## Author: Potdisc
-## Interface: 11508, 20505, 50504
+## Interface: 11508, 20506, 50504
 ## Notes: RCLootCouncil for WoW Classic v1.4.3
 ## Title: RCLootCouncil Classic
 ## Version: 1.4.3
