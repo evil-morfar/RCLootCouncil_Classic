@@ -54,12 +54,14 @@ function addon:OptionsTable()
 	options.args.mlSettings.args.generalTab.args.lootingOptions.args.printCompletedTrades = nil
 	options.args.mlSettings.args.generalTab.args.lootingOptions.args.rejectTrade = nil
 
-	-- Remove "Spec Icon" as there's no clear definition of a spec (Pre Cata)
 	if RCClassic:IsPreCata() then
 		options.args.settings.args.generalSettingsTab.args.frameOptions.args.showSpecIcon = nil
 		-- and transmog options (added in Cata)
 		options.args.settings.args.generalSettingsTab.args.responseOptions.args.autoPassTransmog = nil
-		options.args.settings.args.generalSettingsTab.args.responseOptions.args.autoPassTransmogSource = nil
+        options.args.settings.args.generalSettingsTab.args.responseOptions.args.autoPassTransmogSource = nil
+		-- no personal loot
+		options.args.settings.args.generalSettingsTab.args.lootHistoryOptions.args.savePersonalLoot = nil
+		options.args.settings.args.generalSettingsTab.args.lootHistoryOptions.args.saveBonusRolls = nil
 
 		-- "Classic" auto pass options for auto passing items your class cannot use only (Vanilla/TBC)
 		options.args.settings.args.generalSettingsTab.args.responseOptions.args.classicAutoPass = {

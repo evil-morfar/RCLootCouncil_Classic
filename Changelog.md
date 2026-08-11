@@ -29,6 +29,12 @@ Note: Only responses you click on the Loot Frame (except pass) is saved, i.e. (a
 
 If you have Simulationcraft installed and run the `/simc` command during a RCLootCouncil session, all items in the session are now included in the Simulationcraft output!
 
+## Changes
+
+### Options
+
+Removed history personal loot options for Classic/TBC versions as it doesn't exist there.
+
 
 # 1.4.4
 
