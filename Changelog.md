@@ -1,3 +1,18 @@
+# 1.5.1
+
+## RCLootCouncil v3.23.3 updates
+
+### Refactored Logging
+
+Roughly a 15 times throughput increase.
+
+### Bugfixes
+
+- *Trading should be more stable (#281).*
+- *Fixed error involving Session Data frame and auto hiding in combat.*
+- *Starting a test and cancelling the session frame now properly clears the test flag.*
+- *Fixed issue causing BoE items not to always be sent.*
+
 # 1.5.0
 
 ## RCLootCouncil v3.23.0 updates
