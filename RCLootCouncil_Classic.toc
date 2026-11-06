@@ -1,8 +1,8 @@
 ## Author: Potdisc
 ## Interface: 11509, 20506, 50504
-## Notes: RCLootCouncil for WoW Classic v1.5.1
+## Notes: RCLootCouncil for WoW Classic v1.6.0
 ## Title: RCLootCouncil Classic
-## Version: 1.5.1
+## Version: 1.6.0
 ## AllowLoadGameType: classic
 ## X-Curse-Project-ID: 332955
 ## X-Wago-ID: J96ExYNg
@@ -35,6 +35,7 @@ RCLootCouncil\Core\CoreEvents.lua
 RCLootCouncil\Classes\Core.lua
 RCLootCouncil\Classes\Utils\Item.lua
 RCLootCouncil\Classes\Lib\RxLua\embeds.xml
+RCLootCouncil\Classes\Utils\Pool.lua
 RCLootCouncil\Classes\Utils\TempTable.lua
 RCLootCouncil\Classes\Utils\Log.lua
 RCLootCouncil\Classes\Services\ErrorHandler.lua
